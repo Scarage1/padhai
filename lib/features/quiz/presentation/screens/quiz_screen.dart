@@ -332,7 +332,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   Future<bool> _showExitDialog(BuildContext context) async {
     return await showDialog<bool>(
-          conlabel: context,
+          content: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit Quiz?'),
             content: const Text(
@@ -361,7 +361,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final unansweredCount = state.totalQuestions - state.answeredCount;
 
     final confirmed = await showDialog<bool>(
-      conlabel: context,
+      content: context,
       builder: (context) => AlertDialog(
         title: const Text('Submit Quiz?'),
         content: Text(

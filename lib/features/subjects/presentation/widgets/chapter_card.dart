@@ -79,7 +79,7 @@ class ChapterCard extends StatelessWidget {
 
                   // Chapter title
                   Text(
-                    chapter.title,
+                    chapter.name,
                     style: AppTypography.h3.copyWith(
                       color: isLocked
                           ? AppColors.textTertiary
