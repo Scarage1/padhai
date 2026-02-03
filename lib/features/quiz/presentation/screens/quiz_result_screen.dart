@@ -57,7 +57,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
     if (_isLoading) {
       return const Scaffold(
         backgroundColor: AppColors.background,
-        body: AppLoading(),
+        body: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -82,7 +82,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
               ),
               const SizedBox(height: AppSpacing.xl),
               AppButton(
-                text: 'Back to Dashboard',
+                label: 'Back to Dashboard',
                 onPressed: () => context.go(AppRoute.dashboard.path),
               ),
             ],
@@ -228,13 +228,13 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
 
             // Action buttons
             AppButton(
-              text: 'Back to Dashboard',
+              label: 'Back to Dashboard',
               onPressed: () => context.go(AppRoute.dashboard.path),
               variant: AppButtonVariant.secondary,
             ),
             const SizedBox(height: AppSpacing.md),
             AppButton(
-              text: 'Review Answers',
+              label: 'Review Answers',
               onPressed: () {
                 // TODO: Implement review screen
                 ScaffoldMessenger.of(context).showSnackBar(

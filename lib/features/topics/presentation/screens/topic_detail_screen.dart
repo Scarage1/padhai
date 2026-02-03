@@ -45,7 +45,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         elevation: 0,
       ),
       body: state.isLoading && state.topic == null
-          ? const AppLoading()
+          ? const Center(child: CircularProgressIndicator())
           : state.error != null && state.topic == null
               ? AppErrorWidget(
                   message: state.error!,
@@ -128,7 +128,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                       // Action buttons
                       if (state.progress?.isCompleted != true)
                         AppButton(
-                          text: 'Mark as Completed',
+                          label: 'Mark as Completed',
                           onPressed: () {
                             ref
                                 .read(topicDetailProvider(widget.topicId)
@@ -139,7 +139,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                         ),
                       const SizedBox(height: AppSpacing.md),
                       AppButton(
-                        text: 'Start Practice Quiz',
+                        label: 'Start Practice Quiz',
                         onPressed: () {
                           if (state.topic != null) {
                             context.push(

@@ -44,26 +44,27 @@ class SaveQuizAttemptUseCase {
           completedAt: Value(completedAt),
         ),
       );
-      );
 
       // Save individual answers
       for (int i = 0; i < questionIds.length; i++) {
         await _database.quizDao.insertUserAnswer(
           UserAnswersCompanion.insert(
+            id: _uuid.v4(),
             attemptId: attemptId,
             questionId: questionIds[i],
             selectedAnswer: userAnswers[i],
             isCorrect: isCorrectList[i],
-            timeSpent: const Value(30), // Default 30 seconds per question
+            timeSpentSeconds: 30, // Default 30 seconds per question
+            answeredAt: DateTime.now(),
           ),
         );
       }
 
       // Update user difficulty based on score
-      if (scorePercentage >= 80) {
-        await _updateUserDifficulty(userId, chapterId, 'intermediate');
-      } else if (scorePercentage >= 90) {
+      if (scorePercentage >= 90) {
         await _updateUserDifficulty(userId, chapterId, 'advanced');
+      } else if (scorePercentage >= 80) {
+        await _updateUserDifficulty(userId, chapterId, 'intermediate');
       }
 
       return Right(attemptId);
@@ -84,10 +85,11 @@ class SaveQuizAttemptUseCase {
 
       await _database.progressDao.upsertUserDifficulty(
         UserDifficultyCompanion.insert(
+          id: _uuid.v4(),
           userId: userId,
           subjectId: chapter.subjectId,
-          currentLevel: newDifficulty,
-          lastUpdated: Value(DateTime.now()),
+          difficultyLevel: newDifficulty,
+          lastUpdatedAt: DateTime.now(),
         ),
       );
     } catch (e) {

@@ -48,7 +48,7 @@ class _SubjectDetailScreenState extends ConsumerState<SubjectDetailScreen> {
         elevation: 0,
       ),
       body: state.isLoading && state.chapters.isEmpty
-          ? const AppLoading()
+          ? const Center(child: CircularProgressIndicator())
           : state.error != null && state.chapters.isEmpty
               ? AppErrorWidget(
                   message: state.error!,

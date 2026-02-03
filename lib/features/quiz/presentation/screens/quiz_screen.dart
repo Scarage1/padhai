@@ -111,7 +111,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           ],
         ),
         body: state.isLoading && state.questions.isEmpty
-            ? const AppLoading()
+            ? const Center(child: CircularProgressIndicator())
             : state.error != null && state.questions.isEmpty
                 ? AppErrorWidget(
                     message: state.error!,
@@ -292,7 +292,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           if (state.currentQuestionIndex > 0)
             Expanded(
               child: AppButton(
-                text: 'Previous',
+                label: 'Previous',
                 onPressed: () {
                   ref
                       .read(quizProvider(widget.chapterId).notifier)
@@ -304,7 +304,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           if (state.currentQuestionIndex > 0) const SizedBox(width: AppSpacing.md),
           Expanded(
             child: AppButton(
-              text: isLastQuestion ? 'Submit Quiz' : 'Next',
+              label: isLastQuestion ? 'Submit Quiz' : 'Next',
               onPressed: canGoNext
                   ? () {
                       if (isLastQuestion) {
@@ -332,7 +332,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   Future<bool> _showExitDialog(BuildContext context) async {
     return await showDialog<bool>(
-          context: context,
+          conlabel: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit Quiz?'),
             content: const Text(
@@ -361,7 +361,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final unansweredCount = state.totalQuestions - state.answeredCount;
 
     final confirmed = await showDialog<bool>(
-      context: context,
+      conlabel: context,
       builder: (context) => AlertDialog(
         title: const Text('Submit Quiz?'),
         content: Text(
