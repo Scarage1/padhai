@@ -79,28 +79,53 @@ class _ChapterDetailScreenState extends ConsumerState<ChapterDetailScreen> {
                           ),
                           const SizedBox(height: AppSpacing.lg),
                           
-                          // Study Materials Button
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                context.push(
-                                  '/chapter/${widget.chapterId}/study-materials?name=${Uri.encodeComponent(state.chapter!.name)}',
-                                );
-                              },
-                              icon: const Icon(Icons.school_outlined),
-                              label: const Text('Study Materials'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.secondary,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: AppSpacing.md,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(AppSpacing.md),
+                          // Action Buttons Row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    context.push(
+                                      '/chapter/${widget.chapterId}/study-materials?name=${Uri.encodeComponent(state.chapter!.name)}',
+                                    );
+                                  },
+                                  icon: const Icon(Icons.school_outlined, size: 18),
+                                  label: const Text('Study'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.secondary,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: AppSpacing.md,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(AppSpacing.md),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              const SizedBox(width: AppSpacing.md),
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    context.push(
+                                      '/chapter/${widget.chapterId}/practice?name=${Uri.encodeComponent(state.chapter!.name)}',
+                                    );
+                                  },
+                                  icon: const Icon(Icons.fitness_center, size: 18),
+                                  label: const Text('Practice'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.warning,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: AppSpacing.md,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(AppSpacing.md),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: AppSpacing.xl),
                         ],

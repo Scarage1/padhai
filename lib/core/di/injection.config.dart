@@ -32,6 +32,12 @@ import '../../features/dashboard/domain/usecases/get_subjects_usecase.dart'
     as _i733;
 import '../../features/dashboard/domain/usecases/get_user_stats_usecase.dart'
     as _i880;
+import '../../features/practice/domain/usecases/get_practice_stats_usecase.dart'
+    as _i638;
+import '../../features/practice/domain/usecases/record_practice_attempt_usecase.dart'
+    as _i462;
+import '../../features/practice/domain/usecases/start_practice_session_usecase.dart'
+    as _i738;
 import '../../features/quiz/domain/usecases/get_questions_by_chapter_usecase.dart'
     as _i1012;
 import '../../features/quiz/domain/usecases/save_quiz_attempt_usecase.dart'
@@ -91,6 +97,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1039.GetResourcesByTypeUseCase>(
       () => _i1039.GetResourcesByTypeUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i738.StartPracticeSessionUseCase>(
+      () => _i738.StartPracticeSessionUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i462.RecordPracticeAttemptUseCase>(
+      () => _i462.RecordPracticeAttemptUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i638.GetPracticeStatsUseCase>(
+      () => _i638.GetPracticeStatsUseCase(gh<_i982.AppDatabase>()),
     );
     gh.lazySingleton<_i619.SecureStorage>(
       () => _i619.SecureStorage(gh<_i558.FlutterSecureStorage>()),

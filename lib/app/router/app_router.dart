@@ -10,6 +10,7 @@ import 'package:padhai/features/dashboard/presentation/screens/dashboard_screen.
 import 'package:padhai/features/subjects/presentation/screens/subject_detail_screen.dart';
 import 'package:padhai/features/chapters/presentation/screens/chapter_detail_screen.dart';
 import 'package:padhai/features/study_materials/presentation/screens/study_materials_screen.dart';
+import 'package:padhai/features/practice/presentation/screens/practice_mode_screen.dart';
 import 'package:padhai/features/topics/presentation/screens/topic_detail_screen.dart';
 import 'package:padhai/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:padhai/features/quiz/presentation/screens/quiz_result_screen.dart';
@@ -70,6 +71,20 @@ class AppRouter {
             return const _InvalidRouteScreen(message: 'Invalid chapter');
           }
           return StudyMaterialsScreen(
+            chapterId: int.parse(chapterId),
+            chapterName: chapterName,
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoute.practiceMode.path,
+        builder: (context, state) {
+          final chapterId = state.pathParameters['chapterId'];
+          final chapterName = state.uri.queryParameters['name'] ?? 'Practice Mode';
+          if (chapterId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid chapter');
+          }
+          return PracticeModeScreen(
             chapterId: int.parse(chapterId),
             chapterName: chapterName,
           );

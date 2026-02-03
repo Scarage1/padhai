@@ -9,6 +9,7 @@ enum AppRoute {
   subjectDetail('/subject/:subjectId'),
   chapterDetail('/chapter/:chapterId'),
   studyMaterials('/chapter/:chapterId/study-materials'),
+  practiceMode('/chapter/:chapterId/practice'),
   topicDetail('/topic/:topicId'),
   quiz('/quiz/:chapterId'),
   quizResult('/quiz/:attemptId/result'),
