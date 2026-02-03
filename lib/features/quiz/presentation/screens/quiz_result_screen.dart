@@ -9,7 +9,6 @@ import 'package:padhai/app/theme/app_typography.dart';
 import 'package:padhai/core/database/app_database.dart';
 import 'package:padhai/core/di/injection.dart';
 import 'package:padhai/shared/widgets/app_button.dart';
-import 'package:padhai/shared/widgets/app_loading.dart';
 
 class QuizResultScreen extends ConsumerStatefulWidget {
   final String attemptId;
@@ -25,6 +24,7 @@ class QuizResultScreen extends ConsumerStatefulWidget {
 
 class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
   QuizAttempt? _attempt;
+  // ignore: unused_field - Reserved for future detailed answers display
   List<UserAnswer> _answers = [];
   bool _isLoading = true;
 
@@ -91,7 +91,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
       );
     }
 
-    final score = _attempt!.score ?? 0.0;
+    final score = _attempt!.score.toDouble();
     final isPassed = score >= 60;
 
     return Scaffold(

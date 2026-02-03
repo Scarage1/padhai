@@ -1,5 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:drift/drift.dart';
 import '../../../../core/database/daos/bookmarks_dao.dart';
 import '../../../../core/error/failures.dart';
 import '../entities/bookmarked_topic.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:padhai/core/di/injection.dart';
 import '../../domain/entities/bookmarked_topic.dart';
 import '../../domain/usecases/add_topic_bookmark_usecase.dart';
 import '../../domain/usecases/remove_topic_bookmark_usecase.dart';
 import '../../domain/usecases/get_bookmarked_topics_usecase.dart';
-import '../../../auth/presentation/providers/auth_provider.dart';
 
 // State for bookmarks
 class BookmarksState {
@@ -119,28 +119,15 @@ final bookmarksProvider =
   },
 );
 
-// Use case providers (to be added to DI)
+// Use case providers - using GetIt for DI
 final getBookmarkedTopicsUseCaseProvider = Provider((ref) {
-  final bookmarksDao = ref.read(bookmarksDaoProvider);
-  return GetBookmarkedTopicsUseCase(bookmarksDao);
+  return getIt<GetBookmarkedTopicsUseCase>();
 });
 
 final addTopicBookmarkUseCaseProvider = Provider((ref) {
-  final bookmarksDao = ref.read(bookmarksDaoProvider);
-  return AddTopicBookmarkUseCase(bookmarksDao);
+  return getIt<AddTopicBookmarkUseCase>();
 });
 
 final removeTopicBookmarkUseCaseProvider = Provider((ref) {
-  final bookmarksDao = ref.read(bookmarksDaoProvider);
-  return RemoveTopicBookmarkUseCase(bookmarksDao);
-});
-
-// DAO provider (should be in database providers file)
-final bookmarksDaoProvider = Provider((ref) {
-  final database = ref.read(databaseProvider);
-  return database.bookmarksDao;
-});
-
-final databaseProvider = Provider((ref) {
-  throw UnimplementedError('Database provider not yet implemented');
+  return getIt<RemoveTopicBookmarkUseCase>();
 });

@@ -13,6 +13,7 @@ import 'package:padhai/features/auth/domain/repositories/auth_repository.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
+  // ignore: unused_field - Will be used when backend sync is implemented
   final NetworkInfo _networkInfo;
 
   AuthRepositoryImpl(

@@ -9,7 +9,6 @@ import 'package:padhai/app/theme/app_typography.dart';
 import 'package:padhai/features/topics/presentation/providers/topic_detail_provider.dart';
 import 'package:padhai/shared/widgets/app_button.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
-import 'package:padhai/shared/widgets/app_loading.dart';
 
 class TopicDetailScreen extends ConsumerStatefulWidget {
   final String topicId;

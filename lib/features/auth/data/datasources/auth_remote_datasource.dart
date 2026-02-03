@@ -1,12 +1,12 @@
 // lib/features/auth/data/datasources/auth_remote_datasource.dart
 import 'package:injectable/injectable.dart';
-import 'package:padhai/core/error/exceptions.dart';
 import 'package:padhai/core/network/api_client.dart';
 import 'package:padhai/core/storage/secure_storage.dart';
 import 'package:uuid/uuid.dart';
 
 @injectable
 class AuthRemoteDataSource {
+  // ignore: unused_field - Will be used when backend is implemented
   final ApiClient _apiClient;
   final SecureStorage _secureStorage;
 
@@ -17,7 +17,7 @@ class AuthRemoteDataSource {
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
 
     // Mock successful login
     final userId = const Uuid().v4();
@@ -46,7 +46,7 @@ class AuthRemoteDataSource {
     String password,
   ) async {
     // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
 
     // Mock successful registration
     final userId = const Uuid().v4();

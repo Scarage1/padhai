@@ -11,7 +11,6 @@ import 'package:padhai/features/dashboard/presentation/providers/dashboard_provi
 import 'package:padhai/features/dashboard/presentation/widgets/stats_card.dart';
 import 'package:padhai/features/dashboard/presentation/widgets/subject_card.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
-import 'package:padhai/shared/widgets/app_loading.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});

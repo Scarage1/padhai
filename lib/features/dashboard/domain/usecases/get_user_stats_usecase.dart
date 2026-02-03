@@ -29,9 +29,9 @@ class GetUserStatsUseCase {
       final attempts = await _database.quizDao.getAttemptsByUserId(userId);
       double averageScore = 0.0;
       if (attempts.isNotEmpty) {
-        final totalScore = attempts.fold<double>(
-          0.0,
-          (sum, attempt) => sum + (attempt.score ?? 0.0),
+        final totalScore = attempts.fold<int>(
+          0,
+          (sum, attempt) => sum + attempt.score,
         );
         averageScore = totalScore / attempts.length;
       }

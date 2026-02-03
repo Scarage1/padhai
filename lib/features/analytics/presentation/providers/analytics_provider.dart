@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:padhai/core/di/injection.dart';
+import 'package:padhai/core/database/app_database.dart';
 import '../../domain/entities/user_analytics.dart';
 import '../../domain/usecases/get_user_analytics_usecase.dart';
 
@@ -84,19 +86,19 @@ final getUserAnalyticsUseCaseProvider = Provider((ref) {
   );
 });
 
-// DAO providers (placeholders - should be in DI file)
+// DAO providers using GetIt
 final quizDaoProvider = Provider((ref) {
-  throw UnimplementedError();
+  return getIt<AppDatabase>().quizDao;
 });
 
 final progressDaoProvider = Provider((ref) {
-  throw UnimplementedError();
+  return getIt<AppDatabase>().progressDao;
 });
 
 final usersDaoProvider = Provider((ref) {
-  throw UnimplementedError();
+  return getIt<AppDatabase>().usersDao;
 });
 
 final subjectsDaoProvider = Provider((ref) {
-  throw UnimplementedError();
+  return getIt<AppDatabase>().subjectsDao;
 });

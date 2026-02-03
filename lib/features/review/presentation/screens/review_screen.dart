@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // AppBar import removed - using standard AppBar
-import 'package:padhai/app/theme/app_colors.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../domain/entities/incorrect_answer.dart';
 import '../providers/review_provider.dart';

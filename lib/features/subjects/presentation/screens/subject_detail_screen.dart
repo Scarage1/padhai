@@ -9,7 +9,6 @@ import 'package:padhai/app/theme/app_typography.dart';
 import 'package:padhai/features/subjects/presentation/providers/subject_detail_provider.dart';
 import 'package:padhai/features/subjects/presentation/widgets/chapter_card.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
-import 'package:padhai/shared/widgets/app_loading.dart';
 
 class SubjectDetailScreen extends ConsumerStatefulWidget {
   final String subjectId;

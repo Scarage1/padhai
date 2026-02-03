@@ -1,5 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:drift/drift.dart';
 import '../../../../core/database/daos/quiz_dao.dart';
 import '../../../../core/database/daos/progress_dao.dart';
 import '../../../../core/database/daos/users_dao.dart';

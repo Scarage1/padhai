@@ -9,7 +9,6 @@ import 'package:padhai/app/theme/app_typography.dart';
 import 'package:padhai/features/chapters/presentation/providers/chapter_detail_provider.dart';
 import 'package:padhai/features/chapters/presentation/widgets/topic_card.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
-import 'package:padhai/shared/widgets/app_loading.dart';
 
 class ChapterDetailScreen extends ConsumerStatefulWidget {
   final String chapterId;

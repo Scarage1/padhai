@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:padhai/core/di/injection.dart';
+import 'package:padhai/core/database/app_database.dart';
 import '../../domain/entities/incorrect_answer.dart';
 import '../../domain/usecases/get_incorrect_answers_usecase.dart';
 
@@ -75,7 +77,7 @@ final getIncorrectAnswersUseCaseProvider = Provider((ref) {
   return GetIncorrectAnswersUseCase(quizDao);
 });
 
-// DAO provider (placeholder)
+// DAO provider using GetIt
 final quizDaoProvider = Provider((ref) {
-  throw UnimplementedError();
+  return getIt<AppDatabase>().quizDao;
 });
