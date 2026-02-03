@@ -29,7 +29,7 @@ class AppErrorWidget extends StatelessWidget {
               color: AppColors.error,
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text(
+            const Text(
               'Oops! Something went wrong',
               style: AppTypography.h3,
               textAlign: TextAlign.center,
@@ -47,7 +47,6 @@ class AppErrorWidget extends StatelessWidget {
               AppButton(
                 label: 'Try Again',
                 onPressed: onRetry,
-                variant: AppButtonVariant.primary,
               ),
             ],
           ],

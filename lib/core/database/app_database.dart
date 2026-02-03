@@ -58,6 +58,7 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (Migrator m) async {
           await m.createAll();
+          await _createIndexes();
           await _seedInitialData();
         },
         beforeOpen: (details) async {
@@ -70,6 +71,47 @@ class AppDatabase extends _$AppDatabase {
           await customStatement('PRAGMA cache_size = 10000');
         },
       );
+
+  /// Create database indexes for performance per DOC-003 Section 3.5
+  Future<void> _createIndexes() async {
+    // Users
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+
+    // Chapters
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_chapters_subject_id ON chapters(subject_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_chapters_number ON chapters(chapter_number)');
+
+    // Topics
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_topics_chapter_id ON topics(chapter_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_topics_number ON topics(topic_number)');
+
+    // Questions
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_questions_topic_id ON questions(topic_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_questions_chapter_id ON questions(chapter_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_questions_difficulty ON questions(difficulty)');
+
+    // Quiz Attempts
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_quiz_attempts_user_id ON quiz_attempts(user_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_quiz_attempts_chapter_id ON quiz_attempts(chapter_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_quiz_attempts_status ON quiz_attempts(status)');
+
+    // User Answers
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_user_answers_attempt_id ON user_answers(attempt_id)');
+
+    // Topic Progress
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_topic_progress_user_id ON topic_progress(user_id)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_topic_progress_topic_id ON topic_progress(topic_id)');
+
+    // User Difficulty
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_user_difficulty_user_id ON user_difficulty(user_id)');
+
+    // Bookmarks
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_bookmarks_user_id ON bookmarks(user_id)');
+
+    // Sync Queue
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_sync_queue_is_synced ON sync_queue(is_synced)');
+    await customStatement('CREATE INDEX IF NOT EXISTS idx_sync_queue_entity_type ON sync_queue(entity_type)');
+  }
 
   Future<void> _seedInitialData() async {
     // Seed subjects

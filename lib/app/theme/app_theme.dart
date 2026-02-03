@@ -36,7 +36,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: AppTypography.fontFamily,
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         secondary: AppColors.secondary,
         surface: AppColors.surface,

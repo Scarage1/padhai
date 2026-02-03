@@ -98,14 +98,14 @@ class AppShimmerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppShimmer(width: 100, height: 16),
-          const SizedBox(height: 8),
-          const AppShimmer(width: double.infinity, height: 14),
-          const SizedBox(height: 4),
-          const AppShimmer(width: 200, height: 14),
+          AppShimmer(width: 100, height: 16),
+          SizedBox(height: 8),
+          AppShimmer(width: double.infinity, height: 14),
+          SizedBox(height: 4),
+          AppShimmer(width: 200, height: 14),
         ],
       ),
     );
