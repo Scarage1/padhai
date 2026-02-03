@@ -55,7 +55,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: Text(state.chapter?.title ?? 'Quiz'),
+          title: Text(state.chapter?.name ?? 'Quiz'),
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           elevation: 0,
@@ -332,7 +332,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   Future<bool> _showExitDialog(BuildContext context) async {
     return await showDialog<bool>(
-          content: context,
+          context: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit Quiz?'),
             content: const Text(
@@ -361,7 +361,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final unansweredCount = state.totalQuestions - state.answeredCount;
 
     final confirmed = await showDialog<bool>(
-      content: context,
+      context: context,
       builder: (context) => AlertDialog(
         title: const Text('Submit Quiz?'),
         content: Text(

@@ -243,7 +243,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
                   ),
                 );
               },
-              icon: Icons.visibility,
+              icon: const Icon(Icons.visibility),
             ),
           ],
         ),

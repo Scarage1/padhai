@@ -150,7 +150,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                             );
                           }
                         },
-                        icon: Icons.quiz,
+                        icon: const Icon(Icons.quiz),
                       ),
                     ],
                   ),

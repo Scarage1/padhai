@@ -1,8 +1,12 @@
 // lib/features/topics/presentation/providers/topic_detail_provider.dart
+import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:padhai/core/database/app_database.dart';
 import 'package:padhai/core/di/injection.dart';
 import 'package:padhai/features/auth/presentation/providers/auth_provider.dart';
+import 'package:uuid/uuid.dart';
+
+const _uuid = Uuid();
 
 final topicDetailProvider = StateNotifierProvider.family<
     TopicDetailNotifier, TopicDetailState, String>((ref, topicId) {
@@ -94,10 +98,11 @@ class TopicDetailNotifier extends StateNotifier<TopicDetailState> {
       final database = getIt<AppDatabase>();
       await database.progressDao.upsertTopicProgress(
         TopicProgressCompanion.insert(
+          id: _uuid.v4(),
           userId: authState.user!.id,
           topicId: state.topic!.id,
-          isCompleted: const Value(true),
-          lastAttemptAt: Value(DateTime.now()),
+          isCompleted: Value(true),
+          lastAccessedAt: DateTime.now(),
         ),
       );
 
