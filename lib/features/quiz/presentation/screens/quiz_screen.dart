@@ -47,9 +47,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       });
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        return await _showExitDialog(context);
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        final shouldPop = await _showExitDialog(context);
+        if (shouldPop && context.mounted) {
+          context.pop();
+        }
       },
       child: Scaffold(
         backgroundColor: AppColors.background,
