@@ -14,6 +14,7 @@ import 'package:padhai/core/database/daos/chapters_dao.dart';
 import 'package:padhai/core/database/daos/progress_dao.dart';
 import 'package:padhai/core/database/daos/questions_dao.dart';
 import 'package:padhai/core/database/daos/quiz_dao.dart';
+import 'package:padhai/core/database/daos/study_resources_dao.dart';
 import 'package:padhai/core/database/daos/subjects_dao.dart';
 import 'package:padhai/core/database/daos/topics_dao.dart';
 import 'package:padhai/core/database/daos/users_dao.dart';
@@ -48,6 +49,7 @@ part 'app_database.g.dart';
     QuizDao,
     ProgressDao,
     BookmarksDao,
+    StudyResourcesDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
