@@ -1,0 +1,122 @@
+// lib/features/auth/presentation/screens/login_screen.dart
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:padhai/app/router/routes.dart';
+import 'package:padhai/app/theme/app_spacing.dart';
+import 'package:padhai/app/theme/app_typography.dart';
+import 'package:padhai/core/utils/extensions/context_extensions.dart';
+import 'package:padhai/core/utils/validators.dart';
+import 'package:padhai/features/auth/presentation/providers/auth_provider.dart';
+import 'package:padhai/shared/widgets/app_button.dart';
+import 'package:padhai/shared/widgets/app_text_field.dart';
+
+class LoginScreen extends ConsumerStatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final success = await ref.read(authProvider.notifier).login(
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+
+    if (!mounted) return;
+
+    if (success) {
+      context.go(AppRoute.dashboard.path);
+    } else {
+      final error = ref.read(authProvider).error;
+      context.showErrorSnackBar(error ?? 'Login failed');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
+
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.xxl),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: AppSpacing.xxxl),
+                Text('Welcome Back!', style: AppTypography.h1),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  'Login to continue your learning journey',
+                  style: AppTypography.bodyLarge,
+                ),
+                const SizedBox(height: AppSpacing.xxxl),
+                AppTextField(
+                  label: 'Email',
+                  hint: 'Enter your email',
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: Validators.validateEmail,
+                  prefixIcon: const Icon(Icons.email_outlined),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                AppTextField(
+                  label: 'Password',
+                  hint: 'Enter your password',
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  validator: (value) =>
+                      Validators.validateMinLength(value, 6, 'Password'),
+                  prefixIcon: const Icon(Icons.lock_outlined),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() => _obscurePassword = !_obscurePassword);
+                    },
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xxxl),
+                AppButton(
+                  label: 'Login',
+                  onPressed: _handleLogin,
+                  fullWidth: true,
+                  isLoading: authState.isLoading,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                Center(
+                  child: TextButton(
+                    onPressed: () => context.push(AppRoute.register.path),
+                    child: const Text("Don't have an account? Register"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
