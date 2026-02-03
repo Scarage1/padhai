@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 // AppBar import removed - using standard AppBar
 import 'package:padhai/app/theme/app_colors.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../domain/entities/bookmarked_topic.dart';
 import '../providers/bookmarks_provider.dart';
 
 class BookmarksScreen extends ConsumerStatefulWidget {
@@ -38,7 +39,7 @@ class _BookmarksScreenState extends ConsumerState<BookmarksScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: 'Bookmarks',
+        title: const Text('Bookmarks'),
         automaticallyImplyLeading: true,
       ),
       body: bookmarksState.isLoading
@@ -96,7 +97,7 @@ class _BookmarksScreenState extends ConsumerState<BookmarksScreen> {
     );
   }
 
-  Widget _buildBookmarksList(List bookmarks, String userId) {
+  Widget _buildBookmarksList(List<BookmarkedTopic> bookmarks, String userId) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: bookmarks.length,
@@ -117,7 +118,7 @@ class _BookmarksScreenState extends ConsumerState<BookmarksScreen> {
 }
 
 class _BookmarkCard extends StatelessWidget {
-  final dynamic bookmark;
+  final BookmarkedTopic bookmark;
   final String userId;
   final VoidCallback onRemove;
 

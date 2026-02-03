@@ -27,10 +27,10 @@ class GetIncorrectAnswersUseCase {
         for (final answer in incorrect) {
           // Note: Would need to join with Questions table to get full details
           incorrectAnswers.add(IncorrectAnswer(
-            answerId: answer.id,
+            answerId: answer.id.hashCode,
             questionText: 'Question ${answer.questionId}', // Would need join
             userAnswer: answer.selectedAnswer,
-            correctAnswer: answer.correctAnswer,
+            correctAnswer: 'N/A', // Would need to fetch from Questions table
             explanation: 'Explanation not available', // Would need join
             chapterName: 'Chapter', // Would need join
             subjectName: 'Subject', // Would need join

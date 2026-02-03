@@ -44,6 +44,7 @@ class SaveQuizAttemptUseCase {
           completedAt: Value(completedAt),
         ),
       );
+      );
 
       // Save individual answers
       for (int i = 0; i < questionIds.length; i++) {

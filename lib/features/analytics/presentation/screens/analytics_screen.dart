@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // AppBar import removed - using standard AppBar
 import 'package:padhai/app/theme/app_colors.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../domain/entities/user_analytics.dart';
 import '../providers/analytics_provider.dart';
 
 class AnalyticsScreen extends ConsumerStatefulWidget {
@@ -37,7 +38,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: 'Analytics',
+        title: const Text('Analytics'),
         automaticallyImplyLeading: true,
       ),
       body: analyticsState.isLoading
@@ -66,7 +67,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     );
   }
 
-  Widget _buildAnalyticsContent(dynamic analytics) {
+  Widget _buildAnalyticsContent(UserAnalytics analytics) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -88,7 +89,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     );
   }
 
-  Widget _buildOverviewSection(dynamic analytics) {
+  Widget _buildOverviewSection(UserAnalytics analytics) {
     return Row(
       children: [
         Expanded(
@@ -151,7 +152,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     );
   }
 
-  Widget _buildSubjectCard(dynamic subject) {
+  Widget _buildSubjectCard(SubjectAnalytics subject) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
@@ -215,7 +216,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     );
   }
 
-  Widget _buildQuizCard(dynamic quiz) {
+  Widget _buildQuizCard(QuizPerformance quiz) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: Padding(

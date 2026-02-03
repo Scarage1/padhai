@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // AppBar import removed - using standard AppBar
 import 'package:padhai/app/theme/app_colors.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../domain/entities/incorrect_answer.dart';
 import '../providers/review_provider.dart';
 
 class ReviewScreen extends ConsumerStatefulWidget {
@@ -37,7 +38,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: 'Review Mistakes',
+        title: const Text('Review Mistakes'),
         automaticallyImplyLeading: true,
       ),
       body: reviewState.isLoading
@@ -95,7 +96,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     );
   }
 
-  Widget _buildReviewList(List incorrectAnswers) {
+  Widget _buildReviewList(List<IncorrectAnswer> incorrectAnswers) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: incorrectAnswers.length,
@@ -108,7 +109,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
 }
 
 class _IncorrectAnswerCard extends StatelessWidget {
-  final dynamic answer;
+  final IncorrectAnswer answer;
 
   const _IncorrectAnswerCard({required this.answer});
 

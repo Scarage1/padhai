@@ -144,9 +144,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   const SizedBox(height: AppSpacing.xl),
                   AppButton(
+                    label: isLastPage ? 'Get Started' : 'Next',
                     onPressed: state.isLoading ? null : _nextPage,
                     isLoading: state.isLoading,
-                    text: isLastPage ? 'Get Started' : 'Next',
                   ),
                 ],
               ),
