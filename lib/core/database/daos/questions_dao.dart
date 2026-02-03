@@ -20,6 +20,17 @@ class QuestionsDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
+  Future<List<Question>> getQuestionsByChapterAndDifficulty(
+    String chapterId,
+    String difficulty,
+  ) {
+    return (select(questions)
+          ..where((tbl) =>
+              tbl.chapterId.equals(chapterId) &
+              tbl.difficulty.equals(difficulty)))
+        .get();
+  }
+
   Future<List<Question>> getQuestionsByDifficulty(
     String chapterId,
     String difficulty,

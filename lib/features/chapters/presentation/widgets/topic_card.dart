@@ -66,7 +66,10 @@ class TopicCard extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.xs / 2),
                     Text(
-                      topic.description,
+                      topic.content.substring(
+                        0,
+                        topic.content.length > 100 ? 100 : topic.content.length,
+                      ),
                       style: AppTypography.bodySmall.copyWith(
                         color: AppColors.textSecondary,
                       ),

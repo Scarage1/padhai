@@ -1,6 +1,8 @@
 // lib/features/chapters/presentation/screens/chapter_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:padhai/app/router/routes.dart';
 import 'package:padhai/app/theme/app_colors.dart';
 import 'package:padhai/app/theme/app_spacing.dart';
 import 'package:padhai/app/theme/app_typography.dart';
@@ -40,13 +42,13 @@ class _ChapterDetailScreenState extends ConsumerState<ChapterDetailScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(state.chapter?.title ?? 'Chapter'),
+        title: Text(state.chapter?.name ?? 'Chapter'),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: state.isLoading && state.topics.isEmpty
-          ? const AppLoading()
+          ? const Center(child: CircularProgressIndicator())
           : state.error != null && state.topics.isEmpty
               ? AppErrorWidget(
                   message: state.error!,
@@ -147,12 +149,10 @@ class _ChapterDetailScreenState extends ConsumerState<ChapterDetailScreen> {
                             return TopicCard(
                               topicWithProgress: topicWithProgress,
                               onTap: () {
-                                // TODO: Navigate to topic detail
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Opening ${topicWithProgress.topic.title}',
-                                    ),
+                                context.push(
+                                  AppRoute.topicDetail.path.replaceAll(
+                                    ':topicId',
+                                    topicWithProgress.topic.id,
                                   ),
                                 );
                               },

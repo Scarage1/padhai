@@ -9,6 +9,9 @@ import 'package:padhai/features/onboarding/presentation/screens/onboarding_scree
 import 'package:padhai/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:padhai/features/subjects/presentation/screens/subject_detail_screen.dart';
 import 'package:padhai/features/chapters/presentation/screens/chapter_detail_screen.dart';
+import 'package:padhai/features/topics/presentation/screens/topic_detail_screen.dart';
+import 'package:padhai/features/quiz/presentation/screens/quiz_screen.dart';
+import 'package:padhai/features/quiz/presentation/screens/quiz_result_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(

@@ -28,8 +28,8 @@ class GetTopicsByChapterUseCase {
         topicsWithProgress.add(TopicWithProgress(
           topic: topic,
           isCompleted: progress?.isCompleted ?? false,
-          lastScore: progress?.score,
-          lastAttemptAt: progress?.lastAttemptAt,
+          lastScore: null, // TopicProgress doesn't have score field
+          lastAttemptAt: progress?.completedAt,
         ));
       }
 

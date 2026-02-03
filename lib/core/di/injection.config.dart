@@ -32,6 +32,10 @@ import '../../features/dashboard/domain/usecases/get_subjects_usecase.dart'
     as _i733;
 import '../../features/dashboard/domain/usecases/get_user_stats_usecase.dart'
     as _i880;
+import '../../features/quiz/domain/usecases/get_questions_by_chapter_usecase.dart'
+    as _i1012;
+import '../../features/quiz/domain/usecases/save_quiz_attempt_usecase.dart'
+    as _i368;
 import '../../features/subjects/domain/usecases/get_chapters_by_subject_usecase.dart'
     as _i175;
 import '../database/app_database.dart' as _i982;
@@ -67,6 +71,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i896.GetTopicsByChapterUseCase>(
       () => _i896.GetTopicsByChapterUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i1012.GetQuestionsByChapterUseCase>(
+      () => _i1012.GetQuestionsByChapterUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i368.SaveQuizAttemptUseCase>(
+      () => _i368.SaveQuizAttemptUseCase(gh<_i982.AppDatabase>()),
     );
     gh.lazySingleton<_i619.SecureStorage>(
       () => _i619.SecureStorage(gh<_i558.FlutterSecureStorage>()),

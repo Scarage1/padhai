@@ -51,7 +51,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         ],
       ),
       body: state.isLoading && state.subjects.isEmpty
-          ? const AppLoading()
+          ? const Center(child: CircularProgressIndicator())
           : state.error != null && state.subjects.isEmpty
               ? AppErrorWidget(
                   message: state.error!,
