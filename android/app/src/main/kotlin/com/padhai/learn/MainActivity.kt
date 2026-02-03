@@ -1,4 +1,4 @@
-package com.padhai.padhai
+package com.padhai.learn
 
 import io.flutter.embedding.android.FlutterActivity
 
