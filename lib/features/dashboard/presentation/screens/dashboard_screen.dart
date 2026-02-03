@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:padhai/app/router/routes.dart';
 import 'package:padhai/app/theme/app_colors.dart';
 import 'package:padhai/app/theme/app_spacing.dart';
 import 'package:padhai/app/theme/app_typography.dart';
@@ -156,10 +157,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             return SubjectCard(
                               subject: subject,
                               onTap: () {
-                                // TODO: Navigate to subject detail
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('${subject.name} selected'),
+                                context.push(
+                                  AppRoute.subjectDetail.path.replaceAll(
+                                    ':subjectId',
+                                    subject.id,
                                   ),
                                 );
                               },

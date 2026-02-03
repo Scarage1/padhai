@@ -7,6 +7,8 @@ import 'package:padhai/features/auth/presentation/screens/register_screen.dart';
 import 'package:padhai/features/auth/presentation/screens/splash_screen.dart';
 import 'package:padhai/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:padhai/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:padhai/features/subjects/presentation/screens/subject_detail_screen.dart';
+import 'package:padhai/features/chapters/presentation/screens/chapter_detail_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -30,7 +32,21 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoute.dashboard.path,
-        builder: (context, state) => const DashboardScreen(),
+        
+      GoRoute(
+        path: AppRoute.subjectDetail.path,
+        builder: (context, state) {
+          final subjectId = state.pathParameters['subjectId']!;
+          return SubjectDetailScreen(subjectId: subjectId);
+        },
+      ),
+      GoRoute(
+        path: AppRoute.chapterDetail.path,
+        builder: (context, state) {
+          final chapterId = state.pathParameters['chapterId']!;
+          return ChapterDetailScreen(chapterId: chapterId);
+        },
+      ),builder: (context, state) => const DashboardScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
