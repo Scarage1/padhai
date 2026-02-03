@@ -1,0 +1,8 @@
+# Key Properties Template - DO NOT COMMIT ACTUAL key.properties
+# Copy this file as key.properties and fill in your values
+# Per DOC-012 Section 12.4.2
+
+storePassword=<your-keystore-password>
+keyPassword=<your-key-password>
+keyAlias=padhai-release
+storeFile=../padhai-release.keystore
