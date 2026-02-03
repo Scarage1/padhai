@@ -42,6 +42,7 @@ import '../database/app_database.dart' as _i982;
 import '../network/api_client.dart' as _i557;
 import '../network/network_info.dart' as _i932;
 import '../storage/secure_storage.dart' as _i619;
+import '../utils/content_loader.dart' as _i137;
 import 'injection.dart' as _i464;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -59,6 +60,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i557.ApiClient>(() => _i557.ApiClient());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storageModule.secureStorage,
+    );
+    gh.singleton<_i137.ContentLoader>(
+      () => _i137.ContentLoader(gh<_i982.AppDatabase>()),
     );
     gh.factory<_i896.GetTopicsByChapterUseCase>(
       () => _i896.GetTopicsByChapterUseCase(gh<_i982.AppDatabase>()),

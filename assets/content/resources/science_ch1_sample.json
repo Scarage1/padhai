@@ -1,0 +1,32 @@
+{
+  "resources": [
+    {
+      "type": "summary",
+      "chapter_id": 1,
+      "title": "Photosynthesis - Chapter Summary",
+      "content": "# Photosynthesis Overview\n\n## Key Concepts\n\n**Photosynthesis** is the process by which green plants manufacture food using:\n- Carbon dioxide (CO₂) from air\n- Water (H₂O) from soil\n- Light energy from the sun\n\n## The Process\n\n1. **Light Absorption**: Chlorophyll in chloroplasts absorbs sunlight\n2. **Water Splitting**: Water molecules are broken down, releasing oxygen\n3. **Carbon Fixation**: CO₂ is converted into glucose\n4. **Oxygen Release**: O₂ is released as a byproduct\n\n## Chemical Equation\n\n```\n6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂\n```\n\n## Importance\n\n- **Primary producers**: Plants form the base of food chains\n- **Oxygen production**: Essential for aerobic life\n- **Carbon cycle**: Removes CO₂ from atmosphere\n- **Energy storage**: Converts light energy to chemical energy\n\n## Key Terms\n\n- **Chlorophyll**: Green pigment that captures light\n- **Chloroplast**: Organelle where photosynthesis occurs\n- **Glucose**: Simple sugar produced\n- **Stomata**: Pores for gas exchange",
+      "file_url": null
+    },
+    {
+      "type": "formula",
+      "chapter_id": 1,
+      "title": "Photosynthesis Formulas",
+      "content": "# Important Formulas\n\n## Overall Photosynthesis Equation\n\n**Word Equation:**\n```\nCarbon dioxide + Water + Light energy → Glucose + Oxygen\n```\n\n**Chemical Equation:**\n```\n6CO₂ + 6H₂O + Light energy → C₆H₁₂O₆ + 6O₂\n```\n\n## Light-Dependent Reactions\n\n```\n2H₂O + Light → O₂ + 4H⁺ + 4e⁻\n```\n\n## Calvin Cycle (Light-Independent)\n\n```\n3CO₂ + 9ATP + 6NADPH → G3P + 9ADP + 6NADP⁺\n```\n\n## Rate of Photosynthesis\n\nFactors affecting rate:\n- Light intensity\n- CO₂ concentration\n- Temperature\n- Water availability\n- Chlorophyll concentration",
+      "file_url": "documents/formulas/science_ch1_formulas.pdf"
+    },
+    {
+      "type": "concept_map",
+      "chapter_id": 1,
+      "title": "Photosynthesis Concept Map",
+      "content": "# Photosynthesis Concept Relationships\n\n## Central Concept: PHOTOSYNTHESIS\n\n### Inputs (Requirements)\n- Sunlight → Provides energy\n- Carbon Dioxide → Source of carbon\n- Water → Source of hydrogen and electrons\n- Chlorophyll → Captures light energy\n\n### Process (Steps)\n1. Light Reactions\n   - Location: Thylakoid membranes\n   - Products: ATP, NADPH, O₂\n   \n2. Dark Reactions (Calvin Cycle)\n   - Location: Stroma\n   - Products: Glucose\n\n### Outputs (Products)\n- Glucose → Energy storage\n- Oxygen → Released to atmosphere\n\n### Related Concepts\n- **Cellular Respiration**: Uses glucose to produce ATP\n- **Carbon Cycle**: Removes CO₂ from atmosphere\n- **Food Chains**: Plants as primary producers\n- **Ecology**: Oxygen production for aerobic organisms",
+      "file_url": null
+    },
+    {
+      "type": "exam_tip",
+      "chapter_id": 1,
+      "title": "Exam Tips - Photosynthesis",
+      "content": "# Exam Preparation Tips\n\n## Common Question Types\n\n### 1. Equation-Based Questions\n- **Always write the balanced equation**\n- Remember: 6 molecules of CO₂ and H₂O\n- Products: 1 glucose + 6 oxygen molecules\n\n### 2. Diagram Questions\n- **Label chloroplast parts**: Thylakoid, stroma, granum\n- **Show inputs and outputs** with arrows\n- **Mention chlorophyll** when discussing light absorption\n\n### 3. Comparison Questions\n| Photosynthesis | Respiration |\n|----------------|-------------|\n| Anabolic | Catabolic |\n| Requires light | Occurs 24/7 |\n| Produces glucose | Breaks down glucose |\n| Releases O₂ | Consumes O₂ |\n| Occurs in chloroplasts | Occurs in mitochondria |\n\n### 4. Application Questions\n- **Why are plants green?** Chlorophyll reflects green light\n- **Why don't plants photosynthesize at night?** No light energy\n- **What happens without CO₂?** No carbon source for glucose\n\n## Common Mistakes to Avoid\n\n❌ **Don't confuse** photosynthesis with respiration\n❌ **Don't forget** oxygen is a byproduct, not a requirement\n❌ **Don't ignore** the role of water in the process\n✅ **Do remember** chloroplasts are the location\n✅ **Do mention** light energy conversion\n✅ **Do explain** why it's important for life\n\n## Quick Review Points\n\n1. **Location**: Chloroplasts (specifically thylakoids and stroma)\n2. **Inputs**: CO₂ + H₂O + Light\n3. **Outputs**: C₆H₁₂O₆ + O₂\n4. **Key pigment**: Chlorophyll (green)\n5. **Importance**: Primary producers, oxygen source\n\n## Scoring Tips\n\n- **Define terms clearly**: Don't assume examiner knows\n- **Use scientific vocabulary**: Chloroplast, chlorophyll, glucose\n- **Draw neat diagrams**: Labels with arrows\n- **Show working**: For calculation questions\n- **Relate to daily life**: Plants, trees, oxygen we breathe",
+      "file_url": null
+    }
+  ]
+}

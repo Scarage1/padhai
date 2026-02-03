@@ -1,0 +1,51 @@
+{
+  "chapter_id": "science_ch1",
+  "chapter_name": "Crop Production and Management",
+  "subject": "science",
+  "version": "1.0.0",
+  "updated_at": "2026-02-03",
+  "questions": [
+    {
+      "id": "sci_ch1_t1_q1",
+      "topic_id": "science_ch1_topic1",
+      "question_text": "What is the term for the process of loosening and turning of soil?",
+      "question_type": "mcq",
+      "options": ["Tilling", "Irrigation", "Manuring", "Harvesting"],
+      "correct_answer": "Tilling",
+      "explanation": "Tilling or ploughing is the process of loosening and turning the soil. This allows roots to penetrate deep into the soil and helps in mixing nutrients uniformly. It also brings nutrient-rich lower layers to the surface.",
+      "difficulty": "beginner",
+      "points": 10,
+      "image_url": null,
+      "ncert_reference": "Class 8 Science Ch1 Section 1.2",
+      "hint": "Think about preparing the soil before sowing seeds. It's the first step in agriculture."
+    },
+    {
+      "id": "sci_ch1_t1_q2",
+      "topic_id": "science_ch1_topic1",
+      "question_text": "Kharif crops are sown in which season?",
+      "question_type": "mcq",
+      "options": ["Summer", "Winter", "Rainy season", "Spring"],
+      "correct_answer": "Rainy season",
+      "explanation": "Kharif crops are sown at the beginning of the rainy season (June-July) and harvested in September-October. Examples include paddy, maize, cotton, and groundnut. They require high temperature and humidity.",
+      "difficulty": "beginner",
+      "points": 10,
+      "image_url": "assets/images/content/science/ch1/kharif_rabi_crops.svg",
+      "ncert_reference": "Class 8 Science Ch1 Section 1.1",
+      "hint": "These crops need lots of water. Think about monsoon."
+    },
+    {
+      "id": "sci_ch1_t1_q3",
+      "topic_id": "science_ch1_topic1",
+      "question_text": "Which of the following is a Rabi crop?",
+      "question_type": "mcq",
+      "options": ["Paddy", "Wheat", "Cotton", "Maize"],
+      "correct_answer": "Wheat",
+      "explanation": "Wheat is a Rabi crop sown in winter (October-December) and harvested in April-May. Rabi crops require cool climate during growth and warm climate during ripening. Other Rabi crops include gram, peas, and mustard.",
+      "difficulty": "intermediate",
+      "points": 15,
+      "image_url": null,
+      "ncert_reference": "Class 8 Science Ch1 Section 1.1",
+      "hint": "Rabi crops are sown in winter. Which crop from the options grows in winter?"
+    }
+  ]
+}

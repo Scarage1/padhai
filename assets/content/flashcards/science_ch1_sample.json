@@ -1,0 +1,104 @@
+{
+  "flashcards": [
+    {
+      "topic_id": 1,
+      "term": "Photosynthesis",
+      "definition": "The process by which green plants use sunlight to synthesize foods (glucose) from carbon dioxide and water, releasing oxygen as a byproduct."
+    },
+    {
+      "topic_id": 1,
+      "term": "Chlorophyll",
+      "definition": "A green pigment present in chloroplasts that absorbs light energy for photosynthesis. It absorbs red and blue light while reflecting green light."
+    },
+    {
+      "topic_id": 1,
+      "term": "Chloroplast",
+      "definition": "An organelle found in plant cells where photosynthesis takes place. Contains chlorophyll and has two main regions: thylakoids and stroma."
+    },
+    {
+      "topic_id": 1,
+      "term": "Stomata",
+      "definition": "Tiny pores on the surface of leaves that allow gas exchange. Carbon dioxide enters and oxygen exits through stomata during photosynthesis."
+    },
+    {
+      "topic_id": 1,
+      "term": "Glucose",
+      "definition": "A simple sugar (C₆H₁₂O₆) produced during photosynthesis. Plants use it for energy and convert excess into starch for storage."
+    },
+    {
+      "topic_id": 1,
+      "term": "Light-Dependent Reactions",
+      "definition": "The first stage of photosynthesis that occurs in thylakoid membranes. Requires light energy to split water molecules, producing ATP, NADPH, and oxygen."
+    },
+    {
+      "topic_id": 1,
+      "term": "Calvin Cycle",
+      "definition": "The light-independent reactions (dark reactions) of photosynthesis occurring in the stroma. Uses ATP and NADPH to convert CO₂ into glucose."
+    },
+    {
+      "topic_id": 1,
+      "term": "Carbon Fixation",
+      "definition": "The process of converting inorganic carbon dioxide into organic compounds (glucose) during the Calvin cycle."
+    },
+    {
+      "topic_id": 1,
+      "term": "Autotroph",
+      "definition": "An organism that can produce its own food from simple inorganic substances. Plants are autotrophs because they perform photosynthesis."
+    },
+    {
+      "topic_id": 1,
+      "term": "Heterotroph",
+      "definition": "An organism that cannot produce its own food and must consume other organisms. Animals and fungi are heterotrophs."
+    },
+    {
+      "topic_id": 1,
+      "term": "Thylakoid",
+      "definition": "Membrane-bound compartments inside chloroplasts where light-dependent reactions of photosynthesis occur. Stacked thylakoids form grana."
+    },
+    {
+      "topic_id": 1,
+      "term": "Stroma",
+      "definition": "The fluid-filled space surrounding thylakoids in chloroplasts where the Calvin cycle (light-independent reactions) occurs."
+    },
+    {
+      "topic_id": 1,
+      "term": "ATP",
+      "definition": "Adenosine triphosphate, the energy currency of cells. Produced during light-dependent reactions and used in the Calvin cycle."
+    },
+    {
+      "topic_id": 1,
+      "term": "NADPH",
+      "definition": "A coenzyme that carries high-energy electrons produced during light-dependent reactions. Used to reduce CO₂ to glucose in the Calvin cycle."
+    },
+    {
+      "topic_id": 1,
+      "term": "Wavelength",
+      "definition": "The distance between successive peaks of a light wave. Different wavelengths correspond to different colors of light."
+    },
+    {
+      "topic_id": 1,
+      "term": "Light Spectrum",
+      "definition": "The range of all possible electromagnetic radiation. Visible light (400-700nm) is the portion used by plants for photosynthesis."
+    },
+    {
+      "topic_id": 1,
+      "term": "Limiting Factor",
+      "definition": "An environmental factor that restricts the rate of photosynthesis when in short supply. Examples: light intensity, CO₂ concentration, temperature."
+    },
+    {
+      "topic_id": 1,
+      "term": "Photolysis",
+      "definition": "The splitting of water molecules using light energy during the light-dependent reactions, releasing oxygen, protons, and electrons."
+    },
+    {
+      "topic_id": 1,
+      "term": "Primary Producer",
+      "definition": "Organisms that produce organic compounds from inorganic substances through photosynthesis. They form the base of food chains."
+    },
+    {
+      "topic_id": 1,
+      "term": "Carbon Cycle",
+      "definition": "The biogeochemical cycle by which carbon is exchanged among the biosphere, pedosphere, geosphere, hydrosphere, and atmosphere. Photosynthesis is a key process."
+    }
+  ]
+}

@@ -46,4 +46,16 @@ class QuestionsDao extends DatabaseAccessor<AppDatabase>
     return (select(questions)..where((tbl) => tbl.id.equals(id)))
         .getSingleOrNull();
   }
+
+  Future<int> insertQuestion(QuestionsCompanion question) {
+    return into(questions).insert(question);
+  }
+
+  Future<bool> updateQuestion(Question question) {
+    return update(questions).replace(question);
+  }
+
+  Future<int> deleteQuestion(String id) {
+    return (delete(questions)..where((tbl) => tbl.id.equals(id))).go();
+  }
 }

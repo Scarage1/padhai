@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-02-03",
+  "resources": [
+    {
+      "id": "summary_sci_ch1",
+      "type": "summary",
+      "subject": "science",
+      "chapter_id": "science_ch1",
+      "title": "Crop Production and Management - Chapter Summary",
+      "content": "# Chapter Summary: Crop Production and Management\n\n## Key Concepts\n\n### 1. Agricultural Practices\n- **Kharif Crops**: Sown in rainy season (Jun-Jul), harvested in Sep-Oct\n  - Examples: Paddy, Maize, Cotton, Groundnut\n- **Rabi Crops**: Sown in winter (Oct-Dec), harvested in Apr-May\n  - Examples: Wheat, Gram, Peas, Mustard\n\n### 2. Soil Preparation\n- **Tilling/Ploughing**: Loosening and turning of soil\n- **Benefits**: Better aeration, root penetration, nutrient mixing\n- **Tools**: Plough, hoe, cultivator\n\n### 3. Sowing\n- **Seed Selection**: Healthy, disease-free seeds\n- **Methods**: Broadcasting, seed drill\n- **Seed Treatment**: Prevents diseases\n\n### 4. Nutrients and Fertilizers\n- **Macronutrients**: Nitrogen (N), Phosphorus (P), Potassium (K)\n- **Manure**: Organic matter (compost, farmyard manure)\n- **Fertilizers**: Chemical nutrients (Urea, Ammonium Sulphate)\n\n### 5. Irrigation\n- **Methods**: Surface, sprinkler, drip irrigation\n- **Importance**: Water supply for crop growth\n\n### 6. Harvesting\n- **Process**: Cutting mature crops\n- **Threshing**: Separating grains from chaff\n- **Storage**: Godowns, silos\n\n## Important Terms\n- **Crop**: Plants grown and cultivated on a large scale\n- **Agriculture**: Science of cultivating crops\n- **Harvesting**: Process of cutting and gathering crops\n- **Threshing**: Separating grain from chaff\n\n## Quick Revision Points\n1. Soil preparation is the first step in farming\n2. Seeds should be healthy and treated before sowing\n3. Crops need 16 essential nutrients for growth\n4. Irrigation provides water to crops\n5. Harvesting is done when crops are mature\n\n## Practice Questions\n1. Differentiate between Kharif and Rabi crops\n2. Why is tilling important?\n3. What are the advantages of manure over fertilizers?\n4. Explain different methods of irrigation\n5. What is crop rotation and why is it beneficial?",
+      "file_url": null,
+      "created_at": 1706918400
+    },
+    {
+      "id": "formula_math_all",
+      "type": "formula",
+      "subject": "mathematics",
+      "chapter_id": null,
+      "title": "Class 8 Mathematics - Formula Sheet",
+      "content": "# Mathematics Formula Sheet - Class 8\n\n## Chapter 1: Rational Numbers\n\n### Properties\n- **Closure**: a/b + c/d = (ad + bc)/bd (always rational)\n- **Commutative**: a/b + c/d = c/d + a/b\n- **Associative**: (a/b + c/d) + e/f = a/b + (c/d + e/f)\n- **Additive Identity**: a/b + 0 = a/b\n- **Additive Inverse**: a/b + (-a/b) = 0\n\n### Operations\n- **Addition**: a/b + c/d = (ad + bc)/bd\n- **Subtraction**: a/b - c/d = (ad - bc)/bd\n- **Multiplication**: (a/b) × (c/d) = ac/bd\n- **Division**: (a/b) ÷ (c/d) = (a/b) × (d/c) = ad/bc\n\n## Chapter 2: Linear Equations\n\n### Standard Form\n- **ax + b = 0**, where a ≠ 0\n- **Solution**: x = -b/a\n\n### Transposition\n- If a + b = c, then a = c - b\n- If ab = c, then a = c/b\n\n## Chapter 3: Quadrilaterals\n\n### Angle Sum Property\n- **Sum of all angles** = 360°\n\n### Types\n- **Parallelogram**: Opposite sides equal and parallel\n- **Rectangle**: All angles 90°\n- **Square**: All sides equal, all angles 90°\n- **Rhombus**: All sides equal\n- **Trapezium**: One pair of parallel sides\n\n## Chapter 4: Data Handling\n\n### Probability\n- **P(Event) = Number of favorable outcomes / Total number of outcomes**\n- **Range**: 0 ≤ P(E) ≤ 1\n\n### Statistics\n- **Mean = Sum of observations / Number of observations**\n- **Median**: Middle value when arranged in order\n- **Mode**: Most frequently occurring value",
+      "file_url": "assets/documents/summaries/math_formulas_class8.pdf",
+      "created_at": 1706918400
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2025-06-01",
+  "total_questions": 400,
+  "total_resources": 100,
+  "total_flashcards": 200,
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "2025-06-01",
+      "changes": [
+        "Added 366 new questions across Science and Mathematics",
+        "Added 50+ diagrams and visual content",
+        "Added chapter summaries and formula sheets",
+        "Added 200 flashcards for spaced repetition",
+        "Enhanced practice mode with hints"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2025-01-15",
+      "changes": [
+        "Initial release with 34 questions",
+        "Basic quiz functionality",
+        "Progress tracking"
+      ]
+    }
+  ]
+}
