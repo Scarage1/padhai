@@ -6,6 +6,7 @@ import 'package:padhai/features/auth/presentation/screens/login_screen.dart';
 import 'package:padhai/features/auth/presentation/screens/register_screen.dart';
 import 'package:padhai/features/auth/presentation/screens/splash_screen.dart';
 import 'package:padhai/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:padhai/features/dashboard/presentation/screens/dashboard_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -29,9 +30,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoute.dashboard.path,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Dashboard - Coming soon')),
-        ),
+        builder: (context, state) => const DashboardScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

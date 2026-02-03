@@ -48,4 +48,18 @@ class QuizDao extends DatabaseAccessor<AppDatabase> with _$QuizDaoMixin {
     return (select(userAnswers)..where((tbl) => tbl.attemptId.equals(attemptId)))
         .get();
   }
+
+  Future<int> getAttemptCountForUser(String userId) async {
+    final query = selectOnly(quizAttempts)
+      ..where(quizAttempts.userId.equals(userId))
+      ..addColumns([quizAttempts.id.count()]);
+
+    final result = await query.getSingleOrNull();
+    return result?.read(quizAttempts.id.count()) ?? 0;
+  }
+
+  Future<List<QuizAttempt>> getAttemptsByUserId(String userId) {
+    return (select(quizAttempts)..where((tbl) => tbl.userId.equals(userId)))
+        .get();
+  }
 }

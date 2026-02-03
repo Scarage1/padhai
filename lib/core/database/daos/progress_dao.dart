@@ -57,4 +57,14 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
               tbl.userId.equals(userId) & tbl.subjectId.equals(subjectId)))
         .watchSingleOrNull();
   }
+
+  Future<int> getCompletedTopicsCountForUser(String userId) async {
+    final query = selectOnly(topicProgress)
+      ..where(topicProgress.userId.equals(userId) &
+          topicProgress.isCompleted.equals(true))
+      ..addColumns([topicProgress.id.count()]);
+
+    final result = await query.getSingleOrNull();
+    return result?.read(topicProgress.id.count()) ?? 0;
+  }
 }

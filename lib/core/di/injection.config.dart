@@ -26,6 +26,10 @@ import '../../features/auth/domain/usecases/get_current_user_usecase.dart'
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
 import '../../features/auth/domain/usecases/logout_usecase.dart' as _i48;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
+import '../../features/dashboard/domain/usecases/get_subjects_usecase.dart'
+    as _i733;
+import '../../features/dashboard/domain/usecases/get_user_stats_usecase.dart'
+    as _i880;
 import '../database/app_database.dart' as _i982;
 import '../network/api_client.dart' as _i557;
 import '../network/network_info.dart' as _i932;
@@ -47,6 +51,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i557.ApiClient>(() => _i557.ApiClient());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storageModule.secureStorage,
+    );
+    gh.factory<_i733.GetSubjectsUseCase>(
+      () => _i733.GetSubjectsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i880.GetUserStatsUseCase>(
+      () => _i880.GetUserStatsUseCase(gh<_i982.AppDatabase>()),
     );
     gh.lazySingleton<_i619.SecureStorage>(
       () => _i619.SecureStorage(gh<_i558.FlutterSecureStorage>()),
