@@ -11,6 +11,9 @@ enum AppRoute {
   topicDetail('/topic/:topicId'),
   quiz('/quiz/:chapterId'),
   quizResult('/quiz/:attemptId/result'),
+  bookmarks('/bookmarks'),
+  analytics('/analytics'),
+  review('/review'),
   profile('/profile');
 
   const AppRoute(this.path);

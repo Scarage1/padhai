@@ -62,4 +62,12 @@ class QuizDao extends DatabaseAccessor<AppDatabase> with _$QuizDaoMixin {
     return (select(quizAttempts)..where((tbl) => tbl.userId.equals(userId)))
         .get();
   }
+
+  // Get user quiz attempts for analytics (all attempts with score)
+  Future<List<QuizAttempt>> getUserQuizAttempts(String userId) {
+    return (select(quizAttempts)
+          ..where((tbl) => tbl.userId.equals(userId) & tbl.isCompleted.equals(true))
+          ..orderBy([(tbl) => OrderingTerm.desc(tbl.completedAt)]))
+        .get();
+  }
 }
