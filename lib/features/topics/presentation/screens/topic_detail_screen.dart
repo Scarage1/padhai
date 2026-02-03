@@ -125,6 +125,42 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                       ],
 
                       // Action buttons
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppButton(
+                              label: 'Flashcards',
+                              onPressed: () {
+                                if (state.topic != null) {
+                                  context.push(
+                                    '/topic/${widget.topicId}/flashcards?name=${Uri.encodeComponent(state.topic!.title)}',
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.style),
+                              variant: AppButtonVariant.secondary,
+                            ),
+                          ),
+                          const SizedBox(width: AppSpacing.md),
+                          Expanded(
+                            child: AppButton(
+                              label: 'Quiz',
+                              onPressed: () {
+                                if (state.topic != null) {
+                                  context.push(
+                                    AppRoute.quiz.path.replaceAll(
+                                      ':chapterId',
+                                      state.topic!.chapterId,
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.quiz),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.md),
                       if (state.progress?.isCompleted != true)
                         AppButton(
                           label: 'Mark as Completed',
@@ -136,21 +172,6 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                           },
                           variant: AppButtonVariant.secondary,
                         ),
-                      const SizedBox(height: AppSpacing.md),
-                      AppButton(
-                        label: 'Start Practice Quiz',
-                        onPressed: () {
-                          if (state.topic != null) {
-                            context.push(
-                              AppRoute.quiz.path.replaceAll(
-                                ':chapterId',
-                                state.topic!.chapterId,
-                              ),
-                            );
-                          }
-                        },
-                        icon: const Icon(Icons.quiz),
-                      ),
                     ],
                   ),
                 ),

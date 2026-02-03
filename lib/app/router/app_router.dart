@@ -11,6 +11,7 @@ import 'package:padhai/features/subjects/presentation/screens/subject_detail_scr
 import 'package:padhai/features/chapters/presentation/screens/chapter_detail_screen.dart';
 import 'package:padhai/features/study_materials/presentation/screens/study_materials_screen.dart';
 import 'package:padhai/features/practice/presentation/screens/practice_mode_screen.dart';
+import 'package:padhai/features/flashcards/presentation/screens/flashcards_screen.dart';
 import 'package:padhai/features/topics/presentation/screens/topic_detail_screen.dart';
 import 'package:padhai/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:padhai/features/quiz/presentation/screens/quiz_result_screen.dart';
@@ -131,6 +132,20 @@ class AppRouter {
       GoRoute(
         path: AppRoute.review.path,
         builder: (context, state) => const ReviewScreen(),
+      ),
+      GoRoute(
+        path: '/topic/:topicId/flashcards',
+        builder: (context, state) {
+          final topicId = state.pathParameters['topicId'];
+          final topicName = state.uri.queryParameters['name'] ?? 'Flashcards';
+          if (topicId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid topic');
+          }
+          return FlashcardsScreen(
+            topicId: int.parse(topicId),
+            topicName: topicName,
+          );
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

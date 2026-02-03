@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:padhai/core/database/content_seeder.dart';
 import 'package:padhai/core/database/daos/bookmarks_dao.dart';
 import 'package:padhai/core/database/daos/chapters_dao.dart';
+import 'package:padhai/core/database/daos/flashcards_dao.dart';
 import 'package:padhai/core/database/daos/practice_attempts_dao.dart';
 import 'package:padhai/core/database/daos/progress_dao.dart';
 import 'package:padhai/core/database/daos/questions_dao.dart';
@@ -52,6 +53,7 @@ part 'app_database.g.dart';
     BookmarksDao,
     StudyResourcesDao,
     PracticeAttemptsDao,
+    FlashcardsDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
