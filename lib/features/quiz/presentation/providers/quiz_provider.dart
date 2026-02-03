@@ -152,6 +152,9 @@ class QuizNotifier extends StateNotifier<QuizState> {
   }
 
   void _startTimer() {
+    // Cancel any existing timer to prevent multiple timers
+    _timer?.cancel();
+    
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (state.remainingSeconds != null && state.remainingSeconds! > 0) {
         state = state.copyWith(remainingSeconds: state.remainingSeconds! - 1);

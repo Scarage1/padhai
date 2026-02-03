@@ -27,6 +27,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
   // ignore: unused_field - Reserved for future detailed answers display
   List<UserAnswer> _answers = [];
   bool _isLoading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -40,14 +41,18 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
       final attempt = await database.quizDao.getQuizAttemptById(widget.attemptId);
       final answers = await database.quizDao.getUserAnswersByAttempt(widget.attemptId);
 
+      if (!mounted) return;
       setState(() {
         _attempt = attempt;
         _answers = answers;
         _isLoading = false;
       });
     } catch (e) {
+      debugPrint('Failed to load quiz results: $e');
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
+        _error = 'Failed to load results: $e';
       });
     }
   }
@@ -75,10 +80,11 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Quiz results not found',
+                _error ?? 'Quiz results not found',
                 style: AppTypography.h3.copyWith(
                   color: AppColors.textPrimary,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xl),
               AppButton(
@@ -91,7 +97,9 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
       );
     }
 
-    final score = _attempt!.score.toDouble();
+    // Capture attempt in local variable for null safety
+    final attempt = _attempt!;
+    final score = attempt.score.toDouble();
     final isPassed = score >= 60;
 
     return Scaffold(
@@ -168,7 +176,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
                 Expanded(
                   child: _buildStatCard(
                     'Total',
-                    '${_attempt!.totalQuestions}',
+                    '${attempt.totalQuestions}',
                     Icons.quiz,
                     AppColors.primary,
                   ),
@@ -177,7 +185,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
                 Expanded(
                   child: _buildStatCard(
                     'Correct',
-                    '${_attempt!.correctAnswers}',
+                    '${attempt.correctAnswers}',
                     Icons.check_circle,
                     AppColors.success,
                   ),
@@ -186,7 +194,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
                 Expanded(
                   child: _buildStatCard(
                     'Wrong',
-                    '${_attempt!.totalQuestions - _attempt!.correctAnswers}',
+                    '${attempt.totalQuestions - attempt.correctAnswers}',
                     Icons.cancel,
                     AppColors.error,
                   ),
@@ -235,14 +243,7 @@ class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
             const SizedBox(height: AppSpacing.md),
             AppButton(
               label: 'Review Answers',
-              onPressed: () {
-                // TODO: Implement review screen
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Answer review coming soon!'),
-                  ),
-                );
-              },
+              onPressed: () => context.go(AppRoute.review.path),
               icon: const Icon(Icons.visibility),
             ),
           ],

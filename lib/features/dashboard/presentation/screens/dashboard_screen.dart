@@ -87,7 +87,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         const SizedBox(height: AppSpacing.xl),
 
                         // Stats section
-                        if (state.userStats != null) ...[
+                        if (state.userStats case final userStats?) ...[
                           Text(
                             'Your Progress',
                             style: AppTypography.h3.copyWith(
@@ -105,25 +105,25 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             children: [
                               StatsCard(
                                 title: 'Topics Completed',
-                                value: '${state.userStats!.totalTopicsCompleted}',
+                                value: '${userStats.totalTopicsCompleted}',
                                 icon: Icons.check_circle,
                                 color: AppColors.success,
                               ),
                               StatsCard(
                                 title: 'Quiz Attempts',
-                                value: '${state.userStats!.totalQuizAttempts}',
+                                value: '${userStats.totalQuizAttempts}',
                                 icon: Icons.quiz,
                                 color: AppColors.primary,
                               ),
                               StatsCard(
                                 title: 'Streak Days',
-                                value: '${state.userStats!.streakDays}',
+                                value: '${userStats.streakDays}',
                                 icon: Icons.local_fire_department,
                                 color: AppColors.warning,
                               ),
                               StatsCard(
                                 title: 'Avg. Score',
-                                value: '${state.userStats!.averageScore.toStringAsFixed(0)}%',
+                                value: '${userStats.averageScore.toStringAsFixed(0)}%',
                                 icon: Icons.trending_up,
                                 color: AppColors.info,
                               ),

@@ -43,35 +43,50 @@ class AppRouter {
       GoRoute(
         path: AppRoute.subjectDetail.path,
         builder: (context, state) {
-          final subjectId = state.pathParameters['subjectId']!;
+          final subjectId = state.pathParameters['subjectId'];
+          if (subjectId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid subject');
+          }
           return SubjectDetailScreen(subjectId: subjectId);
         },
       ),
       GoRoute(
         path: AppRoute.chapterDetail.path,
         builder: (context, state) {
-          final chapterId = state.pathParameters['chapterId']!;
+          final chapterId = state.pathParameters['chapterId'];
+          if (chapterId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid chapter');
+          }
           return ChapterDetailScreen(chapterId: chapterId);
         },
       ),
       GoRoute(
         path: AppRoute.topicDetail.path,
         builder: (context, state) {
-          final topicId = state.pathParameters['topicId']!;
+          final topicId = state.pathParameters['topicId'];
+          if (topicId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid topic');
+          }
           return TopicDetailScreen(topicId: topicId);
         },
       ),
       GoRoute(
         path: AppRoute.quiz.path,
         builder: (context, state) {
-          final chapterId = state.pathParameters['chapterId']!;
+          final chapterId = state.pathParameters['chapterId'];
+          if (chapterId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid quiz');
+          }
           return QuizScreen(chapterId: chapterId);
         },
       ),
       GoRoute(
         path: AppRoute.quizResult.path,
         builder: (context, state) {
-          final attemptId = state.pathParameters['attemptId']!;
+          final attemptId = state.pathParameters['attemptId'];
+          if (attemptId == null) {
+            return const _InvalidRouteScreen(message: 'Invalid result');
+          }
           return QuizResultScreen(attemptId: attemptId);
         },
       ),
@@ -94,4 +109,33 @@ class AppRouter {
       ),
     ),
   );
+}
+
+/// Widget shown when route parameters are invalid
+class _InvalidRouteScreen extends StatelessWidget {
+  final String message;
+
+  const _InvalidRouteScreen({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Error')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text(message, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => context.go(AppRoute.dashboard.path),
+              child: const Text('Go to Dashboard'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

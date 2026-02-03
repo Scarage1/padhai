@@ -38,6 +38,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     // Navigate to results if quiz is submitted
     if (state.attemptId != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
         context.go(
           AppRoute.quizResult.path.replaceAll(
             ':attemptId',

@@ -61,42 +61,52 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
     try {
       // Get subjects
       final subjectsResult = await _getSubjectsUseCase();
-      subjectsResult.fold(
-        (failure) {
-          state = state.copyWith(
-            isLoading: false,
-            error: failure.message,
-          );
-        },
-        (subjects) async {
-          // Get user stats
-          final authState = _ref.read(authProvider);
-          if (authState.user != null) {
-            final statsResult = await _getUserStatsUseCase(authState.user!.id);
-            statsResult.fold(
-              (failure) {
-                state = state.copyWith(
-                  subjects: subjects,
-                  isLoading: false,
-                  error: failure.message,
-                );
-              },
-              (stats) {
-                state = state.copyWith(
-                  subjects: subjects,
-                  userStats: stats,
-                  isLoading: false,
-                );
-              },
+      
+      // Handle failure case
+      if (subjectsResult.isLeft()) {
+        subjectsResult.fold(
+          (failure) {
+            state = state.copyWith(
+              isLoading: false,
+              error: failure.message,
             );
-          } else {
+          },
+          (_) {},
+        );
+        return;
+      }
+
+      // Get subjects from result
+      final subjects = subjectsResult.getOrElse((_) => []);
+
+      // Get user stats
+      final authState = _ref.read(authProvider);
+      final userId = authState.user?.id;
+      
+      if (userId != null) {
+        final statsResult = await _getUserStatsUseCase(userId);
+        statsResult.fold(
+          (failure) {
             state = state.copyWith(
               subjects: subjects,
               isLoading: false,
+              error: failure.message,
             );
-          }
-        },
-      );
+          },
+          (stats) {
+            state = state.copyWith(
+              subjects: subjects,
+              userStats: stats,
+              isLoading: false,
+            );
+          },
+        );
+      } else {
+        state = state.copyWith(
+          subjects: subjects,
+          isLoading: false,
+        );
+      }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
