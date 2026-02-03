@@ -8,6 +8,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import 'package:padhai/core/database/content_seeder.dart';
 import 'package:padhai/core/database/daos/bookmarks_dao.dart';
 import 'package:padhai/core/database/daos/chapters_dao.dart';
 import 'package:padhai/core/database/daos/progress_dao.dart';
@@ -60,6 +61,7 @@ class AppDatabase extends _$AppDatabase {
           await m.createAll();
           await _createIndexes();
           await _seedInitialData();
+          await _seedContent();
         },
         beforeOpen: (details) async {
           // Enable foreign keys
@@ -241,6 +243,12 @@ class AppDatabase extends _$AppDatabase {
         estimatedMinutes: 50,
       ),
     );
+  }
+
+  /// Seed topics and questions per DOC-011 Content Specification
+  Future<void> _seedContent() async {
+    final seeder = ContentSeeder(this);
+    await seeder.seedAll();
   }
 }
 
