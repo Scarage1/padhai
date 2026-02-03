@@ -12,7 +12,13 @@ final getIt = GetIt.instance;
   preferRelativeImports: true,
   asExtension: true,
 )
-void configureDependencies() => getIt.init();
+void configureDependencies() {
+  // Reset GetIt for testing (allows multiple calls)
+  if (getIt.isRegistered<AppDatabase>()) {
+    return; // Already configured
+  }
+  getIt.init();
+}
 
 @module
 abstract class AppModule {
