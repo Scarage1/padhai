@@ -25,7 +25,7 @@ extension UserModelExtension on domain.User {
       email: email,
       name: name,
       classNumber: Value(classNumber),
-      createdAt: Value(createdAt),
+      createdAt: createdAt,
       lastLoginAt: Value(lastLoginAt),
       hasCompletedOnboarding: Value(hasCompletedOnboarding),
       currentDifficulty: Value(currentDifficulty),

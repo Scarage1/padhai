@@ -5,6 +5,7 @@ import 'package:padhai/app/router/routes.dart';
 import 'package:padhai/features/auth/presentation/screens/login_screen.dart';
 import 'package:padhai/features/auth/presentation/screens/register_screen.dart';
 import 'package:padhai/features/auth/presentation/screens/splash_screen.dart';
+import 'package:padhai/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -16,9 +17,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoute.onboarding.path,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Onboarding - Coming soon')),
-        ),
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         path: AppRoute.login.path,

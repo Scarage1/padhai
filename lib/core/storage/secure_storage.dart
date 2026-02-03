@@ -41,11 +41,15 @@ class SecureStorage {
     return value == 'true';
   }
 
-  Future<void> setOnboardingCompleted() async {
+  Future<void> saveOnboardingCompleted(bool completed) async {
     await _storage.write(
       key: StorageKeys.hasCompletedOnboarding,
-      value: 'true',
+      value: completed.toString(),
     );
+  }
+
+  Future<void> setOnboardingCompleted() async {
+    await saveOnboardingCompleted(true);
   }
 
   // Clear all data
