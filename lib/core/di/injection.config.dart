@@ -60,15 +60,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storageModule.secureStorage,
     );
-    gh.factory<_i733.GetSubjectsUseCase>(
-      () => _i733.GetSubjectsUseCase(gh<_i982.AppDatabase>()),
-    );
-    gh.factory<_i880.GetUserStatsUseCase>(
-      () => _i880.GetUserStatsUseCase(gh<_i982.AppDatabase>()),
-    );
-    gh.factory<_i175.GetChaptersBySubjectUseCase>(
-      () => _i175.GetChaptersBySubjectUseCase(gh<_i982.AppDatabase>()),
-    );
     gh.factory<_i896.GetTopicsByChapterUseCase>(
       () => _i896.GetTopicsByChapterUseCase(gh<_i982.AppDatabase>()),
     );
@@ -77,6 +68,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i368.SaveQuizAttemptUseCase>(
       () => _i368.SaveQuizAttemptUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i733.GetSubjectsUseCase>(
+      () => _i733.GetSubjectsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i880.GetUserStatsUseCase>(
+      () => _i880.GetUserStatsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i175.GetChaptersBySubjectUseCase>(
+      () => _i175.GetChaptersBySubjectUseCase(gh<_i982.AppDatabase>()),
     );
     gh.lazySingleton<_i619.SecureStorage>(
       () => _i619.SecureStorage(gh<_i558.FlutterSecureStorage>()),

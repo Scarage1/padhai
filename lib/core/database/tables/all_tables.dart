@@ -71,6 +71,10 @@ class Questions extends Table {
   TextColumn get difficulty => text()(); // 'beginner', 'intermediate', 'advanced'
   IntColumn get points => integer().withDefault(const Constant(10))();
   TextColumn get imageUrl => text().nullable()();
+  
+  // v1.1.0 additions
+  TextColumn get ncertReference => text().nullable()(); // e.g., "Ch2.3.1"
+  TextColumn get hint => text().nullable()(); // Hint for practice mode
 
   @override
   Set<Column> get primaryKey => {id};
@@ -176,4 +180,93 @@ class SyncQueue extends Table {
   BoolColumn get isSynced => boolean().withDefault(const Constant(false))();
   DateTimeColumn get syncedAt => dateTime().nullable()();
   TextColumn get errorMessage => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+// ===== v1.1.0 New Tables =====
+
+class StudyResources extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  
+  /// Type of study resource: 'summary', 'formula', 'concept_map', 'exam_tip'
+  TextColumn get resourceType => text()();
+  
+  /// Foreign key to chapters table
+  TextColumn get chapterId => text().references(Chapters, #id)();
+  
+  /// Title of the resource
+  TextColumn get title => text()();
+  
+  /// Content in Markdown format
+  TextColumn get content => text()();
+  
+  /// Optional file URL for downloadable PDFs
+  TextColumn get fileUrl => text().nullable()();
+  
+  /// Timestamp when resource was created
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class Flashcards extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  
+  /// Foreign key to topics table
+  TextColumn get topicId => text().references(Topics, #id)();
+  
+  /// Term or concept name
+  TextColumn get term => text()();
+  
+  /// Definition or explanation
+  TextColumn get definition => text()();
+  
+  /// Mastery level (0-5): 0 = new, 5 = mastered
+  IntColumn get masteryLevel => integer().withDefault(const Constant(0))();
+  
+  /// Next scheduled review date (Unix timestamp)
+  IntColumn get nextReviewDate => integer().nullable()();
+  
+  /// Number of times reviewed
+  IntColumn get reviewCount => integer().withDefault(const Constant(0))();
+  
+  /// Last review date (Unix timestamp)
+  IntColumn get lastReviewedAt => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class PracticeAttempts extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  
+  /// Foreign key to users table
+  TextColumn get userId => text().references(Users, #id)();
+  
+  /// Foreign key to topics table
+  TextColumn get topicId => text().references(Topics, #id)();
+  
+  /// Foreign key to questions table
+  TextColumn get questionId => text().references(Questions, #id)();
+  
+  /// User's selected answer
+  TextColumn get userAnswer => text()();
+  
+  /// Whether the answer was correct
+  BoolColumn get isCorrect => boolean()();
+  
+  /// Whether hint was used for this question
+  BoolColumn get hintUsed => boolean().withDefault(const Constant(false))();
+  
+  /// Timestamp when attempted
+  IntColumn get attemptedAt => integer()();
+  
+  /// Time taken to answer (in seconds)
+  IntColumn get timeTaken => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }

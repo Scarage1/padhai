@@ -2143,6 +2143,26 @@ class $QuestionsTable extends Questions
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _ncertReferenceMeta = const VerificationMeta(
+    'ncertReference',
+  );
+  @override
+  late final GeneratedColumn<String> ncertReference = GeneratedColumn<String>(
+    'ncert_reference',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _hintMeta = const VerificationMeta('hint');
+  @override
+  late final GeneratedColumn<String> hint = GeneratedColumn<String>(
+    'hint',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -2156,6 +2176,8 @@ class $QuestionsTable extends Questions
     difficulty,
     points,
     imageUrl,
+    ncertReference,
+    hint,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2262,6 +2284,21 @@ class $QuestionsTable extends Questions
         imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta),
       );
     }
+    if (data.containsKey('ncert_reference')) {
+      context.handle(
+        _ncertReferenceMeta,
+        ncertReference.isAcceptableOrUnknown(
+          data['ncert_reference']!,
+          _ncertReferenceMeta,
+        ),
+      );
+    }
+    if (data.containsKey('hint')) {
+      context.handle(
+        _hintMeta,
+        hint.isAcceptableOrUnknown(data['hint']!, _hintMeta),
+      );
+    }
     return context;
   }
 
@@ -2315,6 +2352,14 @@ class $QuestionsTable extends Questions
         DriftSqlType.string,
         data['${effectivePrefix}image_url'],
       ),
+      ncertReference: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ncert_reference'],
+      ),
+      hint: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hint'],
+      ),
     );
   }
 
@@ -2336,6 +2381,8 @@ class Question extends DataClass implements Insertable<Question> {
   final String difficulty;
   final int points;
   final String? imageUrl;
+  final String? ncertReference;
+  final String? hint;
   const Question({
     required this.id,
     required this.topicId,
@@ -2348,6 +2395,8 @@ class Question extends DataClass implements Insertable<Question> {
     required this.difficulty,
     required this.points,
     this.imageUrl,
+    this.ncertReference,
+    this.hint,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2364,6 +2413,12 @@ class Question extends DataClass implements Insertable<Question> {
     map['points'] = Variable<int>(points);
     if (!nullToAbsent || imageUrl != null) {
       map['image_url'] = Variable<String>(imageUrl);
+    }
+    if (!nullToAbsent || ncertReference != null) {
+      map['ncert_reference'] = Variable<String>(ncertReference);
+    }
+    if (!nullToAbsent || hint != null) {
+      map['hint'] = Variable<String>(hint);
     }
     return map;
   }
@@ -2383,6 +2438,10 @@ class Question extends DataClass implements Insertable<Question> {
       imageUrl: imageUrl == null && nullToAbsent
           ? const Value.absent()
           : Value(imageUrl),
+      ncertReference: ncertReference == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ncertReference),
+      hint: hint == null && nullToAbsent ? const Value.absent() : Value(hint),
     );
   }
 
@@ -2403,6 +2462,8 @@ class Question extends DataClass implements Insertable<Question> {
       difficulty: serializer.fromJson<String>(json['difficulty']),
       points: serializer.fromJson<int>(json['points']),
       imageUrl: serializer.fromJson<String?>(json['imageUrl']),
+      ncertReference: serializer.fromJson<String?>(json['ncertReference']),
+      hint: serializer.fromJson<String?>(json['hint']),
     );
   }
   @override
@@ -2420,6 +2481,8 @@ class Question extends DataClass implements Insertable<Question> {
       'difficulty': serializer.toJson<String>(difficulty),
       'points': serializer.toJson<int>(points),
       'imageUrl': serializer.toJson<String?>(imageUrl),
+      'ncertReference': serializer.toJson<String?>(ncertReference),
+      'hint': serializer.toJson<String?>(hint),
     };
   }
 
@@ -2435,6 +2498,8 @@ class Question extends DataClass implements Insertable<Question> {
     String? difficulty,
     int? points,
     Value<String?> imageUrl = const Value.absent(),
+    Value<String?> ncertReference = const Value.absent(),
+    Value<String?> hint = const Value.absent(),
   }) => Question(
     id: id ?? this.id,
     topicId: topicId ?? this.topicId,
@@ -2447,6 +2512,10 @@ class Question extends DataClass implements Insertable<Question> {
     difficulty: difficulty ?? this.difficulty,
     points: points ?? this.points,
     imageUrl: imageUrl.present ? imageUrl.value : this.imageUrl,
+    ncertReference: ncertReference.present
+        ? ncertReference.value
+        : this.ncertReference,
+    hint: hint.present ? hint.value : this.hint,
   );
   Question copyWithCompanion(QuestionsCompanion data) {
     return Question(
@@ -2471,6 +2540,10 @@ class Question extends DataClass implements Insertable<Question> {
           : this.difficulty,
       points: data.points.present ? data.points.value : this.points,
       imageUrl: data.imageUrl.present ? data.imageUrl.value : this.imageUrl,
+      ncertReference: data.ncertReference.present
+          ? data.ncertReference.value
+          : this.ncertReference,
+      hint: data.hint.present ? data.hint.value : this.hint,
     );
   }
 
@@ -2487,7 +2560,9 @@ class Question extends DataClass implements Insertable<Question> {
           ..write('explanation: $explanation, ')
           ..write('difficulty: $difficulty, ')
           ..write('points: $points, ')
-          ..write('imageUrl: $imageUrl')
+          ..write('imageUrl: $imageUrl, ')
+          ..write('ncertReference: $ncertReference, ')
+          ..write('hint: $hint')
           ..write(')'))
         .toString();
   }
@@ -2505,6 +2580,8 @@ class Question extends DataClass implements Insertable<Question> {
     difficulty,
     points,
     imageUrl,
+    ncertReference,
+    hint,
   );
   @override
   bool operator ==(Object other) =>
@@ -2520,7 +2597,9 @@ class Question extends DataClass implements Insertable<Question> {
           other.explanation == this.explanation &&
           other.difficulty == this.difficulty &&
           other.points == this.points &&
-          other.imageUrl == this.imageUrl);
+          other.imageUrl == this.imageUrl &&
+          other.ncertReference == this.ncertReference &&
+          other.hint == this.hint);
 }
 
 class QuestionsCompanion extends UpdateCompanion<Question> {
@@ -2535,6 +2614,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
   final Value<String> difficulty;
   final Value<int> points;
   final Value<String?> imageUrl;
+  final Value<String?> ncertReference;
+  final Value<String?> hint;
   final Value<int> rowid;
   const QuestionsCompanion({
     this.id = const Value.absent(),
@@ -2548,6 +2629,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     this.difficulty = const Value.absent(),
     this.points = const Value.absent(),
     this.imageUrl = const Value.absent(),
+    this.ncertReference = const Value.absent(),
+    this.hint = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   QuestionsCompanion.insert({
@@ -2562,6 +2645,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     required String difficulty,
     this.points = const Value.absent(),
     this.imageUrl = const Value.absent(),
+    this.ncertReference = const Value.absent(),
+    this.hint = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        topicId = Value(topicId),
@@ -2584,6 +2669,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     Expression<String>? difficulty,
     Expression<int>? points,
     Expression<String>? imageUrl,
+    Expression<String>? ncertReference,
+    Expression<String>? hint,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -2598,6 +2685,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
       if (difficulty != null) 'difficulty': difficulty,
       if (points != null) 'points': points,
       if (imageUrl != null) 'image_url': imageUrl,
+      if (ncertReference != null) 'ncert_reference': ncertReference,
+      if (hint != null) 'hint': hint,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -2614,6 +2703,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     Value<String>? difficulty,
     Value<int>? points,
     Value<String?>? imageUrl,
+    Value<String?>? ncertReference,
+    Value<String?>? hint,
     Value<int>? rowid,
   }) {
     return QuestionsCompanion(
@@ -2628,6 +2719,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
       difficulty: difficulty ?? this.difficulty,
       points: points ?? this.points,
       imageUrl: imageUrl ?? this.imageUrl,
+      ncertReference: ncertReference ?? this.ncertReference,
+      hint: hint ?? this.hint,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2668,6 +2761,12 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     if (imageUrl.present) {
       map['image_url'] = Variable<String>(imageUrl.value);
     }
+    if (ncertReference.present) {
+      map['ncert_reference'] = Variable<String>(ncertReference.value);
+    }
+    if (hint.present) {
+      map['hint'] = Variable<String>(hint.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2688,6 +2787,8 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
           ..write('difficulty: $difficulty, ')
           ..write('points: $points, ')
           ..write('imageUrl: $imageUrl, ')
+          ..write('ncertReference: $ncertReference, ')
+          ..write('hint: $hint, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -5917,6 +6018,1607 @@ class SyncQueueCompanion extends UpdateCompanion<SyncQueueData> {
   }
 }
 
+class $StudyResourcesTable extends StudyResources
+    with TableInfo<$StudyResourcesTable, StudyResource> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StudyResourcesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _resourceTypeMeta = const VerificationMeta(
+    'resourceType',
+  );
+  @override
+  late final GeneratedColumn<String> resourceType = GeneratedColumn<String>(
+    'resource_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _chapterIdMeta = const VerificationMeta(
+    'chapterId',
+  );
+  @override
+  late final GeneratedColumn<String> chapterId = GeneratedColumn<String>(
+    'chapter_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES chapters (id)',
+    ),
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+    'content',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fileUrlMeta = const VerificationMeta(
+    'fileUrl',
+  );
+  @override
+  late final GeneratedColumn<String> fileUrl = GeneratedColumn<String>(
+    'file_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    resourceType,
+    chapterId,
+    title,
+    content,
+    fileUrl,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'study_resources';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<StudyResource> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('resource_type')) {
+      context.handle(
+        _resourceTypeMeta,
+        resourceType.isAcceptableOrUnknown(
+          data['resource_type']!,
+          _resourceTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_resourceTypeMeta);
+    }
+    if (data.containsKey('chapter_id')) {
+      context.handle(
+        _chapterIdMeta,
+        chapterId.isAcceptableOrUnknown(data['chapter_id']!, _chapterIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_chapterIdMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('file_url')) {
+      context.handle(
+        _fileUrlMeta,
+        fileUrl.isAcceptableOrUnknown(data['file_url']!, _fileUrlMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  StudyResource map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StudyResource(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      resourceType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}resource_type'],
+      )!,
+      chapterId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}chapter_id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      fileUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}file_url'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $StudyResourcesTable createAlias(String alias) {
+    return $StudyResourcesTable(attachedDatabase, alias);
+  }
+}
+
+class StudyResource extends DataClass implements Insertable<StudyResource> {
+  final int id;
+
+  /// Type of study resource: 'summary', 'formula', 'concept_map', 'exam_tip'
+  final String resourceType;
+
+  /// Foreign key to chapters table
+  final String chapterId;
+
+  /// Title of the resource
+  final String title;
+
+  /// Content in Markdown format
+  final String content;
+
+  /// Optional file URL for downloadable PDFs
+  final String? fileUrl;
+
+  /// Timestamp when resource was created
+  final int createdAt;
+  const StudyResource({
+    required this.id,
+    required this.resourceType,
+    required this.chapterId,
+    required this.title,
+    required this.content,
+    this.fileUrl,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['resource_type'] = Variable<String>(resourceType);
+    map['chapter_id'] = Variable<String>(chapterId);
+    map['title'] = Variable<String>(title);
+    map['content'] = Variable<String>(content);
+    if (!nullToAbsent || fileUrl != null) {
+      map['file_url'] = Variable<String>(fileUrl);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    return map;
+  }
+
+  StudyResourcesCompanion toCompanion(bool nullToAbsent) {
+    return StudyResourcesCompanion(
+      id: Value(id),
+      resourceType: Value(resourceType),
+      chapterId: Value(chapterId),
+      title: Value(title),
+      content: Value(content),
+      fileUrl: fileUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fileUrl),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory StudyResource.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StudyResource(
+      id: serializer.fromJson<int>(json['id']),
+      resourceType: serializer.fromJson<String>(json['resourceType']),
+      chapterId: serializer.fromJson<String>(json['chapterId']),
+      title: serializer.fromJson<String>(json['title']),
+      content: serializer.fromJson<String>(json['content']),
+      fileUrl: serializer.fromJson<String?>(json['fileUrl']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'resourceType': serializer.toJson<String>(resourceType),
+      'chapterId': serializer.toJson<String>(chapterId),
+      'title': serializer.toJson<String>(title),
+      'content': serializer.toJson<String>(content),
+      'fileUrl': serializer.toJson<String?>(fileUrl),
+      'createdAt': serializer.toJson<int>(createdAt),
+    };
+  }
+
+  StudyResource copyWith({
+    int? id,
+    String? resourceType,
+    String? chapterId,
+    String? title,
+    String? content,
+    Value<String?> fileUrl = const Value.absent(),
+    int? createdAt,
+  }) => StudyResource(
+    id: id ?? this.id,
+    resourceType: resourceType ?? this.resourceType,
+    chapterId: chapterId ?? this.chapterId,
+    title: title ?? this.title,
+    content: content ?? this.content,
+    fileUrl: fileUrl.present ? fileUrl.value : this.fileUrl,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  StudyResource copyWithCompanion(StudyResourcesCompanion data) {
+    return StudyResource(
+      id: data.id.present ? data.id.value : this.id,
+      resourceType: data.resourceType.present
+          ? data.resourceType.value
+          : this.resourceType,
+      chapterId: data.chapterId.present ? data.chapterId.value : this.chapterId,
+      title: data.title.present ? data.title.value : this.title,
+      content: data.content.present ? data.content.value : this.content,
+      fileUrl: data.fileUrl.present ? data.fileUrl.value : this.fileUrl,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyResource(')
+          ..write('id: $id, ')
+          ..write('resourceType: $resourceType, ')
+          ..write('chapterId: $chapterId, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('fileUrl: $fileUrl, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    resourceType,
+    chapterId,
+    title,
+    content,
+    fileUrl,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StudyResource &&
+          other.id == this.id &&
+          other.resourceType == this.resourceType &&
+          other.chapterId == this.chapterId &&
+          other.title == this.title &&
+          other.content == this.content &&
+          other.fileUrl == this.fileUrl &&
+          other.createdAt == this.createdAt);
+}
+
+class StudyResourcesCompanion extends UpdateCompanion<StudyResource> {
+  final Value<int> id;
+  final Value<String> resourceType;
+  final Value<String> chapterId;
+  final Value<String> title;
+  final Value<String> content;
+  final Value<String?> fileUrl;
+  final Value<int> createdAt;
+  const StudyResourcesCompanion({
+    this.id = const Value.absent(),
+    this.resourceType = const Value.absent(),
+    this.chapterId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.content = const Value.absent(),
+    this.fileUrl = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  StudyResourcesCompanion.insert({
+    this.id = const Value.absent(),
+    required String resourceType,
+    required String chapterId,
+    required String title,
+    required String content,
+    this.fileUrl = const Value.absent(),
+    required int createdAt,
+  }) : resourceType = Value(resourceType),
+       chapterId = Value(chapterId),
+       title = Value(title),
+       content = Value(content),
+       createdAt = Value(createdAt);
+  static Insertable<StudyResource> custom({
+    Expression<int>? id,
+    Expression<String>? resourceType,
+    Expression<String>? chapterId,
+    Expression<String>? title,
+    Expression<String>? content,
+    Expression<String>? fileUrl,
+    Expression<int>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (resourceType != null) 'resource_type': resourceType,
+      if (chapterId != null) 'chapter_id': chapterId,
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (fileUrl != null) 'file_url': fileUrl,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  StudyResourcesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? resourceType,
+    Value<String>? chapterId,
+    Value<String>? title,
+    Value<String>? content,
+    Value<String?>? fileUrl,
+    Value<int>? createdAt,
+  }) {
+    return StudyResourcesCompanion(
+      id: id ?? this.id,
+      resourceType: resourceType ?? this.resourceType,
+      chapterId: chapterId ?? this.chapterId,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      fileUrl: fileUrl ?? this.fileUrl,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (resourceType.present) {
+      map['resource_type'] = Variable<String>(resourceType.value);
+    }
+    if (chapterId.present) {
+      map['chapter_id'] = Variable<String>(chapterId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (fileUrl.present) {
+      map['file_url'] = Variable<String>(fileUrl.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyResourcesCompanion(')
+          ..write('id: $id, ')
+          ..write('resourceType: $resourceType, ')
+          ..write('chapterId: $chapterId, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('fileUrl: $fileUrl, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FlashcardsTable extends Flashcards
+    with TableInfo<$FlashcardsTable, Flashcard> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FlashcardsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _topicIdMeta = const VerificationMeta(
+    'topicId',
+  );
+  @override
+  late final GeneratedColumn<String> topicId = GeneratedColumn<String>(
+    'topic_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES topics (id)',
+    ),
+  );
+  static const VerificationMeta _termMeta = const VerificationMeta('term');
+  @override
+  late final GeneratedColumn<String> term = GeneratedColumn<String>(
+    'term',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _definitionMeta = const VerificationMeta(
+    'definition',
+  );
+  @override
+  late final GeneratedColumn<String> definition = GeneratedColumn<String>(
+    'definition',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _masteryLevelMeta = const VerificationMeta(
+    'masteryLevel',
+  );
+  @override
+  late final GeneratedColumn<int> masteryLevel = GeneratedColumn<int>(
+    'mastery_level',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _nextReviewDateMeta = const VerificationMeta(
+    'nextReviewDate',
+  );
+  @override
+  late final GeneratedColumn<int> nextReviewDate = GeneratedColumn<int>(
+    'next_review_date',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _reviewCountMeta = const VerificationMeta(
+    'reviewCount',
+  );
+  @override
+  late final GeneratedColumn<int> reviewCount = GeneratedColumn<int>(
+    'review_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastReviewedAtMeta = const VerificationMeta(
+    'lastReviewedAt',
+  );
+  @override
+  late final GeneratedColumn<int> lastReviewedAt = GeneratedColumn<int>(
+    'last_reviewed_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    topicId,
+    term,
+    definition,
+    masteryLevel,
+    nextReviewDate,
+    reviewCount,
+    lastReviewedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'flashcards';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Flashcard> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('topic_id')) {
+      context.handle(
+        _topicIdMeta,
+        topicId.isAcceptableOrUnknown(data['topic_id']!, _topicIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_topicIdMeta);
+    }
+    if (data.containsKey('term')) {
+      context.handle(
+        _termMeta,
+        term.isAcceptableOrUnknown(data['term']!, _termMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_termMeta);
+    }
+    if (data.containsKey('definition')) {
+      context.handle(
+        _definitionMeta,
+        definition.isAcceptableOrUnknown(data['definition']!, _definitionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_definitionMeta);
+    }
+    if (data.containsKey('mastery_level')) {
+      context.handle(
+        _masteryLevelMeta,
+        masteryLevel.isAcceptableOrUnknown(
+          data['mastery_level']!,
+          _masteryLevelMeta,
+        ),
+      );
+    }
+    if (data.containsKey('next_review_date')) {
+      context.handle(
+        _nextReviewDateMeta,
+        nextReviewDate.isAcceptableOrUnknown(
+          data['next_review_date']!,
+          _nextReviewDateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('review_count')) {
+      context.handle(
+        _reviewCountMeta,
+        reviewCount.isAcceptableOrUnknown(
+          data['review_count']!,
+          _reviewCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('last_reviewed_at')) {
+      context.handle(
+        _lastReviewedAtMeta,
+        lastReviewedAt.isAcceptableOrUnknown(
+          data['last_reviewed_at']!,
+          _lastReviewedAtMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Flashcard map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Flashcard(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      topicId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}topic_id'],
+      )!,
+      term: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}term'],
+      )!,
+      definition: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}definition'],
+      )!,
+      masteryLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}mastery_level'],
+      )!,
+      nextReviewDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}next_review_date'],
+      ),
+      reviewCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}review_count'],
+      )!,
+      lastReviewedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}last_reviewed_at'],
+      ),
+    );
+  }
+
+  @override
+  $FlashcardsTable createAlias(String alias) {
+    return $FlashcardsTable(attachedDatabase, alias);
+  }
+}
+
+class Flashcard extends DataClass implements Insertable<Flashcard> {
+  final int id;
+
+  /// Foreign key to topics table
+  final String topicId;
+
+  /// Term or concept name
+  final String term;
+
+  /// Definition or explanation
+  final String definition;
+
+  /// Mastery level (0-5): 0 = new, 5 = mastered
+  final int masteryLevel;
+
+  /// Next scheduled review date (Unix timestamp)
+  final int? nextReviewDate;
+
+  /// Number of times reviewed
+  final int reviewCount;
+
+  /// Last review date (Unix timestamp)
+  final int? lastReviewedAt;
+  const Flashcard({
+    required this.id,
+    required this.topicId,
+    required this.term,
+    required this.definition,
+    required this.masteryLevel,
+    this.nextReviewDate,
+    required this.reviewCount,
+    this.lastReviewedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['topic_id'] = Variable<String>(topicId);
+    map['term'] = Variable<String>(term);
+    map['definition'] = Variable<String>(definition);
+    map['mastery_level'] = Variable<int>(masteryLevel);
+    if (!nullToAbsent || nextReviewDate != null) {
+      map['next_review_date'] = Variable<int>(nextReviewDate);
+    }
+    map['review_count'] = Variable<int>(reviewCount);
+    if (!nullToAbsent || lastReviewedAt != null) {
+      map['last_reviewed_at'] = Variable<int>(lastReviewedAt);
+    }
+    return map;
+  }
+
+  FlashcardsCompanion toCompanion(bool nullToAbsent) {
+    return FlashcardsCompanion(
+      id: Value(id),
+      topicId: Value(topicId),
+      term: Value(term),
+      definition: Value(definition),
+      masteryLevel: Value(masteryLevel),
+      nextReviewDate: nextReviewDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nextReviewDate),
+      reviewCount: Value(reviewCount),
+      lastReviewedAt: lastReviewedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastReviewedAt),
+    );
+  }
+
+  factory Flashcard.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Flashcard(
+      id: serializer.fromJson<int>(json['id']),
+      topicId: serializer.fromJson<String>(json['topicId']),
+      term: serializer.fromJson<String>(json['term']),
+      definition: serializer.fromJson<String>(json['definition']),
+      masteryLevel: serializer.fromJson<int>(json['masteryLevel']),
+      nextReviewDate: serializer.fromJson<int?>(json['nextReviewDate']),
+      reviewCount: serializer.fromJson<int>(json['reviewCount']),
+      lastReviewedAt: serializer.fromJson<int?>(json['lastReviewedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'topicId': serializer.toJson<String>(topicId),
+      'term': serializer.toJson<String>(term),
+      'definition': serializer.toJson<String>(definition),
+      'masteryLevel': serializer.toJson<int>(masteryLevel),
+      'nextReviewDate': serializer.toJson<int?>(nextReviewDate),
+      'reviewCount': serializer.toJson<int>(reviewCount),
+      'lastReviewedAt': serializer.toJson<int?>(lastReviewedAt),
+    };
+  }
+
+  Flashcard copyWith({
+    int? id,
+    String? topicId,
+    String? term,
+    String? definition,
+    int? masteryLevel,
+    Value<int?> nextReviewDate = const Value.absent(),
+    int? reviewCount,
+    Value<int?> lastReviewedAt = const Value.absent(),
+  }) => Flashcard(
+    id: id ?? this.id,
+    topicId: topicId ?? this.topicId,
+    term: term ?? this.term,
+    definition: definition ?? this.definition,
+    masteryLevel: masteryLevel ?? this.masteryLevel,
+    nextReviewDate: nextReviewDate.present
+        ? nextReviewDate.value
+        : this.nextReviewDate,
+    reviewCount: reviewCount ?? this.reviewCount,
+    lastReviewedAt: lastReviewedAt.present
+        ? lastReviewedAt.value
+        : this.lastReviewedAt,
+  );
+  Flashcard copyWithCompanion(FlashcardsCompanion data) {
+    return Flashcard(
+      id: data.id.present ? data.id.value : this.id,
+      topicId: data.topicId.present ? data.topicId.value : this.topicId,
+      term: data.term.present ? data.term.value : this.term,
+      definition: data.definition.present
+          ? data.definition.value
+          : this.definition,
+      masteryLevel: data.masteryLevel.present
+          ? data.masteryLevel.value
+          : this.masteryLevel,
+      nextReviewDate: data.nextReviewDate.present
+          ? data.nextReviewDate.value
+          : this.nextReviewDate,
+      reviewCount: data.reviewCount.present
+          ? data.reviewCount.value
+          : this.reviewCount,
+      lastReviewedAt: data.lastReviewedAt.present
+          ? data.lastReviewedAt.value
+          : this.lastReviewedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Flashcard(')
+          ..write('id: $id, ')
+          ..write('topicId: $topicId, ')
+          ..write('term: $term, ')
+          ..write('definition: $definition, ')
+          ..write('masteryLevel: $masteryLevel, ')
+          ..write('nextReviewDate: $nextReviewDate, ')
+          ..write('reviewCount: $reviewCount, ')
+          ..write('lastReviewedAt: $lastReviewedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    topicId,
+    term,
+    definition,
+    masteryLevel,
+    nextReviewDate,
+    reviewCount,
+    lastReviewedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Flashcard &&
+          other.id == this.id &&
+          other.topicId == this.topicId &&
+          other.term == this.term &&
+          other.definition == this.definition &&
+          other.masteryLevel == this.masteryLevel &&
+          other.nextReviewDate == this.nextReviewDate &&
+          other.reviewCount == this.reviewCount &&
+          other.lastReviewedAt == this.lastReviewedAt);
+}
+
+class FlashcardsCompanion extends UpdateCompanion<Flashcard> {
+  final Value<int> id;
+  final Value<String> topicId;
+  final Value<String> term;
+  final Value<String> definition;
+  final Value<int> masteryLevel;
+  final Value<int?> nextReviewDate;
+  final Value<int> reviewCount;
+  final Value<int?> lastReviewedAt;
+  const FlashcardsCompanion({
+    this.id = const Value.absent(),
+    this.topicId = const Value.absent(),
+    this.term = const Value.absent(),
+    this.definition = const Value.absent(),
+    this.masteryLevel = const Value.absent(),
+    this.nextReviewDate = const Value.absent(),
+    this.reviewCount = const Value.absent(),
+    this.lastReviewedAt = const Value.absent(),
+  });
+  FlashcardsCompanion.insert({
+    this.id = const Value.absent(),
+    required String topicId,
+    required String term,
+    required String definition,
+    this.masteryLevel = const Value.absent(),
+    this.nextReviewDate = const Value.absent(),
+    this.reviewCount = const Value.absent(),
+    this.lastReviewedAt = const Value.absent(),
+  }) : topicId = Value(topicId),
+       term = Value(term),
+       definition = Value(definition);
+  static Insertable<Flashcard> custom({
+    Expression<int>? id,
+    Expression<String>? topicId,
+    Expression<String>? term,
+    Expression<String>? definition,
+    Expression<int>? masteryLevel,
+    Expression<int>? nextReviewDate,
+    Expression<int>? reviewCount,
+    Expression<int>? lastReviewedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (topicId != null) 'topic_id': topicId,
+      if (term != null) 'term': term,
+      if (definition != null) 'definition': definition,
+      if (masteryLevel != null) 'mastery_level': masteryLevel,
+      if (nextReviewDate != null) 'next_review_date': nextReviewDate,
+      if (reviewCount != null) 'review_count': reviewCount,
+      if (lastReviewedAt != null) 'last_reviewed_at': lastReviewedAt,
+    });
+  }
+
+  FlashcardsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? topicId,
+    Value<String>? term,
+    Value<String>? definition,
+    Value<int>? masteryLevel,
+    Value<int?>? nextReviewDate,
+    Value<int>? reviewCount,
+    Value<int?>? lastReviewedAt,
+  }) {
+    return FlashcardsCompanion(
+      id: id ?? this.id,
+      topicId: topicId ?? this.topicId,
+      term: term ?? this.term,
+      definition: definition ?? this.definition,
+      masteryLevel: masteryLevel ?? this.masteryLevel,
+      nextReviewDate: nextReviewDate ?? this.nextReviewDate,
+      reviewCount: reviewCount ?? this.reviewCount,
+      lastReviewedAt: lastReviewedAt ?? this.lastReviewedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (topicId.present) {
+      map['topic_id'] = Variable<String>(topicId.value);
+    }
+    if (term.present) {
+      map['term'] = Variable<String>(term.value);
+    }
+    if (definition.present) {
+      map['definition'] = Variable<String>(definition.value);
+    }
+    if (masteryLevel.present) {
+      map['mastery_level'] = Variable<int>(masteryLevel.value);
+    }
+    if (nextReviewDate.present) {
+      map['next_review_date'] = Variable<int>(nextReviewDate.value);
+    }
+    if (reviewCount.present) {
+      map['review_count'] = Variable<int>(reviewCount.value);
+    }
+    if (lastReviewedAt.present) {
+      map['last_reviewed_at'] = Variable<int>(lastReviewedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FlashcardsCompanion(')
+          ..write('id: $id, ')
+          ..write('topicId: $topicId, ')
+          ..write('term: $term, ')
+          ..write('definition: $definition, ')
+          ..write('masteryLevel: $masteryLevel, ')
+          ..write('nextReviewDate: $nextReviewDate, ')
+          ..write('reviewCount: $reviewCount, ')
+          ..write('lastReviewedAt: $lastReviewedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PracticeAttemptsTable extends PracticeAttempts
+    with TableInfo<$PracticeAttemptsTable, PracticeAttempt> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PracticeAttemptsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES users (id)',
+    ),
+  );
+  static const VerificationMeta _topicIdMeta = const VerificationMeta(
+    'topicId',
+  );
+  @override
+  late final GeneratedColumn<String> topicId = GeneratedColumn<String>(
+    'topic_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES topics (id)',
+    ),
+  );
+  static const VerificationMeta _questionIdMeta = const VerificationMeta(
+    'questionId',
+  );
+  @override
+  late final GeneratedColumn<String> questionId = GeneratedColumn<String>(
+    'question_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES questions (id)',
+    ),
+  );
+  static const VerificationMeta _userAnswerMeta = const VerificationMeta(
+    'userAnswer',
+  );
+  @override
+  late final GeneratedColumn<String> userAnswer = GeneratedColumn<String>(
+    'user_answer',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isCorrectMeta = const VerificationMeta(
+    'isCorrect',
+  );
+  @override
+  late final GeneratedColumn<bool> isCorrect = GeneratedColumn<bool>(
+    'is_correct',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_correct" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _hintUsedMeta = const VerificationMeta(
+    'hintUsed',
+  );
+  @override
+  late final GeneratedColumn<bool> hintUsed = GeneratedColumn<bool>(
+    'hint_used',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("hint_used" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _attemptedAtMeta = const VerificationMeta(
+    'attemptedAt',
+  );
+  @override
+  late final GeneratedColumn<int> attemptedAt = GeneratedColumn<int>(
+    'attempted_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _timeTakenMeta = const VerificationMeta(
+    'timeTaken',
+  );
+  @override
+  late final GeneratedColumn<int> timeTaken = GeneratedColumn<int>(
+    'time_taken',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    userId,
+    topicId,
+    questionId,
+    userAnswer,
+    isCorrect,
+    hintUsed,
+    attemptedAt,
+    timeTaken,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'practice_attempts';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PracticeAttempt> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('topic_id')) {
+      context.handle(
+        _topicIdMeta,
+        topicId.isAcceptableOrUnknown(data['topic_id']!, _topicIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_topicIdMeta);
+    }
+    if (data.containsKey('question_id')) {
+      context.handle(
+        _questionIdMeta,
+        questionId.isAcceptableOrUnknown(data['question_id']!, _questionIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_questionIdMeta);
+    }
+    if (data.containsKey('user_answer')) {
+      context.handle(
+        _userAnswerMeta,
+        userAnswer.isAcceptableOrUnknown(data['user_answer']!, _userAnswerMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_userAnswerMeta);
+    }
+    if (data.containsKey('is_correct')) {
+      context.handle(
+        _isCorrectMeta,
+        isCorrect.isAcceptableOrUnknown(data['is_correct']!, _isCorrectMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_isCorrectMeta);
+    }
+    if (data.containsKey('hint_used')) {
+      context.handle(
+        _hintUsedMeta,
+        hintUsed.isAcceptableOrUnknown(data['hint_used']!, _hintUsedMeta),
+      );
+    }
+    if (data.containsKey('attempted_at')) {
+      context.handle(
+        _attemptedAtMeta,
+        attemptedAt.isAcceptableOrUnknown(
+          data['attempted_at']!,
+          _attemptedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_attemptedAtMeta);
+    }
+    if (data.containsKey('time_taken')) {
+      context.handle(
+        _timeTakenMeta,
+        timeTaken.isAcceptableOrUnknown(data['time_taken']!, _timeTakenMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PracticeAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PracticeAttempt(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      userId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_id'],
+      )!,
+      topicId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}topic_id'],
+      )!,
+      questionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}question_id'],
+      )!,
+      userAnswer: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_answer'],
+      )!,
+      isCorrect: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_correct'],
+      )!,
+      hintUsed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}hint_used'],
+      )!,
+      attemptedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}attempted_at'],
+      )!,
+      timeTaken: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}time_taken'],
+      ),
+    );
+  }
+
+  @override
+  $PracticeAttemptsTable createAlias(String alias) {
+    return $PracticeAttemptsTable(attachedDatabase, alias);
+  }
+}
+
+class PracticeAttempt extends DataClass implements Insertable<PracticeAttempt> {
+  final int id;
+
+  /// Foreign key to users table
+  final String userId;
+
+  /// Foreign key to topics table
+  final String topicId;
+
+  /// Foreign key to questions table
+  final String questionId;
+
+  /// User's selected answer
+  final String userAnswer;
+
+  /// Whether the answer was correct
+  final bool isCorrect;
+
+  /// Whether hint was used for this question
+  final bool hintUsed;
+
+  /// Timestamp when attempted
+  final int attemptedAt;
+
+  /// Time taken to answer (in seconds)
+  final int? timeTaken;
+  const PracticeAttempt({
+    required this.id,
+    required this.userId,
+    required this.topicId,
+    required this.questionId,
+    required this.userAnswer,
+    required this.isCorrect,
+    required this.hintUsed,
+    required this.attemptedAt,
+    this.timeTaken,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['topic_id'] = Variable<String>(topicId);
+    map['question_id'] = Variable<String>(questionId);
+    map['user_answer'] = Variable<String>(userAnswer);
+    map['is_correct'] = Variable<bool>(isCorrect);
+    map['hint_used'] = Variable<bool>(hintUsed);
+    map['attempted_at'] = Variable<int>(attemptedAt);
+    if (!nullToAbsent || timeTaken != null) {
+      map['time_taken'] = Variable<int>(timeTaken);
+    }
+    return map;
+  }
+
+  PracticeAttemptsCompanion toCompanion(bool nullToAbsent) {
+    return PracticeAttemptsCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      topicId: Value(topicId),
+      questionId: Value(questionId),
+      userAnswer: Value(userAnswer),
+      isCorrect: Value(isCorrect),
+      hintUsed: Value(hintUsed),
+      attemptedAt: Value(attemptedAt),
+      timeTaken: timeTaken == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timeTaken),
+    );
+  }
+
+  factory PracticeAttempt.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PracticeAttempt(
+      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      topicId: serializer.fromJson<String>(json['topicId']),
+      questionId: serializer.fromJson<String>(json['questionId']),
+      userAnswer: serializer.fromJson<String>(json['userAnswer']),
+      isCorrect: serializer.fromJson<bool>(json['isCorrect']),
+      hintUsed: serializer.fromJson<bool>(json['hintUsed']),
+      attemptedAt: serializer.fromJson<int>(json['attemptedAt']),
+      timeTaken: serializer.fromJson<int?>(json['timeTaken']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'userId': serializer.toJson<String>(userId),
+      'topicId': serializer.toJson<String>(topicId),
+      'questionId': serializer.toJson<String>(questionId),
+      'userAnswer': serializer.toJson<String>(userAnswer),
+      'isCorrect': serializer.toJson<bool>(isCorrect),
+      'hintUsed': serializer.toJson<bool>(hintUsed),
+      'attemptedAt': serializer.toJson<int>(attemptedAt),
+      'timeTaken': serializer.toJson<int?>(timeTaken),
+    };
+  }
+
+  PracticeAttempt copyWith({
+    int? id,
+    String? userId,
+    String? topicId,
+    String? questionId,
+    String? userAnswer,
+    bool? isCorrect,
+    bool? hintUsed,
+    int? attemptedAt,
+    Value<int?> timeTaken = const Value.absent(),
+  }) => PracticeAttempt(
+    id: id ?? this.id,
+    userId: userId ?? this.userId,
+    topicId: topicId ?? this.topicId,
+    questionId: questionId ?? this.questionId,
+    userAnswer: userAnswer ?? this.userAnswer,
+    isCorrect: isCorrect ?? this.isCorrect,
+    hintUsed: hintUsed ?? this.hintUsed,
+    attemptedAt: attemptedAt ?? this.attemptedAt,
+    timeTaken: timeTaken.present ? timeTaken.value : this.timeTaken,
+  );
+  PracticeAttempt copyWithCompanion(PracticeAttemptsCompanion data) {
+    return PracticeAttempt(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      topicId: data.topicId.present ? data.topicId.value : this.topicId,
+      questionId: data.questionId.present
+          ? data.questionId.value
+          : this.questionId,
+      userAnswer: data.userAnswer.present
+          ? data.userAnswer.value
+          : this.userAnswer,
+      isCorrect: data.isCorrect.present ? data.isCorrect.value : this.isCorrect,
+      hintUsed: data.hintUsed.present ? data.hintUsed.value : this.hintUsed,
+      attemptedAt: data.attemptedAt.present
+          ? data.attemptedAt.value
+          : this.attemptedAt,
+      timeTaken: data.timeTaken.present ? data.timeTaken.value : this.timeTaken,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PracticeAttempt(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('topicId: $topicId, ')
+          ..write('questionId: $questionId, ')
+          ..write('userAnswer: $userAnswer, ')
+          ..write('isCorrect: $isCorrect, ')
+          ..write('hintUsed: $hintUsed, ')
+          ..write('attemptedAt: $attemptedAt, ')
+          ..write('timeTaken: $timeTaken')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    userId,
+    topicId,
+    questionId,
+    userAnswer,
+    isCorrect,
+    hintUsed,
+    attemptedAt,
+    timeTaken,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PracticeAttempt &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.topicId == this.topicId &&
+          other.questionId == this.questionId &&
+          other.userAnswer == this.userAnswer &&
+          other.isCorrect == this.isCorrect &&
+          other.hintUsed == this.hintUsed &&
+          other.attemptedAt == this.attemptedAt &&
+          other.timeTaken == this.timeTaken);
+}
+
+class PracticeAttemptsCompanion extends UpdateCompanion<PracticeAttempt> {
+  final Value<int> id;
+  final Value<String> userId;
+  final Value<String> topicId;
+  final Value<String> questionId;
+  final Value<String> userAnswer;
+  final Value<bool> isCorrect;
+  final Value<bool> hintUsed;
+  final Value<int> attemptedAt;
+  final Value<int?> timeTaken;
+  const PracticeAttemptsCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.topicId = const Value.absent(),
+    this.questionId = const Value.absent(),
+    this.userAnswer = const Value.absent(),
+    this.isCorrect = const Value.absent(),
+    this.hintUsed = const Value.absent(),
+    this.attemptedAt = const Value.absent(),
+    this.timeTaken = const Value.absent(),
+  });
+  PracticeAttemptsCompanion.insert({
+    this.id = const Value.absent(),
+    required String userId,
+    required String topicId,
+    required String questionId,
+    required String userAnswer,
+    required bool isCorrect,
+    this.hintUsed = const Value.absent(),
+    required int attemptedAt,
+    this.timeTaken = const Value.absent(),
+  }) : userId = Value(userId),
+       topicId = Value(topicId),
+       questionId = Value(questionId),
+       userAnswer = Value(userAnswer),
+       isCorrect = Value(isCorrect),
+       attemptedAt = Value(attemptedAt);
+  static Insertable<PracticeAttempt> custom({
+    Expression<int>? id,
+    Expression<String>? userId,
+    Expression<String>? topicId,
+    Expression<String>? questionId,
+    Expression<String>? userAnswer,
+    Expression<bool>? isCorrect,
+    Expression<bool>? hintUsed,
+    Expression<int>? attemptedAt,
+    Expression<int>? timeTaken,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (topicId != null) 'topic_id': topicId,
+      if (questionId != null) 'question_id': questionId,
+      if (userAnswer != null) 'user_answer': userAnswer,
+      if (isCorrect != null) 'is_correct': isCorrect,
+      if (hintUsed != null) 'hint_used': hintUsed,
+      if (attemptedAt != null) 'attempted_at': attemptedAt,
+      if (timeTaken != null) 'time_taken': timeTaken,
+    });
+  }
+
+  PracticeAttemptsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? userId,
+    Value<String>? topicId,
+    Value<String>? questionId,
+    Value<String>? userAnswer,
+    Value<bool>? isCorrect,
+    Value<bool>? hintUsed,
+    Value<int>? attemptedAt,
+    Value<int?>? timeTaken,
+  }) {
+    return PracticeAttemptsCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      topicId: topicId ?? this.topicId,
+      questionId: questionId ?? this.questionId,
+      userAnswer: userAnswer ?? this.userAnswer,
+      isCorrect: isCorrect ?? this.isCorrect,
+      hintUsed: hintUsed ?? this.hintUsed,
+      attemptedAt: attemptedAt ?? this.attemptedAt,
+      timeTaken: timeTaken ?? this.timeTaken,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (topicId.present) {
+      map['topic_id'] = Variable<String>(topicId.value);
+    }
+    if (questionId.present) {
+      map['question_id'] = Variable<String>(questionId.value);
+    }
+    if (userAnswer.present) {
+      map['user_answer'] = Variable<String>(userAnswer.value);
+    }
+    if (isCorrect.present) {
+      map['is_correct'] = Variable<bool>(isCorrect.value);
+    }
+    if (hintUsed.present) {
+      map['hint_used'] = Variable<bool>(hintUsed.value);
+    }
+    if (attemptedAt.present) {
+      map['attempted_at'] = Variable<int>(attemptedAt.value);
+    }
+    if (timeTaken.present) {
+      map['time_taken'] = Variable<int>(timeTaken.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PracticeAttemptsCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('topicId: $topicId, ')
+          ..write('questionId: $questionId, ')
+          ..write('userAnswer: $userAnswer, ')
+          ..write('isCorrect: $isCorrect, ')
+          ..write('hintUsed: $hintUsed, ')
+          ..write('attemptedAt: $attemptedAt, ')
+          ..write('timeTaken: $timeTaken')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -5931,6 +7633,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $UserDifficultyTable userDifficulty = $UserDifficultyTable(this);
   late final $BookmarksTable bookmarks = $BookmarksTable(this);
   late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
+  late final $StudyResourcesTable studyResources = $StudyResourcesTable(this);
+  late final $FlashcardsTable flashcards = $FlashcardsTable(this);
+  late final $PracticeAttemptsTable practiceAttempts = $PracticeAttemptsTable(
+    this,
+  );
   late final UsersDao usersDao = UsersDao(this as AppDatabase);
   late final SubjectsDao subjectsDao = SubjectsDao(this as AppDatabase);
   late final ChaptersDao chaptersDao = ChaptersDao(this as AppDatabase);
@@ -5955,6 +7662,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     userDifficulty,
     bookmarks,
     syncQueue,
+    studyResources,
+    flashcards,
+    practiceAttempts,
   ];
 }
 
@@ -6058,6 +7768,26 @@ final class $$UsersTableReferences
     ).filter((f) => f.userId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_bookmarksRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PracticeAttemptsTable, List<PracticeAttempt>>
+  _practiceAttemptsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.practiceAttempts,
+    aliasName: $_aliasNameGenerator(db.users.id, db.practiceAttempts.userId),
+  );
+
+  $$PracticeAttemptsTableProcessedTableManager get practiceAttemptsRefs {
+    final manager = $$PracticeAttemptsTableTableManager(
+      $_db,
+      $_db.practiceAttempts,
+    ).filter((f) => f.userId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _practiceAttemptsRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -6213,6 +7943,31 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
           }) => $$BookmarksTableFilterComposer(
             $db: $db,
             $table: $db.bookmarks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> practiceAttemptsRefs(
+    Expression<bool> Function($$PracticeAttemptsTableFilterComposer f) f,
+  ) {
+    final $$PracticeAttemptsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableFilterComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -6433,6 +8188,31 @@ class $$UsersTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> practiceAttemptsRefs<T extends Object>(
+    Expression<T> Function($$PracticeAttemptsTableAnnotationComposer a) f,
+  ) {
+    final $$PracticeAttemptsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.userId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$UsersTableTableManager
@@ -6453,6 +8233,7 @@ class $$UsersTableTableManager
             bool topicProgressRefs,
             bool userDifficultyRefs,
             bool bookmarksRefs,
+            bool practiceAttemptsRefs,
           })
         > {
   $$UsersTableTableManager(_$AppDatabase db, $UsersTable table)
@@ -6530,6 +8311,7 @@ class $$UsersTableTableManager
                 topicProgressRefs = false,
                 userDifficultyRefs = false,
                 bookmarksRefs = false,
+                practiceAttemptsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -6538,6 +8320,7 @@ class $$UsersTableTableManager
                     if (topicProgressRefs) db.topicProgress,
                     if (userDifficultyRefs) db.userDifficulty,
                     if (bookmarksRefs) db.bookmarks,
+                    if (practiceAttemptsRefs) db.practiceAttempts,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -6622,6 +8405,27 @@ class $$UsersTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (practiceAttemptsRefs)
+                        await $_getPrefetchedData<
+                          User,
+                          $UsersTable,
+                          PracticeAttempt
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UsersTableReferences
+                              ._practiceAttemptsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$UsersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).practiceAttemptsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.userId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -6647,6 +8451,7 @@ typedef $$UsersTableProcessedTableManager =
         bool topicProgressRefs,
         bool userDifficultyRefs,
         bool bookmarksRefs,
+        bool practiceAttemptsRefs,
       })
     >;
 typedef $$SubjectsTableCreateCompanionBuilder =
@@ -7187,6 +8992,27 @@ final class $$ChaptersTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$StudyResourcesTable, List<StudyResource>>
+  _studyResourcesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.studyResources,
+    aliasName: $_aliasNameGenerator(
+      db.chapters.id,
+      db.studyResources.chapterId,
+    ),
+  );
+
+  $$StudyResourcesTableProcessedTableManager get studyResourcesRefs {
+    final manager = $$StudyResourcesTableTableManager(
+      $_db,
+      $_db.studyResources,
+    ).filter((f) => f.chapterId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_studyResourcesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ChaptersTableFilterComposer
@@ -7317,6 +9143,31 @@ class $$ChaptersTableFilterComposer
           }) => $$QuizAttemptsTableFilterComposer(
             $db: $db,
             $table: $db.quizAttempts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> studyResourcesRefs(
+    Expression<bool> Function($$StudyResourcesTableFilterComposer f) f,
+  ) {
+    final $$StudyResourcesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.studyResources,
+      getReferencedColumn: (t) => t.chapterId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StudyResourcesTableFilterComposer(
+            $db: $db,
+            $table: $db.studyResources,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -7520,6 +9371,31 @@ class $$ChaptersTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> studyResourcesRefs<T extends Object>(
+    Expression<T> Function($$StudyResourcesTableAnnotationComposer a) f,
+  ) {
+    final $$StudyResourcesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.studyResources,
+      getReferencedColumn: (t) => t.chapterId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StudyResourcesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.studyResources,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ChaptersTableTableManager
@@ -7540,6 +9416,7 @@ class $$ChaptersTableTableManager
             bool topicsRefs,
             bool questionsRefs,
             bool quizAttemptsRefs,
+            bool studyResourcesRefs,
           })
         > {
   $$ChaptersTableTableManager(_$AppDatabase db, $ChaptersTable table)
@@ -7607,6 +9484,7 @@ class $$ChaptersTableTableManager
                 topicsRefs = false,
                 questionsRefs = false,
                 quizAttemptsRefs = false,
+                studyResourcesRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -7614,6 +9492,7 @@ class $$ChaptersTableTableManager
                     if (topicsRefs) db.topics,
                     if (questionsRefs) db.questions,
                     if (quizAttemptsRefs) db.quizAttempts,
+                    if (studyResourcesRefs) db.studyResources,
                   ],
                   addJoins:
                       <
@@ -7712,6 +9591,27 @@ class $$ChaptersTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (studyResourcesRefs)
+                        await $_getPrefetchedData<
+                          Chapter,
+                          $ChaptersTable,
+                          StudyResource
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ChaptersTableReferences
+                              ._studyResourcesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ChaptersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).studyResourcesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.chapterId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -7737,6 +9637,7 @@ typedef $$ChaptersTableProcessedTableManager =
         bool topicsRefs,
         bool questionsRefs,
         bool quizAttemptsRefs,
+        bool studyResourcesRefs,
       })
     >;
 typedef $$TopicsTableCreateCompanionBuilder =
@@ -7830,6 +9731,44 @@ final class $$TopicsTableReferences
     ).filter((f) => f.topicId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_bookmarksRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$FlashcardsTable, List<Flashcard>>
+  _flashcardsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.flashcards,
+    aliasName: $_aliasNameGenerator(db.topics.id, db.flashcards.topicId),
+  );
+
+  $$FlashcardsTableProcessedTableManager get flashcardsRefs {
+    final manager = $$FlashcardsTableTableManager(
+      $_db,
+      $_db.flashcards,
+    ).filter((f) => f.topicId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_flashcardsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PracticeAttemptsTable, List<PracticeAttempt>>
+  _practiceAttemptsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.practiceAttempts,
+    aliasName: $_aliasNameGenerator(db.topics.id, db.practiceAttempts.topicId),
+  );
+
+  $$PracticeAttemptsTableProcessedTableManager get practiceAttemptsRefs {
+    final manager = $$PracticeAttemptsTableTableManager(
+      $_db,
+      $_db.practiceAttempts,
+    ).filter((f) => f.topicId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _practiceAttemptsRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -7959,6 +9898,56 @@ class $$TopicsTableFilterComposer
           }) => $$BookmarksTableFilterComposer(
             $db: $db,
             $table: $db.bookmarks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> flashcardsRefs(
+    Expression<bool> Function($$FlashcardsTableFilterComposer f) f,
+  ) {
+    final $$FlashcardsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.flashcards,
+      getReferencedColumn: (t) => t.topicId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$FlashcardsTableFilterComposer(
+            $db: $db,
+            $table: $db.flashcards,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> practiceAttemptsRefs(
+    Expression<bool> Function($$PracticeAttemptsTableFilterComposer f) f,
+  ) {
+    final $$PracticeAttemptsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.topicId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableFilterComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -8152,6 +10141,56 @@ class $$TopicsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> flashcardsRefs<T extends Object>(
+    Expression<T> Function($$FlashcardsTableAnnotationComposer a) f,
+  ) {
+    final $$FlashcardsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.flashcards,
+      getReferencedColumn: (t) => t.topicId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$FlashcardsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.flashcards,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> practiceAttemptsRefs<T extends Object>(
+    Expression<T> Function($$PracticeAttemptsTableAnnotationComposer a) f,
+  ) {
+    final $$PracticeAttemptsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.topicId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TopicsTableTableManager
@@ -8172,6 +10211,8 @@ class $$TopicsTableTableManager
             bool questionsRefs,
             bool topicProgressRefs,
             bool bookmarksRefs,
+            bool flashcardsRefs,
+            bool practiceAttemptsRefs,
           })
         > {
   $$TopicsTableTableManager(_$AppDatabase db, $TopicsTable table)
@@ -8233,6 +10274,8 @@ class $$TopicsTableTableManager
                 questionsRefs = false,
                 topicProgressRefs = false,
                 bookmarksRefs = false,
+                flashcardsRefs = false,
+                practiceAttemptsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -8240,6 +10283,8 @@ class $$TopicsTableTableManager
                     if (questionsRefs) db.questions,
                     if (topicProgressRefs) db.topicProgress,
                     if (bookmarksRefs) db.bookmarks,
+                    if (flashcardsRefs) db.flashcards,
+                    if (practiceAttemptsRefs) db.practiceAttempts,
                   ],
                   addJoins:
                       <
@@ -8338,6 +10383,48 @@ class $$TopicsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (flashcardsRefs)
+                        await $_getPrefetchedData<
+                          Topic,
+                          $TopicsTable,
+                          Flashcard
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TopicsTableReferences
+                              ._flashcardsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TopicsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).flashcardsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.topicId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (practiceAttemptsRefs)
+                        await $_getPrefetchedData<
+                          Topic,
+                          $TopicsTable,
+                          PracticeAttempt
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TopicsTableReferences
+                              ._practiceAttemptsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TopicsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).practiceAttemptsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.topicId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -8363,6 +10450,8 @@ typedef $$TopicsTableProcessedTableManager =
         bool questionsRefs,
         bool topicProgressRefs,
         bool bookmarksRefs,
+        bool flashcardsRefs,
+        bool practiceAttemptsRefs,
       })
     >;
 typedef $$QuestionsTableCreateCompanionBuilder =
@@ -8378,6 +10467,8 @@ typedef $$QuestionsTableCreateCompanionBuilder =
       required String difficulty,
       Value<int> points,
       Value<String?> imageUrl,
+      Value<String?> ncertReference,
+      Value<String?> hint,
       Value<int> rowid,
     });
 typedef $$QuestionsTableUpdateCompanionBuilder =
@@ -8393,6 +10484,8 @@ typedef $$QuestionsTableUpdateCompanionBuilder =
       Value<String> difficulty,
       Value<int> points,
       Value<String?> imageUrl,
+      Value<String?> ncertReference,
+      Value<String?> hint,
       Value<int> rowid,
     });
 
@@ -8454,6 +10547,29 @@ final class $$QuestionsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$PracticeAttemptsTable, List<PracticeAttempt>>
+  _practiceAttemptsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.practiceAttempts,
+    aliasName: $_aliasNameGenerator(
+      db.questions.id,
+      db.practiceAttempts.questionId,
+    ),
+  );
+
+  $$PracticeAttemptsTableProcessedTableManager get practiceAttemptsRefs {
+    final manager = $$PracticeAttemptsTableTableManager(
+      $_db,
+      $_db.practiceAttempts,
+    ).filter((f) => f.questionId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _practiceAttemptsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$QuestionsTableFilterComposer
@@ -8507,6 +10623,16 @@ class $$QuestionsTableFilterComposer
 
   ColumnFilters<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ncertReference => $composableBuilder(
+    column: $table.ncertReference,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hint => $composableBuilder(
+    column: $table.hint,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8580,6 +10706,31 @@ class $$QuestionsTableFilterComposer
     );
     return f(composer);
   }
+
+  Expression<bool> practiceAttemptsRefs(
+    Expression<bool> Function($$PracticeAttemptsTableFilterComposer f) f,
+  ) {
+    final $$PracticeAttemptsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.questionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableFilterComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$QuestionsTableOrderingComposer
@@ -8633,6 +10784,16 @@ class $$QuestionsTableOrderingComposer
 
   ColumnOrderings<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ncertReference => $composableBuilder(
+    column: $table.ncertReference,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hint => $composableBuilder(
+    column: $table.hint,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -8729,6 +10890,14 @@ class $$QuestionsTableAnnotationComposer
   GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
 
+  GeneratedColumn<String> get ncertReference => $composableBuilder(
+    column: $table.ncertReference,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get hint =>
+      $composableBuilder(column: $table.hint, builder: (column) => column);
+
   $$TopicsTableAnnotationComposer get topicId {
     final $$TopicsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -8799,6 +10968,31 @@ class $$QuestionsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> practiceAttemptsRefs<T extends Object>(
+    Expression<T> Function($$PracticeAttemptsTableAnnotationComposer a) f,
+  ) {
+    final $$PracticeAttemptsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.practiceAttempts,
+      getReferencedColumn: (t) => t.questionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PracticeAttemptsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.practiceAttempts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$QuestionsTableTableManager
@@ -8818,6 +11012,7 @@ class $$QuestionsTableTableManager
             bool topicId,
             bool chapterId,
             bool userAnswersRefs,
+            bool practiceAttemptsRefs,
           })
         > {
   $$QuestionsTableTableManager(_$AppDatabase db, $QuestionsTable table)
@@ -8844,6 +11039,8 @@ class $$QuestionsTableTableManager
                 Value<String> difficulty = const Value.absent(),
                 Value<int> points = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> ncertReference = const Value.absent(),
+                Value<String?> hint = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => QuestionsCompanion(
                 id: id,
@@ -8857,6 +11054,8 @@ class $$QuestionsTableTableManager
                 difficulty: difficulty,
                 points: points,
                 imageUrl: imageUrl,
+                ncertReference: ncertReference,
+                hint: hint,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -8872,6 +11071,8 @@ class $$QuestionsTableTableManager
                 required String difficulty,
                 Value<int> points = const Value.absent(),
                 Value<String?> imageUrl = const Value.absent(),
+                Value<String?> ncertReference = const Value.absent(),
+                Value<String?> hint = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => QuestionsCompanion.insert(
                 id: id,
@@ -8885,6 +11086,8 @@ class $$QuestionsTableTableManager
                 difficulty: difficulty,
                 points: points,
                 imageUrl: imageUrl,
+                ncertReference: ncertReference,
+                hint: hint,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -8896,11 +11099,17 @@ class $$QuestionsTableTableManager
               )
               .toList(),
           prefetchHooksCallback:
-              ({topicId = false, chapterId = false, userAnswersRefs = false}) {
+              ({
+                topicId = false,
+                chapterId = false,
+                userAnswersRefs = false,
+                practiceAttemptsRefs = false,
+              }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (userAnswersRefs) db.userAnswers,
+                    if (practiceAttemptsRefs) db.practiceAttempts,
                   ],
                   addJoins:
                       <
@@ -8970,6 +11179,27 @@ class $$QuestionsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (practiceAttemptsRefs)
+                        await $_getPrefetchedData<
+                          Question,
+                          $QuestionsTable,
+                          PracticeAttempt
+                        >(
+                          currentTable: table,
+                          referencedTable: $$QuestionsTableReferences
+                              ._practiceAttemptsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$QuestionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).practiceAttemptsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.questionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -8994,6 +11224,7 @@ typedef $$QuestionsTableProcessedTableManager =
         bool topicId,
         bool chapterId,
         bool userAnswersRefs,
+        bool practiceAttemptsRefs,
       })
     >;
 typedef $$QuizAttemptsTableCreateCompanionBuilder =
@@ -11748,6 +13979,1326 @@ typedef $$SyncQueueTableProcessedTableManager =
       SyncQueueData,
       PrefetchHooks Function()
     >;
+typedef $$StudyResourcesTableCreateCompanionBuilder =
+    StudyResourcesCompanion Function({
+      Value<int> id,
+      required String resourceType,
+      required String chapterId,
+      required String title,
+      required String content,
+      Value<String?> fileUrl,
+      required int createdAt,
+    });
+typedef $$StudyResourcesTableUpdateCompanionBuilder =
+    StudyResourcesCompanion Function({
+      Value<int> id,
+      Value<String> resourceType,
+      Value<String> chapterId,
+      Value<String> title,
+      Value<String> content,
+      Value<String?> fileUrl,
+      Value<int> createdAt,
+    });
+
+final class $$StudyResourcesTableReferences
+    extends BaseReferences<_$AppDatabase, $StudyResourcesTable, StudyResource> {
+  $$StudyResourcesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ChaptersTable _chapterIdTable(_$AppDatabase db) =>
+      db.chapters.createAlias(
+        $_aliasNameGenerator(db.studyResources.chapterId, db.chapters.id),
+      );
+
+  $$ChaptersTableProcessedTableManager get chapterId {
+    final $_column = $_itemColumn<String>('chapter_id')!;
+
+    final manager = $$ChaptersTableTableManager(
+      $_db,
+      $_db.chapters,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_chapterIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$StudyResourcesTableFilterComposer
+    extends Composer<_$AppDatabase, $StudyResourcesTable> {
+  $$StudyResourcesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get resourceType => $composableBuilder(
+    column: $table.resourceType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fileUrl => $composableBuilder(
+    column: $table.fileUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ChaptersTableFilterComposer get chapterId {
+    final $$ChaptersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chapterId,
+      referencedTable: $db.chapters,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ChaptersTableFilterComposer(
+            $db: $db,
+            $table: $db.chapters,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StudyResourcesTableOrderingComposer
+    extends Composer<_$AppDatabase, $StudyResourcesTable> {
+  $$StudyResourcesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get resourceType => $composableBuilder(
+    column: $table.resourceType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fileUrl => $composableBuilder(
+    column: $table.fileUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ChaptersTableOrderingComposer get chapterId {
+    final $$ChaptersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chapterId,
+      referencedTable: $db.chapters,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ChaptersTableOrderingComposer(
+            $db: $db,
+            $table: $db.chapters,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StudyResourcesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StudyResourcesTable> {
+  $$StudyResourcesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get resourceType => $composableBuilder(
+    column: $table.resourceType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get fileUrl =>
+      $composableBuilder(column: $table.fileUrl, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ChaptersTableAnnotationComposer get chapterId {
+    final $$ChaptersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chapterId,
+      referencedTable: $db.chapters,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ChaptersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.chapters,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StudyResourcesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $StudyResourcesTable,
+          StudyResource,
+          $$StudyResourcesTableFilterComposer,
+          $$StudyResourcesTableOrderingComposer,
+          $$StudyResourcesTableAnnotationComposer,
+          $$StudyResourcesTableCreateCompanionBuilder,
+          $$StudyResourcesTableUpdateCompanionBuilder,
+          (StudyResource, $$StudyResourcesTableReferences),
+          StudyResource,
+          PrefetchHooks Function({bool chapterId})
+        > {
+  $$StudyResourcesTableTableManager(
+    _$AppDatabase db,
+    $StudyResourcesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$StudyResourcesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StudyResourcesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StudyResourcesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> resourceType = const Value.absent(),
+                Value<String> chapterId = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String?> fileUrl = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+              }) => StudyResourcesCompanion(
+                id: id,
+                resourceType: resourceType,
+                chapterId: chapterId,
+                title: title,
+                content: content,
+                fileUrl: fileUrl,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String resourceType,
+                required String chapterId,
+                required String title,
+                required String content,
+                Value<String?> fileUrl = const Value.absent(),
+                required int createdAt,
+              }) => StudyResourcesCompanion.insert(
+                id: id,
+                resourceType: resourceType,
+                chapterId: chapterId,
+                title: title,
+                content: content,
+                fileUrl: fileUrl,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$StudyResourcesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({chapterId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (chapterId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.chapterId,
+                                referencedTable: $$StudyResourcesTableReferences
+                                    ._chapterIdTable(db),
+                                referencedColumn:
+                                    $$StudyResourcesTableReferences
+                                        ._chapterIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$StudyResourcesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $StudyResourcesTable,
+      StudyResource,
+      $$StudyResourcesTableFilterComposer,
+      $$StudyResourcesTableOrderingComposer,
+      $$StudyResourcesTableAnnotationComposer,
+      $$StudyResourcesTableCreateCompanionBuilder,
+      $$StudyResourcesTableUpdateCompanionBuilder,
+      (StudyResource, $$StudyResourcesTableReferences),
+      StudyResource,
+      PrefetchHooks Function({bool chapterId})
+    >;
+typedef $$FlashcardsTableCreateCompanionBuilder =
+    FlashcardsCompanion Function({
+      Value<int> id,
+      required String topicId,
+      required String term,
+      required String definition,
+      Value<int> masteryLevel,
+      Value<int?> nextReviewDate,
+      Value<int> reviewCount,
+      Value<int?> lastReviewedAt,
+    });
+typedef $$FlashcardsTableUpdateCompanionBuilder =
+    FlashcardsCompanion Function({
+      Value<int> id,
+      Value<String> topicId,
+      Value<String> term,
+      Value<String> definition,
+      Value<int> masteryLevel,
+      Value<int?> nextReviewDate,
+      Value<int> reviewCount,
+      Value<int?> lastReviewedAt,
+    });
+
+final class $$FlashcardsTableReferences
+    extends BaseReferences<_$AppDatabase, $FlashcardsTable, Flashcard> {
+  $$FlashcardsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $TopicsTable _topicIdTable(_$AppDatabase db) => db.topics.createAlias(
+    $_aliasNameGenerator(db.flashcards.topicId, db.topics.id),
+  );
+
+  $$TopicsTableProcessedTableManager get topicId {
+    final $_column = $_itemColumn<String>('topic_id')!;
+
+    final manager = $$TopicsTableTableManager(
+      $_db,
+      $_db.topics,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_topicIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$FlashcardsTableFilterComposer
+    extends Composer<_$AppDatabase, $FlashcardsTable> {
+  $$FlashcardsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get term => $composableBuilder(
+    column: $table.term,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get definition => $composableBuilder(
+    column: $table.definition,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get masteryLevel => $composableBuilder(
+    column: $table.masteryLevel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get nextReviewDate => $composableBuilder(
+    column: $table.nextReviewDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$TopicsTableFilterComposer get topicId {
+    final $$TopicsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableFilterComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$FlashcardsTableOrderingComposer
+    extends Composer<_$AppDatabase, $FlashcardsTable> {
+  $$FlashcardsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get term => $composableBuilder(
+    column: $table.term,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get definition => $composableBuilder(
+    column: $table.definition,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get masteryLevel => $composableBuilder(
+    column: $table.masteryLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get nextReviewDate => $composableBuilder(
+    column: $table.nextReviewDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$TopicsTableOrderingComposer get topicId {
+    final $$TopicsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableOrderingComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$FlashcardsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FlashcardsTable> {
+  $$FlashcardsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get term =>
+      $composableBuilder(column: $table.term, builder: (column) => column);
+
+  GeneratedColumn<String> get definition => $composableBuilder(
+    column: $table.definition,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get masteryLevel => $composableBuilder(
+    column: $table.masteryLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get nextReviewDate => $composableBuilder(
+    column: $table.nextReviewDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get reviewCount => $composableBuilder(
+    column: $table.reviewCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lastReviewedAt => $composableBuilder(
+    column: $table.lastReviewedAt,
+    builder: (column) => column,
+  );
+
+  $$TopicsTableAnnotationComposer get topicId {
+    final $$TopicsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$FlashcardsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FlashcardsTable,
+          Flashcard,
+          $$FlashcardsTableFilterComposer,
+          $$FlashcardsTableOrderingComposer,
+          $$FlashcardsTableAnnotationComposer,
+          $$FlashcardsTableCreateCompanionBuilder,
+          $$FlashcardsTableUpdateCompanionBuilder,
+          (Flashcard, $$FlashcardsTableReferences),
+          Flashcard,
+          PrefetchHooks Function({bool topicId})
+        > {
+  $$FlashcardsTableTableManager(_$AppDatabase db, $FlashcardsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FlashcardsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FlashcardsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FlashcardsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> topicId = const Value.absent(),
+                Value<String> term = const Value.absent(),
+                Value<String> definition = const Value.absent(),
+                Value<int> masteryLevel = const Value.absent(),
+                Value<int?> nextReviewDate = const Value.absent(),
+                Value<int> reviewCount = const Value.absent(),
+                Value<int?> lastReviewedAt = const Value.absent(),
+              }) => FlashcardsCompanion(
+                id: id,
+                topicId: topicId,
+                term: term,
+                definition: definition,
+                masteryLevel: masteryLevel,
+                nextReviewDate: nextReviewDate,
+                reviewCount: reviewCount,
+                lastReviewedAt: lastReviewedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String topicId,
+                required String term,
+                required String definition,
+                Value<int> masteryLevel = const Value.absent(),
+                Value<int?> nextReviewDate = const Value.absent(),
+                Value<int> reviewCount = const Value.absent(),
+                Value<int?> lastReviewedAt = const Value.absent(),
+              }) => FlashcardsCompanion.insert(
+                id: id,
+                topicId: topicId,
+                term: term,
+                definition: definition,
+                masteryLevel: masteryLevel,
+                nextReviewDate: nextReviewDate,
+                reviewCount: reviewCount,
+                lastReviewedAt: lastReviewedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$FlashcardsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({topicId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (topicId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.topicId,
+                                referencedTable: $$FlashcardsTableReferences
+                                    ._topicIdTable(db),
+                                referencedColumn: $$FlashcardsTableReferences
+                                    ._topicIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$FlashcardsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FlashcardsTable,
+      Flashcard,
+      $$FlashcardsTableFilterComposer,
+      $$FlashcardsTableOrderingComposer,
+      $$FlashcardsTableAnnotationComposer,
+      $$FlashcardsTableCreateCompanionBuilder,
+      $$FlashcardsTableUpdateCompanionBuilder,
+      (Flashcard, $$FlashcardsTableReferences),
+      Flashcard,
+      PrefetchHooks Function({bool topicId})
+    >;
+typedef $$PracticeAttemptsTableCreateCompanionBuilder =
+    PracticeAttemptsCompanion Function({
+      Value<int> id,
+      required String userId,
+      required String topicId,
+      required String questionId,
+      required String userAnswer,
+      required bool isCorrect,
+      Value<bool> hintUsed,
+      required int attemptedAt,
+      Value<int?> timeTaken,
+    });
+typedef $$PracticeAttemptsTableUpdateCompanionBuilder =
+    PracticeAttemptsCompanion Function({
+      Value<int> id,
+      Value<String> userId,
+      Value<String> topicId,
+      Value<String> questionId,
+      Value<String> userAnswer,
+      Value<bool> isCorrect,
+      Value<bool> hintUsed,
+      Value<int> attemptedAt,
+      Value<int?> timeTaken,
+    });
+
+final class $$PracticeAttemptsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $PracticeAttemptsTable, PracticeAttempt> {
+  $$PracticeAttemptsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $UsersTable _userIdTable(_$AppDatabase db) => db.users.createAlias(
+    $_aliasNameGenerator(db.practiceAttempts.userId, db.users.id),
+  );
+
+  $$UsersTableProcessedTableManager get userId {
+    final $_column = $_itemColumn<String>('user_id')!;
+
+    final manager = $$UsersTableTableManager(
+      $_db,
+      $_db.users,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TopicsTable _topicIdTable(_$AppDatabase db) => db.topics.createAlias(
+    $_aliasNameGenerator(db.practiceAttempts.topicId, db.topics.id),
+  );
+
+  $$TopicsTableProcessedTableManager get topicId {
+    final $_column = $_itemColumn<String>('topic_id')!;
+
+    final manager = $$TopicsTableTableManager(
+      $_db,
+      $_db.topics,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_topicIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $QuestionsTable _questionIdTable(_$AppDatabase db) =>
+      db.questions.createAlias(
+        $_aliasNameGenerator(db.practiceAttempts.questionId, db.questions.id),
+      );
+
+  $$QuestionsTableProcessedTableManager get questionId {
+    final $_column = $_itemColumn<String>('question_id')!;
+
+    final manager = $$QuestionsTableTableManager(
+      $_db,
+      $_db.questions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_questionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PracticeAttemptsTableFilterComposer
+    extends Composer<_$AppDatabase, $PracticeAttemptsTable> {
+  $$PracticeAttemptsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get userAnswer => $composableBuilder(
+    column: $table.userAnswer,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isCorrect => $composableBuilder(
+    column: $table.isCorrect,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get hintUsed => $composableBuilder(
+    column: $table.hintUsed,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get attemptedAt => $composableBuilder(
+    column: $table.attemptedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get timeTaken => $composableBuilder(
+    column: $table.timeTaken,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$UsersTableFilterComposer get userId {
+    final $$UsersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableFilterComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TopicsTableFilterComposer get topicId {
+    final $$TopicsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableFilterComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$QuestionsTableFilterComposer get questionId {
+    final $$QuestionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.questionId,
+      referencedTable: $db.questions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$QuestionsTableFilterComposer(
+            $db: $db,
+            $table: $db.questions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PracticeAttemptsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PracticeAttemptsTable> {
+  $$PracticeAttemptsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get userAnswer => $composableBuilder(
+    column: $table.userAnswer,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isCorrect => $composableBuilder(
+    column: $table.isCorrect,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get hintUsed => $composableBuilder(
+    column: $table.hintUsed,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get attemptedAt => $composableBuilder(
+    column: $table.attemptedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get timeTaken => $composableBuilder(
+    column: $table.timeTaken,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$UsersTableOrderingComposer get userId {
+    final $$UsersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableOrderingComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TopicsTableOrderingComposer get topicId {
+    final $$TopicsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableOrderingComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$QuestionsTableOrderingComposer get questionId {
+    final $$QuestionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.questionId,
+      referencedTable: $db.questions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$QuestionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.questions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PracticeAttemptsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PracticeAttemptsTable> {
+  $$PracticeAttemptsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userAnswer => $composableBuilder(
+    column: $table.userAnswer,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isCorrect =>
+      $composableBuilder(column: $table.isCorrect, builder: (column) => column);
+
+  GeneratedColumn<bool> get hintUsed =>
+      $composableBuilder(column: $table.hintUsed, builder: (column) => column);
+
+  GeneratedColumn<int> get attemptedAt => $composableBuilder(
+    column: $table.attemptedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get timeTaken =>
+      $composableBuilder(column: $table.timeTaken, builder: (column) => column);
+
+  $$UsersTableAnnotationComposer get userId {
+    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.userId,
+      referencedTable: $db.users,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$UsersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.users,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TopicsTableAnnotationComposer get topicId {
+    final $$TopicsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.topicId,
+      referencedTable: $db.topics,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TopicsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.topics,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$QuestionsTableAnnotationComposer get questionId {
+    final $$QuestionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.questionId,
+      referencedTable: $db.questions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$QuestionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.questions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PracticeAttemptsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PracticeAttemptsTable,
+          PracticeAttempt,
+          $$PracticeAttemptsTableFilterComposer,
+          $$PracticeAttemptsTableOrderingComposer,
+          $$PracticeAttemptsTableAnnotationComposer,
+          $$PracticeAttemptsTableCreateCompanionBuilder,
+          $$PracticeAttemptsTableUpdateCompanionBuilder,
+          (PracticeAttempt, $$PracticeAttemptsTableReferences),
+          PracticeAttempt,
+          PrefetchHooks Function({bool userId, bool topicId, bool questionId})
+        > {
+  $$PracticeAttemptsTableTableManager(
+    _$AppDatabase db,
+    $PracticeAttemptsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PracticeAttemptsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PracticeAttemptsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PracticeAttemptsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> userId = const Value.absent(),
+                Value<String> topicId = const Value.absent(),
+                Value<String> questionId = const Value.absent(),
+                Value<String> userAnswer = const Value.absent(),
+                Value<bool> isCorrect = const Value.absent(),
+                Value<bool> hintUsed = const Value.absent(),
+                Value<int> attemptedAt = const Value.absent(),
+                Value<int?> timeTaken = const Value.absent(),
+              }) => PracticeAttemptsCompanion(
+                id: id,
+                userId: userId,
+                topicId: topicId,
+                questionId: questionId,
+                userAnswer: userAnswer,
+                isCorrect: isCorrect,
+                hintUsed: hintUsed,
+                attemptedAt: attemptedAt,
+                timeTaken: timeTaken,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String userId,
+                required String topicId,
+                required String questionId,
+                required String userAnswer,
+                required bool isCorrect,
+                Value<bool> hintUsed = const Value.absent(),
+                required int attemptedAt,
+                Value<int?> timeTaken = const Value.absent(),
+              }) => PracticeAttemptsCompanion.insert(
+                id: id,
+                userId: userId,
+                topicId: topicId,
+                questionId: questionId,
+                userAnswer: userAnswer,
+                isCorrect: isCorrect,
+                hintUsed: hintUsed,
+                attemptedAt: attemptedAt,
+                timeTaken: timeTaken,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$PracticeAttemptsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({userId = false, topicId = false, questionId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (userId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.userId,
+                                    referencedTable:
+                                        $$PracticeAttemptsTableReferences
+                                            ._userIdTable(db),
+                                    referencedColumn:
+                                        $$PracticeAttemptsTableReferences
+                                            ._userIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (topicId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.topicId,
+                                    referencedTable:
+                                        $$PracticeAttemptsTableReferences
+                                            ._topicIdTable(db),
+                                    referencedColumn:
+                                        $$PracticeAttemptsTableReferences
+                                            ._topicIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (questionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.questionId,
+                                    referencedTable:
+                                        $$PracticeAttemptsTableReferences
+                                            ._questionIdTable(db),
+                                    referencedColumn:
+                                        $$PracticeAttemptsTableReferences
+                                            ._questionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$PracticeAttemptsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PracticeAttemptsTable,
+      PracticeAttempt,
+      $$PracticeAttemptsTableFilterComposer,
+      $$PracticeAttemptsTableOrderingComposer,
+      $$PracticeAttemptsTableAnnotationComposer,
+      $$PracticeAttemptsTableCreateCompanionBuilder,
+      $$PracticeAttemptsTableUpdateCompanionBuilder,
+      (PracticeAttempt, $$PracticeAttemptsTableReferences),
+      PracticeAttempt,
+      PrefetchHooks Function({bool userId, bool topicId, bool questionId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -11774,4 +15325,10 @@ class $AppDatabaseManager {
       $$BookmarksTableTableManager(_db, _db.bookmarks);
   $$SyncQueueTableTableManager get syncQueue =>
       $$SyncQueueTableTableManager(_db, _db.syncQueue);
+  $$StudyResourcesTableTableManager get studyResources =>
+      $$StudyResourcesTableTableManager(_db, _db.studyResources);
+  $$FlashcardsTableTableManager get flashcards =>
+      $$FlashcardsTableTableManager(_db, _db.flashcards);
+  $$PracticeAttemptsTableTableManager get practiceAttempts =>
+      $$PracticeAttemptsTableTableManager(_db, _db.practiceAttempts);
 }

@@ -34,6 +34,10 @@ part 'app_database.g.dart';
     UserDifficulty,
     Bookmarks,
     SyncQueue,
+    // v1.1.0 additions
+    StudyResources,
+    Flashcards,
+    PracticeAttempts,
   ],
   daos: [
     UsersDao,
@@ -53,7 +57,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2; // v1.1.0: Added StudyResources, Flashcards, PracticeAttempts tables + Questions columns
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -62,6 +66,25 @@ class AppDatabase extends _$AppDatabase {
           await _createIndexes();
           await _seedInitialData();
           await _seedContent();
+        },
+        onUpgrade: (Migrator m, int from, int to) async {
+          // Migration from v1 to v2 (v1.1.0 release)
+          if (from == 1 && to == 2) {
+            // Add new columns to Questions table
+            await m.addColumn(questions, questions.ncertReference);
+            await m.addColumn(questions, questions.hint);
+            
+            // Create new tables
+            await m.createTable(studyResources);
+            await m.createTable(flashcards);
+            await m.createTable(practiceAttempts);
+            
+            // Create indexes for new tables
+            await customStatement('CREATE INDEX IF NOT EXISTS idx_study_resources_chapter_id ON study_resources(chapter_id)');
+            await customStatement('CREATE INDEX IF NOT EXISTS idx_flashcards_topic_id ON flashcards(topic_id)');
+            await customStatement('CREATE INDEX IF NOT EXISTS idx_practice_attempts_user_id ON practice_attempts(user_id)');
+            await customStatement('CREATE INDEX IF NOT EXISTS idx_practice_attempts_topic_id ON practice_attempts(topic_id)');
+          }
         },
         beforeOpen: (details) async {
           // Enable foreign keys
