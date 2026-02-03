@@ -29,9 +29,13 @@ class AuthLocalDataSource {
         id: Value(user.id),
         name: Value(user.name),
         email: Value(user.email),
-        gradeLevel: Value(user.gradeLevel),
+        classNumber: Value(user.classNumber),
         createdAt: Value(user.createdAt),
-        updatedAt: Value(user.updatedAt),
+        hasCompletedOnboarding: Value(user.hasCompletedOnboarding),
+        currentDifficulty: Value(user.currentDifficulty),
+        streakDays: Value(user.streakDays),
+        lastLoginAt: Value(user.lastLoginAt),
+        lastActiveDate: Value(user.lastActiveDate),
       ),
     );
     await _secureStorage.saveCurrentUserId(user.id);
@@ -43,8 +47,12 @@ class AuthLocalDataSource {
         id: Value(user.id),
         name: Value(user.name),
         email: Value(user.email),
-        gradeLevel: Value(user.gradeLevel),
-        updatedAt: Value(DateTime.now()),
+        classNumber: Value(user.classNumber),
+        hasCompletedOnboarding: Value(user.hasCompletedOnboarding),
+        currentDifficulty: Value(user.currentDifficulty),
+        streakDays: Value(user.streakDays),
+        lastLoginAt: Value(user.lastLoginAt),
+        lastActiveDate: Value(user.lastActiveDate),
       ),
     );
   }

@@ -1,10 +1,11 @@
 // lib/features/auth/data/models/user_model.dart
 import 'package:padhai/core/database/app_database.dart';
-import 'package:padhai/features/auth/domain/entities/user.dart';
+import 'package:padhai/features/auth/domain/entities/user.dart' as domain;
+import 'package:drift/drift.dart';
 
-extension UserModelExtension on User {
-  static User fromDatabase(UserData data) {
-    return User(
+extension UserModelExtension on domain.User {
+  static domain.User fromDatabase(User data) {
+    return domain.User(
       id: data.id,
       email: data.email,
       name: data.name,
@@ -23,8 +24,8 @@ extension UserModelExtension on User {
       id: id,
       email: email,
       name: name,
-      classNumber: classNumber,
-      createdAt: createdAt,
+      classNumber: Value(classNumber),
+      createdAt: Value(createdAt),
       lastLoginAt: Value(lastLoginAt),
       hasCompletedOnboarding: Value(hasCompletedOnboarding),
       currentDifficulty: Value(currentDifficulty),
