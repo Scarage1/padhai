@@ -18,6 +18,7 @@ import 'package:padhai/features/quiz/presentation/screens/quiz_result_screen.dar
 import 'package:padhai/features/bookmarks/presentation/screens/bookmarks_screen.dart';
 import 'package:padhai/features/analytics/presentation/screens/analytics_screen.dart';
 import 'package:padhai/features/review/presentation/screens/review_screen.dart';
+import 'package:padhai/features/debug/content_test_screen.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
@@ -146,6 +147,10 @@ class AppRouter {
             topicName: topicName,
           );
         },
+      ),
+      GoRoute(
+        path: '/debug/content-test',
+        builder: (context, state) => const ContentTestScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

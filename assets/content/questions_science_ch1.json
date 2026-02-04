@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "subject": "science",
+  "chapter_id": "1",
+  "chapter_name": "Nutrition in Plants",
+  "questions": [
+    {
+      "id": "sci_ch1_q1",
+      "topic_id": "1",
+      "chapter_id": "1",
+      "question_text": "What is the mode of nutrition in plants?",
+      "question_type": "mcq",
+      "options": ["Autotrophic", "Heterotrophic", "Parasitic", "Saprophytic"],
+      "correct_answer": "Autotrophic",
+      "explanation": "Plants are autotrophs, which means they can synthesize their own food from simple inorganic substances like carbon dioxide and water using sunlight energy through the process of photosynthesis.",
+      "difficulty": "beginner",
+      "points": 10,
+      "ncert_reference": "Chapter 1, Page 3",
+      "hint": "Think about how plants make their own food using sunlight."
+    },
+    {
+      "id": "sci_ch1_q2",
+      "topic_id": "1",
+      "chapter_id": "1",
+      "question_text": "Which pigment is primarily responsible for photosynthesis?",
+      "question_type": "mcq",
+      "options": ["Chlorophyll", "Xanthophyll", "Carotene", "Anthocyanin"],
+      "correct_answer": "Chlorophyll",
+      "explanation": "Chlorophyll is the green pigment present in leaves that absorbs light energy from the sun. It is essential for photosynthesis as it converts light energy into chemical energy.",
+      "difficulty": "beginner",
+      "points": 10,
+      "ncert_reference": "Chapter 1, Page 5",
+      "hint": "This pigment gives plants their green color."
+    },
+    {
+      "id": "sci_ch1_q3",
+      "topic_id": "1",
+      "chapter_id": "1",
+      "question_text": "What is the raw material for photosynthesis?",
+      "question_type": "mcq",
+      "options": ["Carbon dioxide and water", "Oxygen and glucose", "Nitrogen and water", "Carbon dioxide and oxygen"],
+      "correct_answer": "Carbon dioxide and water",
+      "explanation": "Plants use carbon dioxide from the air (through stomata) and water from the soil (through roots) as raw materials for photosynthesis. These combine in the presence of sunlight to produce glucose and oxygen.",
+      "difficulty": "intermediate",
+      "points": 15,
+      "ncert_reference": "Chapter 1, Page 4",
+      "hint": "Plants take in one gas from air and one liquid from soil."
+    },
+    {
+      "id": "sci_ch1_q4",
+      "topic_id": "1",
+      "chapter_id": "1",
+      "question_text": "During photosynthesis, which gas is released as a by-product?",
+      "question_type": "mcq",
+      "options": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"],
+      "correct_answer": "Oxygen",
+      "explanation": "During photosynthesis, oxygen is released as a by-product. This oxygen is produced from the splitting of water molecules and is released into the atmosphere through stomata.",
+      "difficulty": "beginner",
+      "points": 10,
+      "ncert_reference": "Chapter 1, Page 6",
+      "hint": "This is the gas that we breathe in."
+    },
+    {
+      "id": "sci_ch1_q5",
+      "topic_id": "2",
+      "chapter_id": "1",
+      "question_text": "Which structure in the leaf allows exchange of gases?",
+      "question_type": "mcq",
+      "options": ["Stomata", "Veins", "Midrib", "Petiole"],
+      "correct_answer": "Stomata",
+      "explanation": "Stomata are tiny pores present on the surface of leaves. They regulate gas exchange, allowing carbon dioxide to enter for photosynthesis and oxygen to exit. They also help in transpiration.",
+      "difficulty": "intermediate",
+      "points": 15,
+      "ncert_reference": "Chapter 1, Page 7",
+      "hint": "These are tiny pores on the leaf surface."
+    }
+  ]
+}

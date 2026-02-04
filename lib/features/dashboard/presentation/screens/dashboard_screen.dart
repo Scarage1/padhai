@@ -42,6 +42,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         elevation: 0,
         actions: [
           IconButton(
+            icon: const Icon(Icons.bug_report),
+            tooltip: 'Content Test',
+            onPressed: () {
+              context.push('/debug/content-test');
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
               // TODO: Navigate to profile

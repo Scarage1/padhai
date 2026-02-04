@@ -95,6 +95,6 @@ flutter:
   #         weight: 700
 
   # Assets - TODO: Add actual asset files
-  # assets:
-  #   - assets/images/
-  #   - assets/icons/
+  assets:
+    - assets/content/
+    - assets/images/

@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "subject": "science",
+  "chapter_id": 1,
+  "chapter_name": "Nutrition in Plants",
+  "resources": [
+    {
+      "type": "summary",
+      "chapter_id": 1,
+      "title": "Chapter Summary: Nutrition in Plants",
+      "content": "## Key Points\n\n### Autotrophic Nutrition\n- Plants are **autotrophs** - they can synthesize their own food\n- They use simple inorganic substances (CO₂ and H₂O)\n- Require sunlight energy for the process\n\n### Photosynthesis\n- **Definition**: Process by which plants make food using sunlight\n- **Location**: Occurs in chloroplasts, mainly in leaves\n- **Equation**: 6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂\n\n### Essential Components\n1. **Chlorophyll**: Green pigment that captures light energy\n2. **Stomata**: Tiny pores for gas exchange\n3. **Guard cells**: Control opening and closing of stomata\n\n### Other Modes of Nutrition\n- **Parasitic plants**: Cuscuta (Dodder) - lives on host plants\n- **Insectivorous plants**: Pitcher plant, Venus flytrap - trap insects\n- **Saprotrophic**: Fungi and bacteria - feed on dead organic matter\n\n### Symbiosis\n- **Lichens**: Association between algae and fungi\n- **Rhizobium**: Nitrogen-fixing bacteria in legume roots\n- **Mycorrhiza**: Fungal association with plant roots",
+      "created_at": 1738790400
+    },
+    {
+      "type": "formula",
+      "chapter_id": 1,
+      "title": "Important Formulas and Equations",
+      "content": "## Photosynthesis Equation\n\n### Word Equation\n```\nCarbon dioxide + Water → Glucose + Oxygen\n                ↑\n          (in presence of\n        sunlight & chlorophyll)\n```\n\n### Chemical Equation\n```\n6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂\n             (Chlorophyll)\n```\n\n### Breakdown\n- **Reactants**: 6 molecules of CO₂ + 6 molecules of H₂O\n- **Products**: 1 molecule of Glucose + 6 molecules of O₂\n- **Energy Source**: Sunlight\n- **Catalyst**: Chlorophyll\n\n## Respiration (Reverse Process)\n```\nC₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + Energy (ATP)\n```\n\n## Nitrogen Fixation\n```\nN₂ (atmospheric) → NH₃ (ammonia)\n                  ↓\n                NO₃⁻ (nitrates)\n```\n- Performed by Rhizobium bacteria\n- Converts atmospheric nitrogen to usable form",
+      "created_at": 1738790400
+    },
+    {
+      "type": "concept_map",
+      "chapter_id": 1,
+      "title": "Nutrition in Plants - Concept Map",
+      "content": "## Modes of Nutrition\n\n```\n                    NUTRITION IN PLANTS\n                            |\n            ┌───────────────┴───────────────┐\n            |                               |\n       AUTOTROPHIC                    HETEROTROPHIC\n      (Self-made food)                (Depend on others)\n            |\n      PHOTOSYNTHESIS                           |\n            |                    ┌─────────────┼─────────────┐\n      ┌─────┴─────┐             |             |             |\n   LIGHT    DARK REACTIONS   PARASITIC   SAPROPHYTIC  INSECTIVOROUS\n  REACTIONS                  (Cuscuta)    (Fungi)      (Pitcher)\n```\n\n## Photosynthesis Process\n\n```\n  INPUTS                PROCESS              OUTPUTS\n    |                      |                     |\n  ┌─┴─┐                ┌──┴──┐              ┌──┴──┐\n  |CO₂|                |LEAF |              |C₆H₁₂O₆|\n  └───┘                |     |              └──────┘\n    |                  |Chloro-              Glucose\n  ┌─┴─┐                |plast|                  |\n  |H₂O|                |     |              ┌──┴──┐\n  └───┘                └──┬──┘              | O₂  |\n    |                     |                 └─────┘\n    └────────────────────┘               Oxygen\n    + Sunlight Energy\n```\n\n## Leaf Structure\n\n```\nLEAF (Site of Photosynthesis)\n    |\n    ├── Epidermis (Protection)\n    ├── Mesophyll (Chloroplasts)\n    ├── Veins (Transport)\n    └── Stomata (Gas Exchange)\n         |\n         └── Guard Cells (Regulate opening)\n```",
+      "created_at": 1738790400
+    },
+    {
+      "type": "exam_tip",
+      "chapter_id": 1,
+      "title": "Exam Tips and Common Mistakes",
+      "content": "## Important Points to Remember\n\n### 1. Photosynthesis Equation\n✅ **Remember**: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂\n❌ **Common mistake**: Writing products as reactants\n💡 **Tip**: Remember \"6-6-1-6\" pattern\n\n### 2. Chlorophyll Location\n✅ **Correct**: Present in chloroplasts of leaf cells\n❌ **Wrong**: Present in all parts of plant\n💡 **Tip**: Green parts contain chlorophyll\n\n### 3. Stomata Function\n✅ **Multiple roles**:\n   - Gas exchange (CO₂ in, O₂ out)\n   - Transpiration (water loss)\n❌ **Don't forget**: Transpiration is also important!\n💡 **Tip**: \"Stomata - Gateway for gases\"\n\n### 4. Symbiotic Relationships\n✅ **Lichens**: Algae + Fungi (both benefit)\n✅ **Rhizobium**: Bacteria + Legumes\n❌ **Common error**: Mixing up parasitic and symbiotic\n💡 **Tip**: Symbiosis = mutual benefit\n\n### 5. Types of Nutrition\n```\nAutotrophic → Makes own food (plants)\nHeterotrophic → Depends on others\n   ├── Parasitic → Lives on host\n   ├── Saprophytic → Feeds on dead matter\n   └── Insectivorous → Traps insects\n```\n\n## Diagram Drawing Tips\n1. **Leaf structure**: Always label stomata, guard cells, chloroplast\n2. **Photosynthesis process**: Show sunlight with arrows\n3. **Pitcher plant**: Draw lid and digestive fluid clearly\n\n## Keyword Answers\n- Use terms: **autotrophic**, **chlorophyll**, **stomata**\n- Write chemical equation when asked about photosynthesis\n- Mention both raw materials AND products\n\n## Quick Revision Checklist\n- [ ] Can write photosynthesis equation\n- [ ] Know function of chlorophyll\n- [ ] Understand role of stomata\n- [ ] Can differentiate modes of nutrition\n- [ ] Remember 2-3 examples of each nutrition type",
+      "created_at": 1738790400
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "subject": "science",
+  "topic_id": 1,
+  "topic_name": "Photosynthesis",
+  "chapter_id": 1,
+  "flashcards": [
+    {
+      "topic_id": 1,
+      "term": "Autotrophic Nutrition",
+      "definition": "Mode of nutrition in which organisms can synthesize their own food from simple inorganic substances like CO₂ and water using sunlight energy."
+    },
+    {
+      "topic_id": 1,
+      "term": "Photosynthesis",
+      "definition": "The process by which green plants make their own food using carbon dioxide, water, and sunlight energy in the presence of chlorophyll."
+    },
+    {
+      "topic_id": 1,
+      "term": "Chlorophyll",
+      "definition": "Green pigment present in chloroplasts that absorbs light energy and is essential for photosynthesis."
+    },
+    {
+      "topic_id": 1,
+      "term": "Stomata",
+      "definition": "Tiny pores present on the surface of leaves that allow exchange of gases (CO₂ in, O₂ out) and help in transpiration."
+    },
+    {
+      "topic_id": 1,
+      "term": "Guard Cells",
+      "definition": "Specialized cells surrounding each stoma that control its opening and closing based on water content and light."
+    },
+    {
+      "topic_id": 1,
+      "term": "Chloroplast",
+      "definition": "Cell organelle containing chlorophyll where photosynthesis takes place in plant cells."
+    },
+    {
+      "topic_id": 1,
+      "term": "Heterotrophic Nutrition",
+      "definition": "Mode of nutrition in which organisms cannot make their own food and depend on other organisms for nutrition."
+    },
+    {
+      "topic_id": 1,
+      "term": "Parasitic Plants",
+      "definition": "Plants that obtain food from other living organisms (hosts) without benefiting them. Example: Cuscuta (Dodder)."
+    },
+    {
+      "topic_id": 1,
+      "term": "Insectivorous Plants",
+      "definition": "Plants that trap and digest insects to obtain nitrogen and other nutrients. Examples: Pitcher plant, Venus flytrap."
+    },
+    {
+      "topic_id": 1,
+      "term": "Saprotrophic Nutrition",
+      "definition": "Mode of nutrition in which organisms obtain food from dead and decaying organic matter. Examples: Fungi, bacteria."
+    },
+    {
+      "topic_id": 2,
+      "term": "Symbiosis",
+      "definition": "Relationship between two different organisms living in close association where both organisms benefit from each other."
+    },
+    {
+      "topic_id": 2,
+      "term": "Lichens",
+      "definition": "Symbiotic association between algae (provides food through photosynthesis) and fungi (provides shelter and moisture)."
+    },
+    {
+      "topic_id": 2,
+      "term": "Rhizobium",
+      "definition": "Nitrogen-fixing bacteria that live in root nodules of leguminous plants, converting atmospheric nitrogen into usable nitrates."
+    },
+    {
+      "topic_id": 2,
+      "term": "Nitrogen Fixation",
+      "definition": "Process of converting atmospheric nitrogen (N₂) into nitrogen compounds like ammonia and nitrates that plants can use."
+    },
+    {
+      "topic_id": 1,
+      "term": "Transpiration",
+      "definition": "Loss of water in the form of water vapor from the aerial parts of the plant, mainly through stomata."
+    },
+    {
+      "topic_id": 1,
+      "term": "Raw Materials of Photosynthesis",
+      "definition": "Carbon dioxide (from air through stomata) and water (from soil through roots) are the two main raw materials."
+    },
+    {
+      "topic_id": 1,
+      "term": "Products of Photosynthesis",
+      "definition": "Glucose (C₆H₁₂O₆) which is stored as starch, and oxygen (O₂) which is released into the atmosphere."
+    },
+    {
+      "topic_id": 1,
+      "term": "Photosynthesis Equation",
+      "definition": "6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂ (in presence of chlorophyll)"
+    },
+    {
+      "topic_id": 2,
+      "term": "Leguminous Plants",
+      "definition": "Plants belonging to the legume family that have root nodules containing nitrogen-fixing bacteria. Examples: Peas, beans, pulses."
+    },
+    {
+      "topic_id": 1,
+      "term": "Starch Test",
+      "definition": "Iodine test used to detect the presence of starch in leaves, confirming that photosynthesis has occurred. Starch turns blue-black with iodine."
+    }
+  ]
+}
