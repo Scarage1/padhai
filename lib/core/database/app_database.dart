@@ -63,7 +63,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 2; // v1.1.0: Added StudyResources, Flashcards, PracticeAttempts tables + Questions columns
+  int get schemaVersion => 3; // v1.1.1: Fixed schema migration issues
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -74,22 +74,16 @@ class AppDatabase extends _$AppDatabase {
           await _seedContent();
         },
         onUpgrade: (Migrator m, int from, int to) async {
-          // Migration from v1 to v2 (v1.1.0 release)
-          if (from == 1 && to == 2) {
-            // Add new columns to Questions table
-            await m.addColumn(questions, questions.ncertReference);
-            await m.addColumn(questions, questions.hint);
-            
-            // Create new tables
-            await m.createTable(studyResources);
-            await m.createTable(flashcards);
-            await m.createTable(practiceAttempts);
-            
-            // Create indexes for new tables
-            await customStatement('CREATE INDEX IF NOT EXISTS idx_study_resources_chapter_id ON study_resources(chapter_id)');
-            await customStatement('CREATE INDEX IF NOT EXISTS idx_flashcards_topic_id ON flashcards(topic_id)');
-            await customStatement('CREATE INDEX IF NOT EXISTS idx_practice_attempts_user_id ON practice_attempts(user_id)');
-            await customStatement('CREATE INDEX IF NOT EXISTS idx_practice_attempts_topic_id ON practice_attempts(topic_id)');
+          // For v3, we recreate the database to fix migration issues
+          if (from < 3) {
+            // Drop and recreate all tables
+            for (final table in allTables) {
+              await m.deleteTable(table.actualTableName);
+              await m.createTable(table);
+            }
+            await _createIndexes();
+            await _seedInitialData();
+            await _seedContent();
           }
         },
         beforeOpen: (details) async {
