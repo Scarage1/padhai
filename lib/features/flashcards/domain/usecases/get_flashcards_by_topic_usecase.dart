@@ -10,7 +10,7 @@ class GetFlashcardsByTopicUseCase {
 
   GetFlashcardsByTopicUseCase(this._database);
 
-  Future<Either<Failure, List<Flashcard>>> call(int topicId) async {
+  Future<Either<Failure, List<Flashcard>>> call(String topicId) async {
     try {
       final flashcards = await _database.flashcardsDao
           .getFlashcardsByTopic(topicId);

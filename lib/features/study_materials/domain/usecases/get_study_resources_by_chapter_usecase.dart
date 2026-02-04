@@ -10,7 +10,7 @@ class GetStudyResourcesByChapterUseCase {
 
   GetStudyResourcesByChapterUseCase(this._database);
 
-  Future<Either<Failure, List<StudyResource>>> call(int chapterId) async {
+  Future<Either<Failure, List<StudyResource>>> call(String chapterId) async {
     try {
       final resources = await _database.studyResourcesDao
           .getResourcesByChapter(chapterId);

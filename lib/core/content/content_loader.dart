@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drift/drift.dart';
 import 'package:flutter/services.dart';
 import 'package:padhai/core/database/app_database.dart';
 
@@ -30,14 +31,14 @@ class ContentLoader {
           QuestionsCompanion.insert(
             id: q['id'] as String,
             topicId: q['topic_id'] as String,
-            chapterId: q['chapter_id'] ?? data['chapter_id'] as String,
+            chapterId: (q['chapter_id'] ?? data['chapter_id']).toString(),
             questionText: q['question_text'] as String,
-            questionType: q['question_type'] ?? 'mcq',
+            questionType: (q['question_type'] ?? 'mcq') as String,
             options: json.encode(q['options']),
             correctAnswer: q['correct_answer'] as String,
             explanation: q['explanation'] as String,
-            difficulty: q['difficulty'] ?? 'beginner',
-            points: q['points'] ?? 10,
+            difficulty: (q['difficulty'] ?? 'beginner') as String,
+            points: Value((q['points'] ?? 10) as int),
             imageUrl: Value(q['image_url'] as String?),
             ncertReference: Value(q['ncert_reference'] as String?),
             hint: Value(q['hint'] as String?),
@@ -68,7 +69,7 @@ class ContentLoader {
         await _database.into(_database.studyResources).insert(
           StudyResourcesCompanion.insert(
             resourceType: r['type'] as String,
-            chapterId: r['chapter_id'] as String? ?? '',
+            chapterId: (r['chapter_id'] as int).toString(),
             title: r['title'] as String,
             content: r['content'] as String,
             fileUrl: Value(r['file_url'] as String?),
@@ -99,7 +100,7 @@ class ContentLoader {
       for (var f in flashcards) {
         await _database.into(_database.flashcards).insert(
           FlashcardsCompanion.insert(
-            topicId: f['topic_id'] as String,
+            topicId: (f['topic_id'] as int).toString(),
             term: f['term'] as String,
             definition: f['definition'] as String,
             masteryLevel: Value(f['mastery_level'] as int? ?? 0),

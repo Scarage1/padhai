@@ -27,7 +27,7 @@ final getFlashcardStatsUseCaseProvider = Provider((ref) {
 
 // Flashcard session state provider
 final flashcardSessionProvider =
-    StateNotifierProvider.family<FlashcardSessionNotifier, FlashcardSessionState, int>(
+    StateNotifierProvider.family<FlashcardSessionNotifier, FlashcardSessionState, String>(
   (ref, topicId) {
     return FlashcardSessionNotifier(
       topicId: topicId,
@@ -38,7 +38,7 @@ final flashcardSessionProvider =
 );
 
 // Flashcard stats provider
-final flashcardStatsProvider = FutureProvider.family<FlashcardStats, int>((ref, topicId) async {
+final flashcardStatsProvider = FutureProvider.family<FlashcardStats, String>((ref, topicId) async {
   final useCase = ref.watch(getFlashcardStatsUseCaseProvider);
   final result = await useCase(topicId);
   
@@ -112,7 +112,7 @@ class FlashcardSessionState {
 
 // Flashcard session notifier
 class FlashcardSessionNotifier extends StateNotifier<FlashcardSessionState> {
-  final int topicId;
+  final String topicId;
   final GetFlashcardsByTopicUseCase _getFlashcardsByTopicUseCase;
   final UpdateFlashcardMasteryUseCase _updateFlashcardMasteryUseCase;
 

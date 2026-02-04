@@ -11,7 +11,7 @@ class StudyResourcesDao extends DatabaseAccessor<AppDatabase>
   StudyResourcesDao(super.db);
 
   /// Get all study resources for a chapter
-  Future<List<StudyResource>> getResourcesByChapter(int chapterId) {
+  Future<List<StudyResource>> getResourcesByChapter(String chapterId) {
     return (select(studyResources)
           ..where((tbl) => tbl.chapterId.equals(chapterId))
           ..orderBy([
@@ -32,7 +32,7 @@ class StudyResourcesDao extends DatabaseAccessor<AppDatabase>
 
   /// Get study resources by chapter and type
   Future<List<StudyResource>> getResourcesByChapterAndType(
-    int chapterId,
+    String chapterId,
     String resourceType,
   ) {
     return (select(studyResources)
@@ -67,7 +67,7 @@ class StudyResourcesDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Get count of resources by type for a chapter
-  Future<int> getResourceCountByType(int chapterId, String resourceType) async {
+  Future<int> getResourceCountByType(String chapterId, String resourceType) async {
     final countExp = studyResources.id.count();
     final query = selectOnly(studyResources)
       ..addColumns([countExp])
@@ -79,7 +79,7 @@ class StudyResourcesDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Watch resources for a chapter (reactive stream)
-  Stream<List<StudyResource>> watchResourcesByChapter(int chapterId) {
+  Stream<List<StudyResource>> watchResourcesByChapter(String chapterId) {
     return (select(studyResources)
           ..where((tbl) => tbl.chapterId.equals(chapterId))
           ..orderBy([

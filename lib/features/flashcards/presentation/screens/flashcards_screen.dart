@@ -6,13 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:padhai/app/theme/app_colors.dart';
 import 'package:padhai/app/theme/app_spacing.dart';
 import 'package:padhai/app/theme/app_typography.dart';
-import 'package:padhai/core/database/models/flashcard.dart';
+import 'package:padhai/core/database/app_database.dart';
 import 'package:padhai/features/flashcards/presentation/providers/flashcards_provider.dart';
 import 'package:padhai/shared/widgets/app_button.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
 
 class FlashcardsScreen extends ConsumerStatefulWidget {
-  final int topicId;
+  final String topicId;
   final String topicName;
 
   const FlashcardsScreen({
@@ -280,11 +280,11 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
       return Container(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: AppButton(
-          text: 'Flip Card',
+          label: 'Flip Card',
           onPressed: () {
             ref.read(flashcardSessionProvider(widget.topicId).notifier).flipCard();
           },
-          isFullWidth: true,
+          fullWidth: true,
         ),
       );
     }
@@ -305,26 +305,26 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
         children: [
           Expanded(
             child: AppButton(
-              text: 'Didn\'t Know',
+              label: 'Didn\'t Know',
               onPressed: () {
                 ref
                     .read(flashcardSessionProvider(widget.topicId).notifier)
                     .markAsIncorrect();
               },
               variant: AppButtonVariant.secondary,
-              icon: Icons.close,
+              icon: const Icon(Icons.close),
             ),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: AppButton(
-              text: 'Got It!',
+              label: 'Got It!',
               onPressed: () {
                 ref
                     .read(flashcardSessionProvider(widget.topicId).notifier)
                     .markAsCorrect();
               },
-              icon: Icons.check,
+              icon: const Icon(Icons.check),
             ),
           ),
         ],
@@ -340,7 +340,7 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
   }
 
   void _showHelpDialog(BuildContext context) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('How to Use Flashcards'),
@@ -402,7 +402,7 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
 }
 
 class _FlashcardCompletedScreen extends StatelessWidget {
-  final int topicId;
+  final String topicId;
   final String topicName;
   final int totalCards;
   final int correctCount;
@@ -487,20 +487,20 @@ class _FlashcardCompletedScreen extends StatelessWidget {
                   return Column(
                     children: [
                       AppButton(
-                        text: 'Review Again',
+                        label: 'Review Again',
                         onPressed: () {
                           ref
                               .read(flashcardSessionProvider(topicId).notifier)
                               .restartSession();
                         },
-                        isFullWidth: true,
+                        fullWidth: true,
                       ),
                       const SizedBox(height: AppSpacing.md),
                       AppButton(
-                        text: 'Back to Topic',
+                        label: 'Back to Topic',
                         onPressed: () => context.pop(),
                         variant: AppButtonVariant.secondary,
-                        isFullWidth: true,
+                        fullWidth: true,
                       ),
                     ],
                   );

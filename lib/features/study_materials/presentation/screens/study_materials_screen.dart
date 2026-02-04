@@ -10,7 +10,7 @@ import 'package:padhai/features/study_materials/presentation/providers/study_res
 import 'package:padhai/shared/widgets/app_error_widget.dart';
 
 class StudyMaterialsScreen extends ConsumerStatefulWidget {
-  final int chapterId;
+  final String chapterId;
   final String chapterName;
 
   const StudyMaterialsScreen({
@@ -223,7 +223,7 @@ class _ResourceCard extends StatelessWidget {
               ),
               tableBody: AppTypography.bodyMedium,
               tableBorder: TableBorder.all(
-                color: AppColors.divider,
+                color: AppColors.border,
                 width: 1,
               ),
               tableColumnWidth: const FlexColumnWidth(),

@@ -10,7 +10,7 @@ import 'package:padhai/shared/widgets/app_button.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
 
 class PracticeModeScreen extends ConsumerStatefulWidget {
-  final int chapterId;
+  final String chapterId;
   final String chapterName;
 
   const PracticeModeScreen({

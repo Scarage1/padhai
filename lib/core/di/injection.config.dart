@@ -32,6 +32,14 @@ import '../../features/dashboard/domain/usecases/get_subjects_usecase.dart'
     as _i733;
 import '../../features/dashboard/domain/usecases/get_user_stats_usecase.dart'
     as _i880;
+import '../../features/flashcards/domain/usecases/get_due_flashcards_usecase.dart'
+    as _i773;
+import '../../features/flashcards/domain/usecases/get_flashcard_stats_usecase.dart'
+    as _i240;
+import '../../features/flashcards/domain/usecases/get_flashcards_by_topic_usecase.dart'
+    as _i849;
+import '../../features/flashcards/domain/usecases/update_flashcard_mastery_usecase.dart'
+    as _i216;
 import '../../features/practice/domain/usecases/get_practice_stats_usecase.dart'
     as _i638;
 import '../../features/practice/domain/usecases/record_practice_attempt_usecase.dart'
@@ -106,6 +114,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i638.GetPracticeStatsUseCase>(
       () => _i638.GetPracticeStatsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i773.GetDueFlashcardsUseCase>(
+      () => _i773.GetDueFlashcardsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i216.UpdateFlashcardMasteryUseCase>(
+      () => _i216.UpdateFlashcardMasteryUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i240.GetFlashcardStatsUseCase>(
+      () => _i240.GetFlashcardStatsUseCase(gh<_i982.AppDatabase>()),
+    );
+    gh.factory<_i849.GetFlashcardsByTopicUseCase>(
+      () => _i849.GetFlashcardsByTopicUseCase(gh<_i982.AppDatabase>()),
     );
     gh.lazySingleton<_i619.SecureStorage>(
       () => _i619.SecureStorage(gh<_i558.FlutterSecureStorage>()),

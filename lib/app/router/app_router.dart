@@ -72,7 +72,7 @@ class AppRouter {
             return const _InvalidRouteScreen(message: 'Invalid chapter');
           }
           return StudyMaterialsScreen(
-            chapterId: int.parse(chapterId),
+            chapterId: chapterId,
             chapterName: chapterName,
           );
         },
@@ -86,7 +86,7 @@ class AppRouter {
             return const _InvalidRouteScreen(message: 'Invalid chapter');
           }
           return PracticeModeScreen(
-            chapterId: int.parse(chapterId),
+            chapterId: chapterId,
             chapterName: chapterName,
           );
         },
@@ -142,7 +142,7 @@ class AppRouter {
             return const _InvalidRouteScreen(message: 'Invalid topic');
           }
           return FlashcardsScreen(
-            topicId: int.parse(topicId),
+            topicId: topicId,
             topicName: topicName,
           );
         },

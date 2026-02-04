@@ -11,7 +11,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   FlashcardsDao(super.db);
 
   /// Get all flashcards for a topic
-  Future<List<Flashcard>> getFlashcardsByTopic(int topicId) {
+  Future<List<Flashcard>> getFlashcardsByTopic(String topicId) {
     return (select(flashcards)
           ..where((tbl) => tbl.topicId.equals(topicId))
           ..orderBy([
@@ -21,7 +21,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Get flashcards due for review (next_review_date <= now)
-  Future<List<Flashcard>> getDueFlashcards(int topicId) {
+  Future<List<Flashcard>> getDueFlashcards(String topicId) {
     final now = DateTime.now();
     return (select(flashcards)
           ..where((tbl) =>
@@ -34,7 +34,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Get flashcards by mastery level
-  Future<List<Flashcard>> getFlashcardsByMastery(int topicId, int masteryLevel) {
+  Future<List<Flashcard>> getFlashcardsByMastery(String topicId, int masteryLevel) {
     return (select(flashcards)
           ..where((tbl) =>
               tbl.topicId.equals(topicId) &
@@ -101,7 +101,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Get flashcard statistics for a topic
-  Future<FlashcardStats> getFlashcardStats(int topicId) async {
+  Future<FlashcardStats> getFlashcardStats(String topicId) async {
     final allCards = await getFlashcardsByTopic(topicId);
     
     if (allCards.isEmpty) {

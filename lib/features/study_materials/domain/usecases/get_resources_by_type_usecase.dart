@@ -11,7 +11,7 @@ class GetResourcesByTypeUseCase {
   GetResourcesByTypeUseCase(this._database);
 
   Future<Either<Failure, List<StudyResource>>> call({
-    required int chapterId,
+    required String chapterId,
     required String resourceType,
   }) async {
     try {

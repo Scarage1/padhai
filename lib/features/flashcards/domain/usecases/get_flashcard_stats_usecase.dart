@@ -11,7 +11,7 @@ class GetFlashcardStatsUseCase {
 
   GetFlashcardStatsUseCase(this._database);
 
-  Future<Either<Failure, FlashcardStats>> call(int topicId) async {
+  Future<Either<Failure, FlashcardStats>> call(String topicId) async {
     try {
       final stats = await _database.flashcardsDao
           .getFlashcardStats(topicId);

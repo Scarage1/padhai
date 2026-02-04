@@ -18,7 +18,7 @@ final getResourcesByTypeUseCaseProvider = Provider<GetResourcesByTypeUseCase>((r
 
 // Provider for all study resources by chapter
 final studyResourcesProvider =
-    FutureProvider.family<List<StudyResource>, int>((ref, chapterId) async {
+    FutureProvider.family<List<StudyResource>, String>((ref, chapterId) async {
   final useCase = ref.watch(getStudyResourcesByChapterUseCaseProvider);
   final result = await useCase(chapterId);
   
@@ -30,7 +30,7 @@ final studyResourcesProvider =
 
 // Provider for resources by type
 final resourcesByTypeProvider = FutureProvider.family<List<StudyResource>, 
-    ({int chapterId, String resourceType})>((ref, params) async {
+    ({String chapterId, String resourceType})>((ref, params) async {
   final useCase = ref.watch(getResourcesByTypeUseCaseProvider);
   final result = await useCase(
     chapterId: params.chapterId,
