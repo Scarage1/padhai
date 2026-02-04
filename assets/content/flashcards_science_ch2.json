@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "subject": "science",
+  "topic_id": 3,
+  "topic_name": "Human Digestive System",
+  "chapter_id": 2,
+  "flashcards": [
+    {
+      "topic_id": 3,
+      "term": "Ingestion",
+      "definition": "The process of taking food into the body through the mouth. It is the first step in holozoic nutrition."
+    },
+    {
+      "topic_id": 3,
+      "term": "Digestion",
+      "definition": "The breakdown of complex food molecules into simpler, soluble forms that can be absorbed by the body. Involves mechanical and chemical processes."
+    },
+    {
+      "topic_id": 3,
+      "term": "Absorption",
+      "definition": "The process by which digested food passes through the intestinal wall into the bloodstream. Occurs mainly in the small intestine through villi."
+    },
+    {
+      "topic_id": 3,
+      "term": "Assimilation",
+      "definition": "The process by which absorbed food is utilized by the body for energy, growth, and repair of tissues."
+    },
+    {
+      "topic_id": 3,
+      "term": "Egestion",
+      "definition": "The removal of undigested food material from the body as feces through the anus. Final step in holozoic nutrition."
+    },
+    {
+      "topic_id": 3,
+      "term": "Salivary Amylase",
+      "definition": "Enzyme present in saliva that breaks down starch into maltose. Also called ptyalin. Works best at neutral pH."
+    },
+    {
+      "topic_id": 3,
+      "term": "Peristalsis",
+      "definition": "Wave-like muscular contractions of the alimentary canal that push food forward through the digestive system."
+    },
+    {
+      "topic_id": 3,
+      "term": "Gastric Juice",
+      "definition": "Digestive juice secreted by gastric glands in the stomach. Contains HCl (hydrochloric acid), pepsin, and mucus."
+    },
+    {
+      "topic_id": 3,
+      "term": "Pepsin",
+      "definition": "Protein-digesting enzyme present in gastric juice. Works best in acidic conditions (pH 1-2) and breaks proteins into peptones."
+    },
+    {
+      "topic_id": 3,
+      "term": "Hydrochloric Acid (HCl)",
+      "definition": "Acid present in gastric juice that creates acidic medium for pepsin, kills harmful bacteria, and helps in protein digestion."
+    },
+    {
+      "topic_id": 3,
+      "term": "Villi",
+      "definition": "Finger-like projections on the inner wall of the small intestine that increase surface area for absorption of digested food."
+    },
+    {
+      "topic_id": 3,
+      "term": "Bile",
+      "definition": "Greenish-yellow liquid produced by the liver and stored in gall bladder. Emulsifies fats (breaks into smaller droplets) but is NOT an enzyme."
+    },
+    {
+      "topic_id": 3,
+      "term": "Pancreatic Juice",
+      "definition": "Digestive juice from pancreas containing enzymes: trypsin (for proteins), lipase (for fats), and pancreatic amylase (for starch)."
+    },
+    {
+      "topic_id": 3,
+      "term": "Trypsin",
+      "definition": "Protein-digesting enzyme in pancreatic juice that breaks down proteins into amino acids. Works in alkaline medium (pH 8)."
+    },
+    {
+      "topic_id": 3,
+      "term": "Lipase",
+      "definition": "Fat-digesting enzyme present in pancreatic juice that breaks down fats into fatty acids and glycerol."
+    },
+    {
+      "topic_id": 4,
+      "term": "Incisors",
+      "definition": "Front teeth (8 total) used for cutting and biting food. They have a chisel-shaped edge."
+    },
+    {
+      "topic_id": 4,
+      "term": "Canines",
+      "definition": "Pointed teeth (4 total) next to incisors used for tearing and piercing food. Well-developed in carnivores."
+    },
+    {
+      "topic_id": 4,
+      "term": "Premolars and Molars",
+      "definition": "Back teeth (8 premolars + 12 molars) with broad surfaces used for crushing and grinding food."
+    },
+    {
+      "topic_id": 3,
+      "term": "Alimentary Canal",
+      "definition": "The long tube extending from mouth to anus through which food passes during digestion. Also called digestive tract or gut."
+    },
+    {
+      "topic_id": 3,
+      "term": "Emulsification",
+      "definition": "The process of breaking down large fat droplets into smaller ones by bile. This increases the surface area for lipase enzyme action."
+    },
+    {
+      "topic_id": 5,
+      "term": "Pseudopodia",
+      "definition": "Finger-like projections of cell membrane in amoeba used for movement and capturing food. Means 'false feet'."
+    },
+    {
+      "topic_id": 5,
+      "term": "Phagocytosis",
+      "definition": "Process by which amoeba engulfs food particles using pseudopodia, forming a food vacuole inside the cell."
+    },
+    {
+      "topic_id": 5,
+      "term": "Ruminants",
+      "definition": "Grass-eating animals (like cow, buffalo, deer) with four-chambered stomach that can digest cellulose with help of bacteria."
+    },
+    {
+      "topic_id": 5,
+      "term": "Rumen",
+      "definition": "First and largest chamber of a ruminant's stomach where cellulose digestion begins with help of bacteria. Food is stored here temporarily."
+    },
+    {
+      "topic_id": 5,
+      "term": "Cud",
+      "definition": "Partially digested food that ruminants bring back from stomach to mouth for further chewing. This process is called rumination."
+    },
+    {
+      "topic_id": 3,
+      "term": "Large Intestine",
+      "definition": "Final part of digestive system where water is absorbed from undigested food and feces is formed before egestion."
+    }
+  ]
+}

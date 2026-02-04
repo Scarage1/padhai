@@ -17,24 +17,37 @@ class ContentInitializationService {
     try {
       debugPrint('🔄 Loading sample content...');
 
-      // Load questions
-      final questionsLoaded = await _contentLoader.loadQuestionsFromJson(
+      int totalQuestions = 0;
+      int totalResources = 0;
+      int totalFlashcards = 0;
+
+      // Load Chapter 1 content
+      debugPrint('📖 Loading Chapter 1: Nutrition in Plants...');
+      totalQuestions += await _contentLoader.loadQuestionsFromJson(
         'assets/content/questions_science_ch1.json',
       );
-      debugPrint('✅ Loaded $questionsLoaded questions');
-
-      // Load study resources
-      final resourcesLoaded = await _contentLoader.loadStudyResourcesFromJson(
+      totalResources += await _contentLoader.loadStudyResourcesFromJson(
         'assets/content/resources_science_ch1.json',
       );
-      debugPrint('✅ Loaded $resourcesLoaded study resources');
-
-      // Load flashcards
-      final flashcardsLoaded = await _contentLoader.loadFlashcardsFromJson(
+      totalFlashcards += await _contentLoader.loadFlashcardsFromJson(
         'assets/content/flashcards_science_ch1.json',
       );
-      debugPrint('✅ Loaded $flashcardsLoaded flashcards');
 
+      // Load Chapter 2 content
+      debugPrint('📖 Loading Chapter 2: Nutrition in Animals...');
+      totalQuestions += await _contentLoader.loadQuestionsFromJson(
+        'assets/content/questions_science_ch2.json',
+      );
+      totalResources += await _contentLoader.loadStudyResourcesFromJson(
+        'assets/content/resources_science_ch2.json',
+      );
+      totalFlashcards += await _contentLoader.loadFlashcardsFromJson(
+        'assets/content/flashcards_science_ch2.json',
+      );
+
+      debugPrint('✅ Loaded $totalQuestions questions');
+      debugPrint('✅ Loaded $totalResources study resources');
+      debugPrint('✅ Loaded $totalFlashcards flashcards');
       debugPrint('🎉 Sample content loaded successfully!');
       return true;
     } catch (e, stackTrace) {
