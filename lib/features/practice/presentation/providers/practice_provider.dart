@@ -21,7 +21,7 @@ final getPracticeStatsUseCaseProvider = Provider((ref) {
 
 // Practice session state provider
 final practiceSessionProvider =
-    StateNotifierProvider.family<PracticeSessionNotifier, PracticeSessionState, int>(
+    StateNotifierProvider.family<PracticeSessionNotifier, PracticeSessionState, String>(
   (ref, chapterId) {
     return PracticeSessionNotifier(
       chapterId: chapterId,
@@ -95,7 +95,7 @@ class PracticeSessionState {
 
 // Practice session notifier
 class PracticeSessionNotifier extends StateNotifier<PracticeSessionState> {
-  final int chapterId;
+  final String chapterId;
   final StartPracticeSessionUseCase _startPracticeSessionUseCase;
   final RecordPracticeAttemptUseCase _recordPracticeAttemptUseCase;
 

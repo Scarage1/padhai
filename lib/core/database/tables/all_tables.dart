@@ -212,11 +212,12 @@ class StudyResources extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+@DataClassName('Flashcard')
 class Flashcards extends Table {
   IntColumn get id => integer().autoIncrement()();
   
   /// Foreign key to topics table
-  TextColumn get topicId => text().references(Topics, #id)();
+  TextColumn get topicId => text()();
   
   /// Term or concept name
   TextColumn get term => text()();
@@ -240,33 +241,25 @@ class Flashcards extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+@DataClassName('PracticeAttempt')
 class PracticeAttempts extends Table {
   IntColumn get id => integer().autoIncrement()();
   
   /// Foreign key to users table
-  TextColumn get userId => text().references(Users, #id)();
+  TextColumn get userId => text()();
   
-  /// Foreign key to topics table
-  TextColumn get topicId => text().references(Topics, #id)();
+  /// Foreign key to chapters table
+  TextColumn get chapterId => text()();
   
-  /// Foreign key to questions table
-  TextColumn get questionId => text().references(Questions, #id)();
+  /// JSON array of question IDs attempted in this session
+  TextColumn get questionIds => text()();
   
-  /// User's selected answer
-  TextColumn get userAnswer => text()();
+  /// Number of hints used in this practice session
+  IntColumn get hintsUsed => integer().withDefault(const Constant(0))();
   
-  /// Whether the answer was correct
-  BoolColumn get isCorrect => boolean()();
+  /// Timestamp when practice session was completed
+  IntColumn get completedAt => integer()();
   
-  /// Whether hint was used for this question
-  BoolColumn get hintUsed => boolean().withDefault(const Constant(false))();
-  
-  /// Timestamp when attempted
-  IntColumn get attemptedAt => integer()();
-  
-  /// Time taken to answer (in seconds)
-  IntColumn get timeTaken => integer().nullable()();
-
   @override
   Set<Column> get primaryKey => {id};
 }

@@ -184,8 +184,8 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Watch due flashcards (reactive stream)
-  Stream<List<Flashcard>> watchDueFlashcards(int topicId) {
-    final now = DateTime.now();
+  Stream<List<Flashcard>> watchDueFlashcards(String topicId) {
+    final now = DateTime.now().millisecondsSinceEpoch;
     return (select(flashcards)
           ..where((tbl) =>
               tbl.topicId.equals(topicId) &

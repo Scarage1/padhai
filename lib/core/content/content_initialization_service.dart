@@ -60,8 +60,13 @@ class ContentInitializationService {
   /// Check if content is already loaded
   Future<bool> isContentLoaded() async {
     try {
-      final questions = await _database.questionsDao.getAllQuestions();
-      return questions.isNotEmpty;
+      // Check if we have any questions in the database
+      final result = await _database.customSelect(
+        'SELECT COUNT(*) as count FROM questions',
+        readsFrom: {_database.questions},
+      ).getSingle();
+      final count = result.read<int>('count');
+      return count > 0;
     } catch (e) {
       return false;
     }

@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('FlashcardData')
+@DataClassName('Flashcard')
 class Flashcards extends Table {
   IntColumn get id => integer().autoIncrement()();
   
   /// Foreign key to topics table
-  IntColumn get topicId => integer()();
+  TextColumn get topicId => text()();
   
   /// Term or concept name
   TextColumn get term => text()();
@@ -16,12 +16,12 @@ class Flashcards extends Table {
   /// Mastery level (0-5): 0 = new, 5 = mastered
   IntColumn get masteryLevel => integer().withDefault(const Constant(0))();
   
-  /// Next scheduled review date (Unix timestamp)
+  /// Next scheduled review date (Unix timestamp in milliseconds)
   IntColumn get nextReviewDate => integer().nullable()();
   
   /// Number of times reviewed
   IntColumn get reviewCount => integer().withDefault(const Constant(0))();
   
-  /// Last review date (Unix timestamp)
+  /// Last review date (Unix timestamp in milliseconds)
   IntColumn get lastReviewedAt => integer().nullable()();
 }

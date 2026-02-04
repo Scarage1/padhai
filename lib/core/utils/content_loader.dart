@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
+import 'package:drift/drift.dart';
 import '../database/app_database.dart';
 import '../database/tables/all_tables.dart';
 
@@ -41,7 +42,7 @@ class ContentLoader {
       final jsonString = await rootBundle.loadString(assetPath);
       final data = json.decode(jsonString) as Map<String, dynamic>;
 
-      final chapterId = data['chapter_id'] as int;
+      final chapterId = (data['chapter_id'] ?? 0).toString();
       final questions = data['questions'] as List<dynamic>;
 
       int loadedCount = 0;
@@ -57,9 +58,10 @@ class ContentLoader {
           // Update existing question
           await _database.questionsDao.updateQuestion(
             existingQuestion.copyWith(
-              topicId: questionData['topic_id'] as int,
+              topicId: (questionData['topic_id'] ?? 0).toString(),
+              chapterId: chapterId,
               questionText: questionData['question_text'] as String,
-              options: (questionData['options'] as List).cast<String>(),
+              options: json.encode((questionData['options'] as List).cast<String>()),
               correctAnswer: questionData['correct_answer'] as String,
               explanation: questionData['explanation'] as String,
               difficulty: questionData['difficulty'] as String? ?? 'intermediate',
@@ -74,15 +76,16 @@ class ContentLoader {
           await _database.questionsDao.insertQuestion(
             QuestionsCompanion.insert(
               id: questionData['id'] as String,
-              topicId: questionData['topic_id'] as int,
+              topicId: (questionData['topic_id'] ?? 0).toString(),
+              chapterId: chapterId,
               questionText: questionData['question_text'] as String,
-              options: (questionData['options'] as List).cast<String>(),
+              options: json.encode((questionData['options'] as List).cast<String>()),
               correctAnswer: questionData['correct_answer'] as String,
               explanation: questionData['explanation'] as String,
               difficulty: questionData['difficulty'] as String? ?? 'intermediate',
-              imageUrl: questionData['image_url'] as String?,
-              ncertReference: questionData['ncert_reference'] as String?,
-              hint: questionData['hint'] as String?,
+              imageUrl: Value(questionData['image_url'] as String?),
+              ncertReference: Value(questionData['ncert_reference'] as String?),
+              hint: Value(questionData['hint'] as String?),
               questionType: questionData['question_type'] as String? ?? 'mcq',
             ),
           );
@@ -129,11 +132,11 @@ class ContentLoader {
         await _database.into(_database.studyResources).insert(
           StudyResourcesCompanion.insert(
             resourceType: resourceData['type'] as String,
-            chapterId: resourceData['chapter_id'] as int,
+            chapterId: (resourceData['chapter_id'] ?? 0).toString(),
             title: resourceData['title'] as String,
             content: resourceData['content'] as String,
-            fileUrl: resourceData['file_url'] as String?,
-            createdAt: DateTime.now(),
+            fileUrl: Value(resourceData['file_url'] as String?),
+            createdAt: DateTime.now().millisecondsSinceEpoch,
           ),
           mode: InsertMode.insertOrReplace,
         );
@@ -176,12 +179,12 @@ class ContentLoader {
 
         await _database.into(_database.flashcards).insert(
           FlashcardsCompanion.insert(
-            topicId: flashcardData['topic_id'] as int,
+            topicId: (flashcardData['topic_id'] ?? 0).toString(),
             term: flashcardData['term'] as String,
             definition: flashcardData['definition'] as String,
-            masteryLevel: 0, // Start at level 0
-            nextReviewDate: DateTime.now(), // Available immediately
-            reviewCount: 0,
+            masteryLevel: Value(0), // Start at level 0
+            nextReviewDate: Value(DateTime.now().millisecondsSinceEpoch), // Available immediately
+            reviewCount: Value(0),
           ),
           mode: InsertMode.insertOrReplace,
         );
