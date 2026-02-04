@@ -22,7 +22,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
 
   /// Get flashcards due for review (next_review_date <= now)
   Future<List<Flashcard>> getDueFlashcards(String topicId) {
-    final now = DateTime.now();
+    final now = DateTime.now().millisecondsSinceEpoch;
     return (select(flashcards)
           ..where((tbl) =>
               tbl.topicId.equals(topicId) &
@@ -55,7 +55,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
     if (flashcard == null) return false;
 
     int newMastery = flashcard.masteryLevel;
-    DateTime nextReview;
+    int nextReview;
 
     if (wasCorrect) {
       // Increase mastery level (max 5)
@@ -66,12 +66,12 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
       // Decrease mastery level (min 0) or keep at 0
       newMastery = (flashcard.masteryLevel - 1).clamp(0, 5);
       // Review again soon if incorrect
-      nextReview = DateTime.now().add(const Duration(minutes: 5));
+      nextReview = DateTime.now().add(const Duration(minutes: 5)).millisecondsSinceEpoch;
     }
 
     final updated = flashcard.copyWith(
       masteryLevel: newMastery,
-      nextReviewDate: nextReview,
+      nextReviewDate: Value(nextReview),
       reviewCount: flashcard.reviewCount + 1,
     );
 
@@ -79,24 +79,24 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Calculate next review date based on mastery level (Spaced Repetition)
-  DateTime _calculateNextReviewDate(int masteryLevel) {
+  int _calculateNextReviewDate(int masteryLevel) {
     final now = DateTime.now();
     
     switch (masteryLevel) {
       case 0: // New
-        return now.add(const Duration(minutes: 1));
+        return now.add(const Duration(minutes: 1)).millisecondsSinceEpoch;
       case 1: // Learning
-        return now.add(const Duration(hours: 4));
+        return now.add(const Duration(hours: 4)).millisecondsSinceEpoch;
       case 2: // Familiar
-        return now.add(const Duration(days: 1));
+        return now.add(const Duration(days: 1)).millisecondsSinceEpoch;
       case 3: // Known
-        return now.add(const Duration(days: 3));
+        return now.add(const Duration(days: 3)).millisecondsSinceEpoch;
       case 4: // Mastered
-        return now.add(const Duration(days: 7));
+        return now.add(const Duration(days: 7)).millisecondsSinceEpoch;
       case 5: // Perfect
-        return now.add(const Duration(days: 14));
+        return now.add(const Duration(days: 14)).millisecondsSinceEpoch;
       default:
-        return now.add(const Duration(days: 1));
+        return now.add(const Duration(days: 1)).millisecondsSinceEpoch;
     }
   }
 
@@ -131,8 +131,8 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
       }
 
       // Count due cards
-      if (card.nextReviewDate.isBefore(now) || 
-          card.nextReviewDate.isAtSameMomentAs(now)) {
+      final now = DateTime.now().millisecondsSinceEpoch;
+      if (card.nextReviewDate != null && card.nextReviewDate! <= now) {
         dueCount++;
       }
     }
@@ -156,7 +156,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
 
     final reset = flashcard.copyWith(
       masteryLevel: 0,
-      nextReviewDate: DateTime.now(),
+      nextReviewDate: Value(DateTime.now().millisecondsSinceEpoch),
       reviewCount: 0,
     );
 
@@ -174,7 +174,7 @@ class FlashcardsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Watch flashcards for a topic (reactive stream)
-  Stream<List<Flashcard>> watchFlashcardsByTopic(int topicId) {
+  Stream<List<Flashcard>> watchFlashcardsByTopic(String topicId) {
     return (select(flashcards)
           ..where((tbl) => tbl.topicId.equals(topicId))
           ..orderBy([

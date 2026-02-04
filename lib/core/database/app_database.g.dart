@@ -7088,8 +7088,7 @@ class $PracticeAttemptsTable extends PracticeAttempts
     aliasedName,
     false,
     type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultValue: const Constant(0),
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _completedAtMeta = const VerificationMeta(
     'completedAt',
@@ -7158,6 +7157,8 @@ class $PracticeAttemptsTable extends PracticeAttempts
         _hintsUsedMeta,
         hintsUsed.isAcceptableOrUnknown(data['hints_used']!, _hintsUsedMeta),
       );
+    } else if (isInserting) {
+      context.missing(_hintsUsedMeta);
     }
     if (data.containsKey('completed_at')) {
       context.handle(
@@ -7365,11 +7366,12 @@ class PracticeAttemptsCompanion extends UpdateCompanion<PracticeAttempt> {
     required String userId,
     required String chapterId,
     required String questionIds,
-    this.hintsUsed = const Value.absent(),
+    required int hintsUsed,
     required int completedAt,
   }) : userId = Value(userId),
        chapterId = Value(chapterId),
        questionIds = Value(questionIds),
+       hintsUsed = Value(hintsUsed),
        completedAt = Value(completedAt);
   static Insertable<PracticeAttempt> custom({
     Expression<int>? id,
@@ -14051,7 +14053,7 @@ typedef $$PracticeAttemptsTableCreateCompanionBuilder =
       required String userId,
       required String chapterId,
       required String questionIds,
-      Value<int> hintsUsed,
+      required int hintsUsed,
       required int completedAt,
     });
 typedef $$PracticeAttemptsTableUpdateCompanionBuilder =
@@ -14233,7 +14235,7 @@ class $$PracticeAttemptsTableTableManager
                 required String userId,
                 required String chapterId,
                 required String questionIds,
-                Value<int> hintsUsed = const Value.absent(),
+                required int hintsUsed,
                 required int completedAt,
               }) => PracticeAttemptsCompanion.insert(
                 id: id,

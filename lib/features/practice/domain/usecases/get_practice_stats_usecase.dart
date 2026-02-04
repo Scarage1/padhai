@@ -13,7 +13,7 @@ class GetPracticeStatsUseCase {
 
   Future<Either<Failure, PracticeStats>> call({
     required String userId,
-    required int chapterId,
+    required String chapterId,
   }) async {
     try {
       final stats = await _database.practiceAttemptsDao.getPracticeStats(

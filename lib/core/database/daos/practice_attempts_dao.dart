@@ -14,7 +14,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
   /// Record a new practice session
   Future<int> recordPracticeAttempt({
     required String userId,
-    required int chapterId,
+    required String chapterId,
     required List<String> questionIds,
     required int hintsUsed,
   }) {
@@ -23,7 +23,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
         userId: userId,
         chapterId: chapterId,
         questionIds: json.encode(questionIds),
-        completedAt: DateTime.now(),
+        completedAt: DateTime.now().millisecondsSinceEpoch,
         hintsUsed: hintsUsed,
       ),
     );
@@ -42,7 +42,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
   /// Get practice attempts for a specific chapter
   Future<List<PracticeAttempt>> getPracticeAttemptsByChapter(
     String userId,
-    int chapterId,
+    String chapterId,
   ) {
     return (select(practiceAttempts)
           ..where((tbl) =>
@@ -116,7 +116,9 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
       totalSessions: attempts.length,
       totalQuestions: totalQuestions,
       totalHintsUsed: totalHints,
-      lastPracticed: attempts.first.completedAt,
+      lastPracticed: attempts.isNotEmpty 
+          ? DateTime.fromMillisecondsSinceEpoch(attempts.first.completedAt)
+          : null,
     );
   }
 
@@ -134,7 +136,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
   /// Watch practice attempts for a chapter (reactive stream)
   Stream<List<PracticeAttempt>> watchPracticeAttempts(
     String userId,
-    int chapterId,
+    String chapterId,
   ) {
     return (select(practiceAttempts)
           ..where((tbl) =>

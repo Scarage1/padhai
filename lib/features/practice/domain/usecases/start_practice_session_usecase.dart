@@ -12,7 +12,7 @@ class StartPracticeSessionUseCase {
 
   /// Get random questions from a chapter for practice
   Future<Either<Failure, List<Question>>> call({
-    required int chapterId,
+    required String chapterId,
     int count = 10,
     String? difficulty,
   }) async {

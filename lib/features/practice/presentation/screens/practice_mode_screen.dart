@@ -1,4 +1,6 @@
 // lib/features/practice/presentation/screens/practice_mode_screen.dart
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +10,7 @@ import 'package:padhai/app/theme/app_typography.dart';
 import 'package:padhai/features/practice/presentation/providers/practice_provider.dart';
 import 'package:padhai/shared/widgets/app_button.dart';
 import 'package:padhai/shared/widgets/app_error_widget.dart';
+
 
 class PracticeModeScreen extends ConsumerStatefulWidget {
   final String chapterId;
@@ -198,9 +201,11 @@ class _PracticeModeScreenState extends ConsumerState<PracticeModeScreen> {
     final question = state.currentQuestion;
     if (question == null) return const SizedBox.shrink();
 
+    final options = (json.decode(question.options) as List).cast<String>();
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: question.options.map((option) {
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: options.map((option) {
         final isSelected = state.selectedAnswer == option;
 
         return Padding(
@@ -393,7 +398,7 @@ class _PracticeModeScreenState extends ConsumerState<PracticeModeScreen> {
           if (state.currentQuestionIndex > 0)
             Expanded(
               child: AppButton(
-                text: 'Previous',
+                label: 'Previous',
                 onPressed: () {
                   ref
                       .read(practiceSessionProvider(widget.chapterId).notifier)
@@ -406,7 +411,7 @@ class _PracticeModeScreenState extends ConsumerState<PracticeModeScreen> {
           Expanded(
             flex: 2,
             child: AppButton(
-              text: state.isLastQuestion ? 'Finish Practice' : 'Next',
+              label: state.isLastQuestion ? 'Finish Practice' : 'Next',
               onPressed: state.canProceed
                   ? () async {
                       if (state.isLastQuestion) {
@@ -504,20 +509,20 @@ class _PracticeCompletedScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xxl),
               AppButton(
-                text: 'Back to Chapter',
+                label: 'Back to Chapter',
                 onPressed: () => context.pop(),
-                isFullWidth: true,
+                fullWidth: true,
               ),
               const SizedBox(height: AppSpacing.md),
               AppButton(
-                text: 'Practice Again',
+                label: 'Practice Again',
                 onPressed: () {
                   // Restart practice
                   context.pop();
                   context.push('/chapter/$chapterId/practice?name=$chapterName');
                 },
                 variant: AppButtonVariant.secondary,
-                isFullWidth: true,
+                fullWidth: true,
               ),
             ],
           ),

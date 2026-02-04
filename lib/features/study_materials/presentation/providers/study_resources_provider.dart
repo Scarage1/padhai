@@ -45,7 +45,7 @@ final resourcesByTypeProvider = FutureProvider.family<List<StudyResource>,
 
 // Stream provider for reactive updates
 final studyResourcesStreamProvider =
-    StreamProvider.family<List<StudyResource>, int>((ref, chapterId) {
+    StreamProvider.family<List<StudyResource>, String>((ref, chapterId) {
   final database = getIt<AppDatabase>();
   return database.studyResourcesDao.watchResourcesByChapter(chapterId);
 });

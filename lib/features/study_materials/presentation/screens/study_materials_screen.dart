@@ -99,7 +99,7 @@ class _StudyMaterialsScreenState extends ConsumerState<StudyMaterialsScreen>
 }
 
 class _ResourceTypeTab extends ConsumerWidget {
-  final int chapterId;
+  final String chapterId;
   final String resourceType;
   final String tabLabel;
 

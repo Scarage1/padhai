@@ -12,7 +12,7 @@ class RecordPracticeAttemptUseCase {
 
   Future<Either<Failure, int>> call({
     required String userId,
-    required int chapterId,
+    required String chapterId,
     required List<String> questionIds,
     required int hintsUsed,
   }) async {

@@ -255,7 +255,7 @@ class PracticeAttempts extends Table {
   TextColumn get questionIds => text()();
   
   /// Number of hints used in this practice session
-  IntColumn get hintsUsed => integer().withDefault(const Constant(0))();
+  IntColumn get hintsUsed => integer()();
   
   /// Timestamp when practice session was completed
   IntColumn get completedAt => integer()();
