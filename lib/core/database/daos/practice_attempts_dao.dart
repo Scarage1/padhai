@@ -56,7 +56,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
   /// Get most recent practice attempt for a chapter
   Future<PracticeAttempt?> getLatestPracticeAttempt(
     String userId,
-    int chapterId,
+    String chapterId,
   ) {
     return (select(practiceAttempts)
           ..where((tbl) =>
@@ -91,7 +91,7 @@ class PracticeAttemptsDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Get practice statistics for a chapter
-  Future<PracticeStats> getPracticeStats(String userId, int chapterId) async {
+  Future<PracticeStats> getPracticeStats(String userId, String chapterId) async {
     final attempts = await getPracticeAttemptsByChapter(userId, chapterId);
     
     if (attempts.isEmpty) {

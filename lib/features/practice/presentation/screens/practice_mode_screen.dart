@@ -448,7 +448,7 @@ class _PracticeModeScreenState extends ConsumerState<PracticeModeScreen> {
 }
 
 class _PracticeCompletedScreen extends StatelessWidget {
-  final int chapterId;
+  final String chapterId;
   final String chapterName;
   final int questionsCount;
   final int hintsUsed;

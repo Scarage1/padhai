@@ -65,9 +65,9 @@ class ContentLoader {
               correctAnswer: questionData['correct_answer'] as String,
               explanation: questionData['explanation'] as String,
               difficulty: questionData['difficulty'] as String? ?? 'intermediate',
-              imageUrl: questionData['image_url'] as String?,
-              ncertReference: questionData['ncert_reference'] as String?,
-              hint: questionData['hint'] as String?,
+              imageUrl: Value(questionData['image_url'] as String?),
+              ncertReference: Value(questionData['ncert_reference'] as String?),
+              hint: Value(questionData['hint'] as String?),
               questionType: questionData['question_type'] as String? ?? 'mcq',
             ),
           );
